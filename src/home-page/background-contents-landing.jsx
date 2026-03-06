@@ -10,8 +10,8 @@ const BackgroundContentsLanding = ({ children }) => {
 
       <div className="absolute top-0 left-0 z-20 w-full">{children}</div>
 
-      <div className="relative z-10 flex min-h-screen items-end px-[10%] pb-28 md:pb-32 lg:pb-36">
-        <div className="max-w-5xl text-white">
+      <div className="absolute z-10 left-[35%] bottom-[35%] -translate-x-1/2 translate-y-1/2 px-6 md:px-0">
+        <div className="w-full max-w-5xl text-white">
           <p className="mb-6 text-sm uppercase tracking-[0.45em] text-white/90 md:text-base lg:text-lg">
             Craft Your Journey
           </p>
