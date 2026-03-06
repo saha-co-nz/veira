@@ -1,27 +1,54 @@
+import { useEffect, useState } from "react";
+
 const Header = () => {
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 10);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="w-full">
+    <header
+      className={`fixed top-0 left-0 z-50 w-full transition-colors duration-300 ${
+        hasScrolled
+          ? "bg-[#1d2732]/95 shadow-lg shadow-black/20 backdrop-blur-sm"
+          : "bg-transparent"
+      }`}
+    >
       <div className="mx-auto flex h-20 w-full items-center justify-between px-[10%]">
         <a
           href="#home"
-          className="text-3xl font-light tracking-[0.35em] text-gray-900 md:text-4xl"
+          className={`text-3xl font-light tracking-[0.35em] md:text-4xl ${
+            hasScrolled ? "text-white" : "text-white/95"
+          }`}
         >
           ULUX
         </a>
         <nav
-          className="flex items-center gap-10 text-base font-light text-gray-800 md:gap-12 md:text-lg lg:gap-16 lg:text-xl"
+          className={`flex items-center gap-10 text-base font-light transition-colors md:gap-12 md:text-lg lg:gap-16 lg:text-xl ${
+            hasScrolled ? "text-white/90" : "text-white"
+          }`}
           aria-label="Main"
         >
-          <a className="transition-colors hover:text-gray-900" href="#about">
+          <a className="transition-colors hover:text-white" href="#about">
             About
           </a>
-          <a className="transition-colors hover:text-gray-900" href="#people">
+          <a className="transition-colors hover:text-white" href="#people">
             People
           </a>
           <div className="group relative">
             <button
               type="button"
-              className="transition-colors hover:text-gray-900"
+              className="transition-colors hover:text-white"
               aria-haspopup="menu"
             >
               Services
@@ -53,10 +80,10 @@ const Header = () => {
               </a>
             </div>
           </div>
-          <a className="transition-colors hover:text-gray-900" href="#partners">
+          <a className="transition-colors hover:text-white" href="#partners">
             Partners
           </a>
-          <a className="transition-colors hover:text-gray-900" href="#contact">
+          <a className="transition-colors hover:text-white" href="#contact">
             Contact
           </a>
         </nav>
