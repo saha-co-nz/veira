@@ -26,6 +26,15 @@ const serviceBullets = [
   },
 ];
 
+import { motion } from "framer-motion";
+
+const inView = (delay = 0) => ({
+  initial: { opacity: 0, y: 36 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.75, ease: [0.25, 0.1, 0.25, 1], delay },
+});
+
 const WhatWeDo = () => {
   return (
     <section
@@ -33,22 +42,32 @@ const WhatWeDo = () => {
       className="border-t border-gray-200 bg-white px-[10%] py-24 md:py-28 lg:py-32"
     >
       <div className="w-full">
-        <p className="text-sm uppercase tracking-[0.45em] text-gray-500 md:text-base">
+        <motion.p
+          className="text-sm uppercase tracking-[0.45em] text-gray-500 md:text-base"
+          {...inView(0)}
+        >
           What We Do
-        </p>
-        <h2 className="mt-8 max-w-4xl text-6xl font-semibold leading-[1.05] text-gray-900 md:text-7xl lg:text-8xl">
+        </motion.p>
+        <motion.h2
+          className="mt-8 max-w-4xl text-6xl font-semibold leading-[1.05] text-gray-900 md:text-7xl lg:text-8xl"
+          {...inView(0.1)}
+        >
           Private journeys, precisely curated.
-        </h2>
-        <p className="mt-8 max-w-4xl text-xl leading-relaxed text-gray-700 md:text-2xl">
+        </motion.h2>
+        <motion.p
+          className="mt-8 max-w-4xl text-xl leading-relaxed text-gray-700 md:text-2xl"
+          {...inView(0.2)}
+        >
           Exclusive travel, quietly arranged.
-        </p>
+        </motion.p>
 
         <ul className="mt-16 border-t border-gray-300">
           {serviceBullets.map((service, index) => (
-            <li
+            <motion.li
               key={service.id}
               id={service.id}
               className="grid grid-cols-[80px_1fr] gap-8 border-b border-gray-300 py-12 md:grid-cols-[100px_1fr] md:gap-12 md:py-14"
+              {...inView(index * 0.1)}
             >
               <p className="pt-1 text-5xl font-light leading-none text-gray-300 md:text-6xl">
                 {(index + 1).toString().padStart(2, "0")}
@@ -64,7 +83,7 @@ const WhatWeDo = () => {
                   {service.description}
                 </p>
               </div>
-            </li>
+            </motion.li>
           ))}
         </ul>
       </div>

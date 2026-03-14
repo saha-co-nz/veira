@@ -39,11 +39,14 @@ const Header = () => {
           }`}
           aria-label="Main"
         >
+          <a className="transition-colors hover:text-white" href="#blog">
+            Blog
+          </a>
           <a className="transition-colors hover:text-white" href="#about">
             About
           </a>
-          <a className="transition-colors hover:text-white" href="#people">
-            People
+          <a className="transition-colors hover:text-white" href="#partners">
+            Partners
           </a>
           <div className="group relative">
             <button
@@ -80,11 +83,17 @@ const Header = () => {
               </a>
             </div>
           </div>
-          <a className="transition-colors hover:text-white" href="#partners">
-            Partners
-          </a>
           <a className="transition-colors hover:text-white" href="#contact">
             Contact
+          </a>
+          <a className="transition-colors hover:text-white" href="#enquire">
+            Enquire
+          </a>
+          <a
+            className="rounded-sm bg-red-600/60 px-3 py-1 text-white transition-colors hover:bg-red-500/50"
+            href="#urgent"
+          >
+            Urgent
           </a>
         </nav>
       </div>

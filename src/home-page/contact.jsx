@@ -1,3 +1,12 @@
+import { motion } from "framer-motion";
+
+const slideIn = (x = 0, delay = 0) => ({
+  initial: { opacity: 0, x },
+  whileInView: { opacity: 1, x: 0 },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.85, ease: [0.25, 0.1, 0.25, 1], delay },
+});
+
 const Contact = () => {
   return (
     <section
@@ -5,7 +14,7 @@ const Contact = () => {
       className="border-t border-gray-700 bg-black px-[10%] py-24 md:py-28 lg:py-32"
     >
       <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-24">
-        <div>
+        <motion.div {...slideIn(-50, 0)}>
           <p className="text-sm uppercase tracking-[0.45em] text-gray-500 md:text-base">
             Get In Touch
           </p>
@@ -42,9 +51,13 @@ const Contact = () => {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <form className="space-y-9" aria-label="Contact form">
+        <motion.form
+          className="space-y-9"
+          aria-label="Contact form"
+          {...slideIn(50, 0.15)}
+        >
           <div>
             <label
               className="text-sm uppercase tracking-[0.2em] text-gray-500"
@@ -111,7 +124,7 @@ const Contact = () => {
           >
             Submit Inquiry
           </button>
-        </form>
+        </motion.form>
       </div>
     </section>
   );
