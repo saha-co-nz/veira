@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AboutDropdown from "./about-dropdown";
 
 const Header = ({ isLandingPage = true }) => {
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -41,12 +42,7 @@ const Header = ({ isLandingPage = true }) => {
           }`}
           aria-label="Main"
         >
-          <a className="transition-colors hover:text-white" href="#blog">
-            Blog
-          </a>
-          <a className="transition-colors hover:text-white" href="#about">
-            About
-          </a>
+          <AboutDropdown />
           <a className="transition-colors hover:text-white" href="#partners">
             Partners
           </a>
@@ -85,9 +81,6 @@ const Header = ({ isLandingPage = true }) => {
               </a>
             </div>
           </div>
-          <a className="transition-colors hover:text-white" href="#contact">
-            Contact
-          </a>
           <a className="transition-colors hover:text-white" href="#/enquire">
             Enquire
           </a>
