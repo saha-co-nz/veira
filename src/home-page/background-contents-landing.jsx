@@ -14,7 +14,7 @@ const BackgroundContentsLanding = ({ children }) => {
       style={{ backgroundImage: `url(${landingBackground})` }}
     >
       <motion.div
-        className="absolute inset-0 bg-black/35"
+        className="absolute inset-0 bg-black/25"
         aria-hidden="true"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -23,16 +23,16 @@ const BackgroundContentsLanding = ({ children }) => {
 
       <div className="absolute top-0 left-0 z-20 w-full">{children}</div>
 
-      <div className="absolute z-10 left-[35%] bottom-[35%] -translate-x-1/2 translate-y-1/2 px-6 md:px-0">
+      <div className="absolute bottom-[35%] left-0 z-10 w-full translate-y-1/2 px-[10%]">
         <div className="w-full max-w-5xl text-white">
           <motion.p
-            className="mb-6 text-sm uppercase tracking-[0.45em] text-white/90 md:text-base lg:text-lg"
+            className="mb-5 text-xs uppercase tracking-[0.4em] text-white/90 md:text-sm lg:text-base"
             {...fadeUp(0.3)}
           >
             Craft Your Journey
           </motion.p>
           <motion.h1
-            className="text-7xl font-semibold leading-[0.9] md:text-9xl lg:text-[11rem]"
+            className="text-5xl font-semibold leading-[0.92] md:text-7xl lg:text-8xl"
             {...fadeUp(0.55)}
           >
             Crafted
@@ -40,7 +40,7 @@ const BackgroundContentsLanding = ({ children }) => {
             Journeys
           </motion.h1>
           <motion.p
-            className="mt-6 text-xl text-white/90 md:text-3xl lg:text-4xl"
+            className="mt-5 text-base text-white/90 md:text-xl lg:text-2xl"
             {...fadeUp(0.8)}
           >
             Every journey begins with intent and unfolds with discretion.
