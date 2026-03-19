@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
-const Header = () => {
+const Header = ({ isLandingPage = true }) => {
   const [hasScrolled, setHasScrolled] = useState(false);
+
+  const showSolidHeader = !isLandingPage || hasScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,7 +21,7 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 z-50 w-full transition-colors duration-300 ${
-        hasScrolled
+        showSolidHeader
           ? "bg-[#1d2732]/95 shadow-lg shadow-black/20 backdrop-blur-sm"
           : "bg-transparent"
       }`}
@@ -28,14 +30,14 @@ const Header = () => {
         <a
           href="#home"
           className={`text-3xl font-light tracking-[0.35em] md:text-4xl ${
-            hasScrolled ? "text-white" : "text-white/95"
+            showSolidHeader ? "text-white" : "text-white/95"
           }`}
         >
           ULUX
         </a>
         <nav
           className={`flex items-center gap-10 text-base font-light transition-colors md:gap-12 md:text-lg lg:gap-16 lg:text-xl ${
-            hasScrolled ? "text-white/90" : "text-white"
+            showSolidHeader ? "text-white/90" : "text-white"
           }`}
           aria-label="Main"
         >
@@ -86,7 +88,7 @@ const Header = () => {
           <a className="transition-colors hover:text-white" href="#contact">
             Contact
           </a>
-          <a className="transition-colors hover:text-white" href="#enquire">
+          <a className="transition-colors hover:text-white" href="#/enquire">
             Enquire
           </a>
           <a
