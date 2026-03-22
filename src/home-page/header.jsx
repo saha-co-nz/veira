@@ -42,7 +42,7 @@ const Header = ({ isLandingPage = true }) => {
           }`}
           aria-label="Main"
         >
-          <AboutDropdown />
+          <AboutDropdown showSolidHeader={showSolidHeader} />
           <a className="transition-colors hover:text-white" href="#partners">
             Partners
           </a>
