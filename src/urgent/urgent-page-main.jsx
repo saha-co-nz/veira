@@ -1,13 +1,13 @@
 import Header from "../home-page/header";
 import Footer from "../home-page/footer";
-import Form from "./form";
+import People from "./people";
 
 const EnquirePageMain = () => {
   return (
     <main className="enquire-page-main">
       <Header isLandingPage={false} />
       <section className="min-h-screen bg-white px-[10%] py-28" id="enquire">
-        <Form />
+        <People />
       </section>
       <Footer />
     </main>

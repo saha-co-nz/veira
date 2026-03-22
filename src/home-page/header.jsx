@@ -86,7 +86,7 @@ const Header = ({ isLandingPage = true }) => {
           </a>
           <a
             className="rounded-sm bg-red-600/60 px-3 py-1 text-white transition-colors hover:bg-red-500/50"
-            href="#urgent"
+            href="#/urgent"
           >
             Urgent
           </a>
