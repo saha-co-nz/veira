@@ -1,4 +1,4 @@
-import veiraTemplate from "./veira/veira-template.html?raw";
+import veiraTemplate from "./veira/veira-template.js";
 import "./veira/veira.css";
 import { initVeira } from "./veira/veira.js";
 
