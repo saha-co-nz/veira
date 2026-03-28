@@ -275,6 +275,7 @@ export const initVeira = () => {
       setupReveal();
       setupOutcomeCards();
       setupPartnerCards();
+      setupBackToTop();
     }, 50);
 
     if (pageId === "landing") {
@@ -360,6 +361,29 @@ export const initVeira = () => {
       overlaySuccess.style.opacity = "1";
     }, 10);
   };
+
+  // Back to top button setup function
+  const setupBackToTop = () => {
+    const backToTopButton = document.querySelector(
+      ".page-view.active .back-to-top",
+    );
+    if (backToTopButton) {
+      const scrollToTop = (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      };
+
+      // Remove old click listener and add new one
+      backToTopButton.onclick = scrollToTop;
+      attachCursorHover(backToTopButton);
+    }
+  };
+
+  // Initial setup
+  setupBackToTop();
 
   cleanup.push(() => {
     delete window.togglePill;

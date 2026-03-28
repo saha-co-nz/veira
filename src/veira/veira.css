@@ -418,6 +418,7 @@ nav {
   padding: 28px 64px;
   border-top: 1px solid rgb(245 240 232 / 4%);
   text-align: center;
+  position: relative;
 }
 
 .disclaimer p {
@@ -2169,8 +2170,64 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  position: relative;
-  overflow: hidden;
+}
+
+/* Back to Top Button */
+.back-to-top {
+  position: absolute;
+  top: 50%;
+  left: 48px;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: 1px solid rgb(201 168 76 / 35%);
+  border-radius: 50%;
+  color: var(--gold);
+  cursor: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 1;
+  pointer-events: all;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.back-to-top svg {
+  width: 60%;
+  height: 60%;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  fill: none;
+}
+
+.back-to-top:hover {
+  color: var(--gold-light);
+  border-color: var(--gold);
+}
+
+.back-to-top:hover svg line,
+.back-to-top:hover svg polyline,
+.back-to-top:hover svg path {
+  animation: arrowPulse 0.6s ease;
+}
+
+@keyframes arrowPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 
 .photo-placeholder svg {
