@@ -90,6 +90,43 @@ export const initVeira = () => {
   let currentPage = "landing";
   let menuOpen = false;
 
+  const pageToPath = {
+    landing: "/",
+    outcomes: "/outcomes",
+    about: "/about",
+    how: "/how",
+    contact: "/contact",
+    access: "/access",
+  };
+
+  const pathToPage = Object.fromEntries(
+    Object.entries(pageToPath).map(([page, path]) => [path, page]),
+  );
+
+  const getPageFromPath = () => {
+    const rawPath = window.location.pathname || "/";
+    const normalizedPath =
+      rawPath.endsWith("/") && rawPath !== "/" ? rawPath.slice(0, -1) : rawPath;
+    return pathToPage[normalizedPath] || "landing";
+  };
+
+  const setRouteForPage = (pageId, mode = "push") => {
+    const nextPath = pageToPath[pageId] || "/";
+    const currentPath = window.location.pathname || "/";
+
+    if (nextPath === currentPath) {
+      return;
+    }
+
+    const state = { pageId };
+    if (mode === "replace") {
+      window.history.replaceState(state, "", nextPath);
+      return;
+    }
+
+    window.history.pushState(state, "", nextPath);
+  };
+
   const setMenuOpen = (open) => {
     menuOpen = open;
     ham.classList.toggle("open", menuOpen);
@@ -254,8 +291,14 @@ export const initVeira = () => {
     );
   };
 
-  const navigateTo = (pageId) => {
-    if (pageId === currentPage) {
+  const navigateTo = (
+    pageId,
+    { updateHistory = true, historyMode = "push", force = false } = {},
+  ) => {
+    if (!force && pageId === currentPage) {
+      if (updateHistory) {
+        setRouteForPage(pageId, historyMode);
+      }
       return;
     }
 
@@ -280,6 +323,10 @@ export const initVeira = () => {
 
     if (pageId === "landing") {
       initRipple();
+    }
+
+    if (updateHistory) {
+      setRouteForPage(pageId, historyMode);
     }
 
     setMenuOpen(false);
@@ -313,6 +360,11 @@ export const initVeira = () => {
     }
   };
   on(document, "keydown", onKeyDown);
+
+  const onPopState = () => {
+    navigateTo(getPageFromPath(), { updateHistory: false, force: true });
+  };
+  on(window, "popstate", onPopState);
 
   setupReveal();
   setupOutcomeCards();
@@ -384,6 +436,13 @@ export const initVeira = () => {
 
   // Initial setup
   setupBackToTop();
+
+  const initialPage = getPageFromPath();
+  navigateTo(initialPage, {
+    updateHistory: false,
+    force: true,
+  });
+  setRouteForPage(initialPage, "replace");
 
   cleanup.push(() => {
     delete window.togglePill;
