@@ -229,20 +229,24 @@ export const initVeira = () => {
       });
     };
 
-    let lastSpawn = 0;
+    let lastMouseSpawn = 0;
+    const mouseSpawnInterval = 300;
+
+    on(canvas, "mouseenter", (e) => {
+      spawnRing(e.clientX, e.clientY, true);
+    });
+
     on(canvas, "mousemove", (e) => {
-      if (Math.random() < 0.04) {
+      const now = performance.now();
+      if (now - lastMouseSpawn >= mouseSpawnInterval) {
+        lastMouseSpawn = now;
         spawnRing(e.clientX, e.clientY, true);
       }
     });
 
     let rippleAnimation = 0;
-    const draw = (ts) => {
+    const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (ts - lastSpawn > 2400) {
-        lastSpawn = ts;
-        spawnRing(canvas.width / 2, canvas.height / 2, false);
-      }
 
       for (let i = rings.length - 1; i >= 0; i -= 1) {
         const ringItem = rings[i];
@@ -266,18 +270,6 @@ export const initVeira = () => {
 
     rippleAnimation = requestAnimationFrame(draw);
     cleanup.push(() => cancelAnimationFrame(rippleAnimation));
-    setTimeout(
-      () => spawnRing(canvas.width / 2, canvas.height / 2, false),
-      400,
-    );
-    setTimeout(
-      () => spawnRing(canvas.width / 2, canvas.height / 2, false),
-      1600,
-    );
-    setTimeout(
-      () => spawnRing(canvas.width / 2, canvas.height / 2, false),
-      2800,
-    );
   };
 
   const navigateTo = (
