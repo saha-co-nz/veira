@@ -16,8 +16,6 @@ export const initVeira = () => {
 
   let mx = window.innerWidth / 2;
   let my = window.innerHeight / 2;
-  let rx = mx;
-  let ry = my;
   let visible = false;
 
   const onMouseMove = (e) => {
@@ -25,6 +23,8 @@ export const initVeira = () => {
     my = e.clientY;
     cursor.style.left = `${mx}px`;
     cursor.style.top = `${my}px`;
+    ring.style.left = `${mx}px`;
+    ring.style.top = `${my}px`;
 
     if (!visible) {
       visible = true;
@@ -33,17 +33,6 @@ export const initVeira = () => {
     }
   };
   on(document, "mousemove", onMouseMove);
-
-  let ringAnimation = 0;
-  const animateRing = () => {
-    rx += (mx - rx) * 0.1;
-    ry += (my - ry) * 0.1;
-    ring.style.left = `${rx}px`;
-    ring.style.top = `${ry}px`;
-    ringAnimation = requestAnimationFrame(animateRing);
-  };
-  ringAnimation = requestAnimationFrame(animateRing);
-  cleanup.push(() => cancelAnimationFrame(ringAnimation));
 
   const attachCursorHover = (el) => {
     const enter = () => {

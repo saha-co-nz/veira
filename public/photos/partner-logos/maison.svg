@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 220" role="img" aria-labelledby="title desc">
+  <title id="title">Maison Drive</title>
+  <desc id="desc">Stylized wordmark for Maison Drive.</desc>
+  <rect width="800" height="220" fill="none" />
+  <text x="50%" y="48%" text-anchor="middle" fill="#c9a84c" font-family="'Cormorant Garamond', serif" font-size="70" letter-spacing="12">MAISON</text>
+  <text x="50%" y="74%" text-anchor="middle" fill="#e8d08a" font-family="'Raleway', sans-serif" font-size="24" letter-spacing="9">DRIVE</text>
+</svg>
