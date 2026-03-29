@@ -1,0 +1,109 @@
+<div class="page-view" id="page-contact">
+  <div class="page-header-band">
+    <div class="phb-eyebrow">Private Correspondence</div>
+    <h1 class="phb-title"><em>At your</em><br />service.</h1>
+    <div class="phb-rule"></div>
+  </div>
+
+  <div class="contact-wrap">
+    <div class="panel-left">
+      <div class="left-brand">Veira</div>
+      <div class="left-headline">
+        <div class="eyebrow">Private Correspondence</div>
+        <h2 class="contact-h1"><em>At your</em><br />service.</h2>
+        <div class="divider-gold"></div>
+        <p class="left-body">Every enquiry is received personally by people.</p>
+      </div>
+      <div class="contact-details">
+        <div class="contact-item">
+          <span class="contact-label">Direct Line</span
+          ><span class="contact-value">64 22 315 5751</span
+          ><span class="contact-value">64 22 807 3548</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Private Email</span
+          ><span class="contact-value">private@veiraglobal.com</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Hours</span
+          ><span class="contact-value">Available 24/7</span>
+        </div>
+      </div>
+    </div>
+    <div class="panel-right">
+      <div class="form-header">
+        <div class="form-title">Begin your desire</div>
+        <div class="form-subtitle">
+          All correspondence is strictly confidential
+        </div>
+      </div>
+      <form id="contactForm" autocomplete="off">
+        <div class="form-grid">
+          <div class="field">
+            <label>First Name</label><input type="text" placeholder="—" />
+            <div class="field-line"></div>
+          </div>
+          <div class="field">
+            <label>Family Name</label><input type="text" placeholder="—" />
+            <div class="field-line"></div>
+          </div>
+          <div class="field">
+            <label>Email Address</label><input type="email" placeholder="—" />
+            <div class="field-line"></div>
+          </div>
+          <div class="field">
+            <label>Your Message</label
+            ><textarea placeholder="Tell us how we may assist you…"></textarea>
+            <div class="field-line"></div>
+          </div>
+        </div>
+        <div class="pills-label">Nature of Enquiry</div>
+        <div class="enquiry-pills">
+          <div class="pill active" onclick="togglePill(this)">For Yourself</div>
+          <div class="pill" onclick="togglePill(this)">For Someone Else</div>
+          <div class="pill" onclick="togglePill(this)">Other</div>
+        </div>
+        <div class="submit-row">
+          <span class="submit-note">Discretion guaranteed</span>
+          <button type="button" class="btn-submit" onclick="handleSubmit()">
+            <span>Send Correspondence</span>
+            <div class="btn-arrow"></div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-seal">
+      <svg width="32" height="32" viewBox="0 0 32 32" stroke-width="1">
+        <polyline points="6,17 13,24 26,9"></polyline>
+      </svg>
+    </div>
+    <div class="success-title">Received with care.</div>
+    <div class="success-sub">We shall be in touch shortly</div>
+  </div>
+
+  <div class="disclaimer">
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polyline
+          points="10,25 20,10 30,25"
+          stroke="currentColor"
+          stroke-width="1.2"
+          fill="none"
+        />
+      </svg>
+    </button>
+    <p>
+      Veira provides services exclusively to clients with the appropriate
+      profile. We do not facilitate, arrange, or support any activity of an
+      illegal nature under any circumstance.
+    </p>
+  </div>
+
+  <footer>
+    <a class="footer-logo" href="#" data-page="landing">Veira</a>
+    <div class="footer-copy">© 2026 Veira Global. All rights reserved.</div>
+  </footer>
+</div>
