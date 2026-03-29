@@ -1,4 +1,8 @@
+import emailjs from "@emailjs/browser";
+
 export const initVeira = () => {
+  // Initialize EmailJS
+  emailjs.init("ofFPY_ZW8sYqLxy5E");
   document.title = "Veira";
 
   const cleanup = [];
@@ -382,17 +386,48 @@ export const initVeira = () => {
   };
 
   window.handleSubmit = () => {
-    const overlaySuccess = document.getElementById("successOverlay");
-    if (!overlaySuccess) {
-      return;
-    }
+    // Get form data
+    const firstName = document.getElementById("firstName").value;
+    const familyName = document.getElementById("familyName").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+    const enquiryType = document.querySelector(".pill.active").textContent;
 
-    overlaySuccess.classList.add("visible");
-    overlaySuccess.style.opacity = "0";
-    overlaySuccess.style.transition = "opacity .8s ease";
-    setTimeout(() => {
-      overlaySuccess.style.opacity = "1";
-    }, 10);
+    // Template
+    const fullMessage = `
+<strong> Name:</strong> ${firstName} ${familyName}<br>
+<strong>Email:</strong> ${email}<br>
+<strong>Enquiry Type:</strong> ${enquiryType}<br>
+<hr/>
+<strong>Message:</strong><br>${message.replace(/\n/g, "<br>")}
+    `;
+    const templateParams = {
+      from_name: `${firstName} ${familyName}`,
+      from_email: "private@veiraglobal.com",
+      message_html: fullMessage,
+      enquiry_type: enquiryType,
+      reply_to: email,
+    };
+
+    emailjs.send("service_n0nzcfd", "template_tfk4l9k", templateParams).then(
+      (response) => {
+        console.log("SUCCESS!", response.status, response.text);
+        // Show success overlay
+        const overlaySuccess = document.getElementById("successOverlay");
+        if (overlaySuccess) {
+          overlaySuccess.classList.add("visible");
+          overlaySuccess.style.opacity = "0";
+          overlaySuccess.style.transition = "opacity .8s ease";
+          setTimeout(() => {
+            overlaySuccess.style.opacity = "1";
+          }, 10);
+        }
+      },
+      (error) => {
+        console.log("FAILED...", error);
+        alert("Failed to send email. Please try again.");
+      },
+    );
   };
 
   // Back to top button setup function
