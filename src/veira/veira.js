@@ -395,8 +395,7 @@ export const initVeira = () => {
 
     // Template
     const fullMessage = `
-<strong>First Name:</strong> ${firstName}<br>
-<strong>Family Name:</strong> ${familyName}<br>
+<strong> Name:</strong> ${firstName} ${familyName}<br>
 <strong>Email:</strong> ${email}<br>
 <strong>Enquiry Type:</strong> ${enquiryType}<br>
 <hr/>
