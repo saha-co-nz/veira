@@ -1599,6 +1599,15 @@ footer {
   text-transform: uppercase;
 }
 
+.partner-card-image {
+  width: 90%;
+  height: auto;
+  max-height: 240px;
+  object-fit: cover;
+  align-self: center;
+  border: 1px solid rgb(201 168 76 / 12%);
+}
+
 .partner-name {
   font-family: "Cormorant Garamond", serif;
   font-size: 17px;

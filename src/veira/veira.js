@@ -16,8 +16,6 @@ export const initVeira = () => {
 
   let mx = window.innerWidth / 2;
   let my = window.innerHeight / 2;
-  let rx = mx;
-  let ry = my;
   let visible = false;
 
   const onMouseMove = (e) => {
@@ -25,6 +23,8 @@ export const initVeira = () => {
     my = e.clientY;
     cursor.style.left = `${mx}px`;
     cursor.style.top = `${my}px`;
+    ring.style.left = `${mx}px`;
+    ring.style.top = `${my}px`;
 
     if (!visible) {
       visible = true;
@@ -33,17 +33,6 @@ export const initVeira = () => {
     }
   };
   on(document, "mousemove", onMouseMove);
-
-  let ringAnimation = 0;
-  const animateRing = () => {
-    rx += (mx - rx) * 0.1;
-    ry += (my - ry) * 0.1;
-    ring.style.left = `${rx}px`;
-    ring.style.top = `${ry}px`;
-    ringAnimation = requestAnimationFrame(animateRing);
-  };
-  ringAnimation = requestAnimationFrame(animateRing);
-  cleanup.push(() => cancelAnimationFrame(ringAnimation));
 
   const attachCursorHover = (el) => {
     const enter = () => {
@@ -240,20 +229,24 @@ export const initVeira = () => {
       });
     };
 
-    let lastSpawn = 0;
+    let lastMouseSpawn = 0;
+    const mouseSpawnInterval = 300;
+
+    on(canvas, "mouseenter", (e) => {
+      spawnRing(e.clientX, e.clientY, true);
+    });
+
     on(canvas, "mousemove", (e) => {
-      if (Math.random() < 0.04) {
+      const now = performance.now();
+      if (now - lastMouseSpawn >= mouseSpawnInterval) {
+        lastMouseSpawn = now;
         spawnRing(e.clientX, e.clientY, true);
       }
     });
 
     let rippleAnimation = 0;
-    const draw = (ts) => {
+    const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (ts - lastSpawn > 2400) {
-        lastSpawn = ts;
-        spawnRing(canvas.width / 2, canvas.height / 2, false);
-      }
 
       for (let i = rings.length - 1; i >= 0; i -= 1) {
         const ringItem = rings[i];
@@ -277,18 +270,6 @@ export const initVeira = () => {
 
     rippleAnimation = requestAnimationFrame(draw);
     cleanup.push(() => cancelAnimationFrame(rippleAnimation));
-    setTimeout(
-      () => spawnRing(canvas.width / 2, canvas.height / 2, false),
-      400,
-    );
-    setTimeout(
-      () => spawnRing(canvas.width / 2, canvas.height / 2, false),
-      1600,
-    );
-    setTimeout(
-      () => spawnRing(canvas.width / 2, canvas.height / 2, false),
-      2800,
-    );
   };
 
   const navigateTo = (
