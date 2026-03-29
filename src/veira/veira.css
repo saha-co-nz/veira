@@ -181,8 +181,8 @@ nav {
   transition:
     transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
     opacity 0.4s ease;
-  width: 28px;
-  height: 28px;
+  width: 150px;
+  height: 150px;
 }
 
 .hamburger.open .ham-logo {
@@ -611,14 +611,12 @@ footer {
 }
 
 .hero-logo {
-  width: 48px;
-  height: 48px;
-  border: 1px solid rgb(201 168 76 / 30%);
-  border-radius: 50%;
+  width: 450px;
+  height: 450px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 28px;
+  margin-bottom: -200px;
   opacity: 0;
   animation: fadeUp 1s ease 0.3s forwards;
   cursor: none;
@@ -629,6 +627,12 @@ footer {
   font-size: 18px;
   font-weight: 200;
   color: var(--gold);
+}
+
+.hero-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .hero-wordmark {
@@ -1542,7 +1546,6 @@ footer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
-  background: rgb(201 168 76 / 8%);
 }
 
 .partner-card {
@@ -2235,6 +2238,13 @@ footer {
   opacity: 0.06;
   position: absolute;
   bottom: 0;
+}
+
+.founder-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .founder-photo::after {
