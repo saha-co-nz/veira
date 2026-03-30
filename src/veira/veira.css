@@ -1600,11 +1600,11 @@ footer {
 }
 
 .partner-card-image {
-  width: 90%;
+  width: 100%;
+  aspect-ratio: 16 / 10;
   height: auto;
-  max-height: 240px;
   object-fit: cover;
-  align-self: center;
+  display: block;
   border: 1px solid rgb(201 168 76 / 12%);
 }
 
