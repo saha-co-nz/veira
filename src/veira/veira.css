@@ -872,9 +872,7 @@ footer {
 }
 
 .outcome-peek {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
+  display: block;
   padding: 16px 0;
   border-bottom: 1px solid rgb(245 240 232 / 4%);
   cursor: none;
@@ -883,14 +881,6 @@ footer {
 .outcomes-list-header + .outcome-peek,
 .outcome-peek:first-child {
   border-top: 1px solid rgb(245 240 232 / 4%);
-}
-
-.peek-num {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 11px;
-  color: rgb(201 168 76 / 30%);
-  letter-spacing: 0.2em;
-  flex-shrink: 0;
 }
 
 .peek-text {
@@ -904,10 +894,6 @@ footer {
 
 .outcome-peek:hover .peek-text {
   color: var(--ivory);
-}
-
-.outcome-peek:hover .peek-num {
-  color: var(--gold);
 }
 
 .starc-peek {
@@ -1123,7 +1109,7 @@ footer {
 
 .outcome-item {
   display: grid;
-  grid-template-columns: 80px 1fr 48px;
+  grid-template-columns: 1fr 48px;
   grid-template-rows: auto auto;
   align-items: center;
   padding: 40px 0;
@@ -1183,6 +1169,7 @@ footer {
 }
 
 .outcome-text {
+  grid-column: 1 / 2;
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(22px, 2.8vw, 38px);
   font-weight: 300;
@@ -1201,6 +1188,7 @@ footer {
 }
 
 .outcome-arrow {
+  grid-column: 2 / 3;
   width: 28px;
   height: 28px;
   border: 1px solid rgb(201 168 76 / 20%);
@@ -1265,7 +1253,7 @@ footer {
 }
 
 .outcome-dropdown {
-  grid-column: 2 / 3;
+  grid-column: 1 / 2;
   max-height: 0;
   overflow: hidden;
   transition:
