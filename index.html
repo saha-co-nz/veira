@@ -466,11 +466,25 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center;
         transition:
           transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
           filter 0.5s ease;
         filter: brightness(0.6) saturate(0.75);
         display: block;
+      }
+      /* Fine-tune crops so the visual subject stays in frame */
+      .exp-tile img[src*="superyacht.jpg"] {
+        object-position: center 78%;
+      }
+      .exp-tile img[src*="vip-airport-arrival.jpg"] {
+        object-position: center 86%;
+      }
+      .exp-tile img[src*="scenic-golf.jpg"] {
+        object-position: 72% 78%;
+      }
+      .exp-tile img[src*="winery-estate.jpg"] {
+        object-position: 62% center;
       }
       .exp-tile:hover img {
         transform: scale(1.09);
@@ -636,7 +650,7 @@
       .about-right {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 280px 280px;
+        grid-template-rows: 280px;
         gap: 3px;
       }
       .about-img {
@@ -644,8 +658,12 @@
         overflow: hidden;
         background: #ddd;
       }
-      .about-img.tall {
-        grid-row: span 2;
+      .about-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
       }
       .about-img .img-placeholder {
         background: var(--grey-light);
@@ -722,6 +740,13 @@
         background: var(--grey-light);
         position: relative;
         overflow: hidden;
+      }
+      .promise-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
       }
       .promise-img.wide {
         grid-column: span 2;
@@ -1208,9 +1233,6 @@
           grid-template-columns: 1fr;
           grid-template-rows: 220px 220px;
         }
-        .about-img.tall {
-          grid-row: span 1;
-        }
         .promise {
           padding: 80px 28px;
         }
@@ -1329,11 +1351,10 @@
       <div class="exp-grid">
         <!-- 1 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Private Jet Interior / Tarmac</span>
-          </div>
-          <!-- <img src="your-image.jpg" alt="Private Jet Charter"> -->
+          <img
+            src="/photos/glimpse-tabs/private-jet.jpg"
+            alt="Private jet interior and tarmac"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Aviation</span>
             <div class="ov-title">Fly on Your Terms</div>
@@ -1346,12 +1367,10 @@
 
         <!-- 2 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl"
-              >Fine Dining Restaurant — Exclusive Table</span
-            >
-          </div>
+          <img
+            src="/photos/glimpse-tabs/fine-dining.jpg"
+            alt="Fine dining restaurant table"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Dining Experience</span>
             <div class="ov-title">Dine Like Never Before</div>
@@ -1364,10 +1383,10 @@
 
         <!-- 3 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Superyacht / Pacific Ocean</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/superyacht.jpg"
+            alt="Superyacht on the Pacific Ocean"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">On the Water</span>
             <div class="ov-title">Out on the Pacific</div>
@@ -1379,10 +1398,10 @@
 
         <!-- 4 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Luxury Lodge / Five-Star Suite</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/luxury-lodge.jpg"
+            alt="Luxury lodge and five-star suite"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Accommodation</span>
             <div class="ov-title">Sleep in Extraordinary Places</div>
@@ -1395,10 +1414,10 @@
 
         <!-- 5 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Helicopter on Pad / Aerial Transfer</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/helicopter-transfer.jpg"
+            alt="Helicopter on pad for aerial transfer"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Aviation</span>
             <div class="ov-title">Ready When You Are</div>
@@ -1411,10 +1430,10 @@
 
         <!-- 6 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Winery Estate / Vineyard Table</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/winery-estate.jpg"
+            alt="Exclusive winery estate and vineyard"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Exclusive Access</span>
             <div class="ov-title">A Winery to Yourself</div>
@@ -1427,10 +1446,10 @@
 
         <!-- 7 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Rolls-Royce / Luxury Fleet Line-up</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/luxury-fleet.jpg"
+            alt="Rolls-Royce luxury fleet line-up"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Ground Transport</span>
             <div class="ov-title">Arrive in Style</div>
@@ -1442,12 +1461,10 @@
 
         <!-- 8 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl"
-              >Aerial NZ Scenery — Fiordland / Queenstown</span
-            >
-          </div>
+          <img
+            src="/photos/glimpse-tabs/aerial-nz-scenery.jpg"
+            alt="Aerial New Zealand scenery"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Luxury Travel</span>
             <div class="ov-title">New Zealand From Above</div>
@@ -1460,10 +1477,10 @@
 
         <!-- 9 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Private Event / Elegant Venue Setup</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/private-event-venue.jpg"
+            alt="Private event at elegant venue"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Events</span>
             <div class="ov-title">Events Built Around You</div>
@@ -1475,10 +1492,10 @@
 
         <!-- 10 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Luxury Gift Box / Curated Hamper</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/luxury-gift-box.jpg"
+            alt="Luxury gift box and curated hamper"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Gifting</span>
             <div class="ov-title">Make It Memorable</div>
@@ -1491,10 +1508,10 @@
 
         <!-- 11 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">City Skyline / Rooftop Evening</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/city-evening.jpg"
+            alt="City skyline rooftop evening"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Itinerary Design</span>
             <div class="ov-title">The Perfect Evening</div>
@@ -1506,10 +1523,10 @@
 
         <!-- 12 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Golf Course — Scenic NZ Links</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/scenic-golf.jpg"
+            alt="Scenic New Zealand golf course"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Leisure & Sport</span>
             <div class="ov-title">Tee Times & Beyond</div>
@@ -1522,10 +1539,10 @@
 
         <!-- 13 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Celebrity / Live Performance Backstage</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/live-performance.jpg"
+            alt="Celebrity live performance"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Access</span>
             <div class="ov-title">Connections That Matter</div>
@@ -1538,10 +1555,10 @@
 
         <!-- 14 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Wellness Retreat / Spa Treatment</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/wellness-retreat.jpg"
+            alt="Wellness retreat and spa treatment"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Wellness</span>
             <div class="ov-title">Rest, Restored</div>
@@ -1553,10 +1570,10 @@
 
         <!-- 15 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Concierge on the Ground — Team Moment</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/concierge-team.jpg"
+            alt="Concierge team on the ground"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Full-Service Concierge</span>
             <div class="ov-title">Your Team on the Ground</div>
@@ -1568,10 +1585,10 @@
 
         <!-- 16 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Luxury Watches / Audemars / Patek</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/luxury-timepiece.jpg"
+            alt="Luxury timepiece acquisition"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Acquisition</span>
             <div class="ov-title">The Finest Things</div>
@@ -1584,10 +1601,10 @@
 
         <!-- 17 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Corporate Boardroom / Executive Dinner</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/corporate-boardroom.jpg"
+            alt="Corporate boardroom and executive dining"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Corporate</span>
             <div class="ov-title">Impress at Every Level</div>
@@ -1600,10 +1617,10 @@
 
         <!-- 18 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">VIP Airport Arrival / Private Terminal</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/vip-airport-arrival.jpg"
+            alt="VIP airport arrival and private terminal"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">VIP Welcome</span>
             <div class="ov-title">First Impressions, Perfected</div>
@@ -1616,10 +1633,10 @@
 
         <!-- 19 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Māori Cultural Experience / Landscape</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/maori-cultural.jpg"
+            alt="Maori cultural experience and landscape"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Culture</span>
             <div class="ov-title">Immerse, Explore, Connect</div>
@@ -1632,10 +1649,10 @@
 
         <!-- 20 -->
         <div class="exp-tile">
-          <div class="exp-ph">
-            <div class="tph-icon">⬡</div>
-            <span class="tph-lbl">Bespoke / Unique / Unscripted Moment</span>
-          </div>
+          <img
+            src="/photos/glimpse-tabs/bespoke-unique.jpg"
+            alt="Bespoke and unique unscripted moment"
+          />
           <div class="exp-overlay">
             <span class="ov-cat">Bespoke</span>
             <div class="ov-title">Something Entirely Unique</div>
@@ -1789,28 +1806,13 @@
         </div>
 
         <div class="about-right">
-          <!-- ▼ REPLACE: Left tall image — team shot / behind the scenes / luxury setting -->
-          <div class="about-img tall">
-            <div class="img-placeholder">
-              <div class="ph-icon">⬡</div>
-              <span class="ph-text">Team / Portrait — Veira Co-founders</span>
-            </div>
-          </div>
-          <!-- ▼ REPLACE: Top right — NZ landscape / luxury venue -->
+          <!-- ▼ REPLACE: Left image — team shot / behind the scenes / luxury setting -->
           <div class="about-img">
-            <div class="img-placeholder">
-              <div class="ph-icon">⬡</div>
-              <span class="ph-text">Luxury Venue / NZ Landscape</span>
-            </div>
+            <img src="/photos/daniel.jpg" alt="Veira team portrait Daniel" />
           </div>
-          <!-- ▼ REPLACE: Bottom right — product/service detail -->
+          <!-- ▼ REPLACE: Right image — NZ landscape / luxury venue -->
           <div class="about-img">
-            <div class="img-placeholder">
-              <div class="ph-icon">⬡</div>
-              <span class="ph-text"
-                >Detail Shot — Jet / Table / Experience</span
-              >
-            </div>
+            <img src="/photos/satyam.jpg" alt="Veira team portrait Satyam" />
           </div>
         </div>
       </div>
@@ -1869,26 +1871,26 @@
         <div class="promise-right">
           <!-- ▼ REPLACE: Wide top — jet on tarmac / yacht at sea / dramatic panoramic -->
           <div class="promise-img wide">
-            <div class="img-placeholder">
-              <div class="ph-icon">⬡</div>
-              <span class="ph-text"
-                >Wide Hero — Jet Tarmac / Yacht at Sea / Panoramic Scene</span
-              >
-            </div>
+            <img
+              src="/photos/one-call-team/wide-hero-jet-car.jpg"
+              alt="Private jet and luxury car on tarmac"
+              style="object-position: center 60%"
+            />
           </div>
           <!-- ▼ REPLACE: Bottom left — fine dining / event detail -->
           <div class="promise-img">
-            <div class="img-placeholder">
-              <div class="ph-icon">⬡</div>
-              <span class="ph-text">Fine Dining / Event Setup</span>
-            </div>
+            <img
+              src="/photos/one-call-team/fine-dining-event.jpg"
+              alt="Fine dining event setup"
+            />
           </div>
           <!-- ▼ REPLACE: Bottom right — client moment / lifestyle -->
           <div class="promise-img">
-            <div class="img-placeholder">
-              <div class="ph-icon">⬡</div>
-              <span class="ph-text">Lifestyle / Client Moment</span>
-            </div>
+            <img
+              src="/photos/one-call-team/lifestyle-client-moment.jpg"
+              alt="Luxury lifestyle client moment"
+              style="object-position: 62% center"
+            />
           </div>
         </div>
       </div>
