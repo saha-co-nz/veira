@@ -38,6 +38,7 @@
         font-family: "Raleway", sans-serif;
         font-weight: 300;
         overflow-x: hidden;
+        cursor: none;
       }
 
       .page {
@@ -144,7 +145,32 @@
         color: var(--white);
       }
 
-      .hero {
+      /* ── CUSTOM CURSOR ── */
+      .cursor {
+        width: 10px;
+        height: 10px;
+        background: var(--red);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.1s ease,
+          width 0.3s ease,
+          height 0.3s ease,
+          background 0.3s ease;
+      }
+      .cursor.hover {
+        width: 36px;
+        height: 36px;
+        background: rgba(184, 44, 34, 0.12);
+        border: 1px solid var(--red);
+      }
+
+      .hero {n
         min-height: 100vh;
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -1279,8 +1305,11 @@
     </style>
   </head>
   <body>
+    <!-- CURSOR -->
+    <div class="cursor" id="cursor"></div>
+
     <nav>
-      <a class="nav-logo" onclick="showMain()">VEIR<span>A</span></a>
+      <a class="nav-logo" href="index.html">VEIR<span>A</span></a>
       <div class="nav-right">
         <span class="nav-back" id="nav-back" onclick="showMain()"
           >All Services</span
@@ -2826,6 +2855,23 @@
       }
 
       document.addEventListener("DOMContentLoaded", initReveal);
+
+      // ── CURSOR ──
+      const cursor = document.getElementById("cursor");
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+      });
+      document
+        .querySelectorAll("a, button, .btn-ghost, .service-card")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () =>
+            cursor.classList.add("hover"),
+          );
+          el.addEventListener("mouseleave", () =>
+            cursor.classList.remove("hover"),
+          );
+        });
     </script>
   </body>
 </html>
