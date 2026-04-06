@@ -554,32 +554,66 @@
           <span class="form-eyebrow">Begin an Enquiry</span>
           <h2 class="form-title">What can we<br /><em>do for you?</em></h2>
 
-          <div class="form" id="enquiryForm">
+          <form class="form" id="enquiryForm">
             <div class="form-row-2">
               <div class="field">
-                <label class="field-label">First Name <span>*</span></label>
-                <input type="text" placeholder="Your first name" />
+                <label class="field-label" for="enqFirstName"
+                  >First Name <span>*</span></label
+                >
+                <input
+                  id="enqFirstName"
+                  name="firstName"
+                  type="text"
+                  placeholder="Your first name"
+                  required
+                />
               </div>
               <div class="field">
-                <label class="field-label">Last Name <span>*</span></label>
-                <input type="text" placeholder="Your last name" />
+                <label class="field-label" for="enqLastName"
+                  >Last Name <span>*</span></label
+                >
+                <input
+                  id="enqLastName"
+                  name="lastName"
+                  type="text"
+                  placeholder="Your last name"
+                  required
+                />
               </div>
             </div>
 
             <div class="form-row-2">
               <div class="field">
-                <label class="field-label">Email <span>*</span></label>
-                <input type="email" placeholder="your@email.com" />
+                <label class="field-label" for="enqEmail"
+                  >Email <span>*</span></label
+                >
+                <input
+                  id="enqEmail"
+                  name="email"
+                  type="email"
+                  placeholder="your@email.com"
+                  required
+                />
               </div>
               <div class="field">
-                <label class="field-label">Phone <span>*</span></label>
-                <input type="tel" placeholder="+64 or +61 number" />
+                <label class="field-label" for="enqPhone"
+                  >Phone <span>*</span></label
+                >
+                <input
+                  id="enqPhone"
+                  name="phone"
+                  type="tel"
+                  placeholder="+64 or +61 number"
+                  required
+                />
               </div>
             </div>
 
             <div class="field">
-              <label class="field-label">Type of Enquiry <span>*</span></label>
-              <select>
+              <label class="field-label" for="enqType"
+                >Type of Enquiry <span>*</span></label
+              >
+              <select id="enqType" name="enquiryType" required>
                 <option value="" disabled selected>Select a category</option>
                 <option>Private Aviation — Jet Charter</option>
                 <option>Private Aviation — Helicopter</option>
@@ -598,9 +632,14 @@
             </div>
 
             <div class="field">
-              <label class="field-label">Your Request <span>*</span></label>
+              <label class="field-label" for="enqMessage"
+                >Your Request <span>*</span></label
+              >
               <textarea
+                id="enqMessage"
+                name="message"
                 placeholder="Describe what you have in mind. No request is too specific or too ambitious — if it's urgent, mention that here."
+                required
               ></textarea>
             </div>
 
@@ -609,9 +648,7 @@
               information is never shared with third parties.
             </p>
 
-            <button class="btn-submit" onclick="handleSubmit()">
-              Submit Enquiry
-            </button>
+            <button class="btn-submit" type="submit">Submit Enquiry</button>
 
             <p class="form-alt">
               Or reach us directly at
@@ -640,12 +677,38 @@
                 >
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
+      const EMAILJS_PUBLIC_KEY = "ofFPY_ZW8sYqLxy5E";
+      const EMAILJS_SERVICE_ID = "service_n0nzcfd";
+      const EMAILJS_TEMPLATE_ID = "template_tfk4l9k";
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+
+      async function sendEnquiryEmail(payload) {
+        const fullMessage = `
+<strong>Name:</strong> ${payload.firstName} ${payload.lastName}<br>
+<strong>Email:</strong> ${payload.email}<br>
+<strong>Phone:</strong> ${payload.phone}<br>
+<strong>Company:</strong> Not provided<br>
+<strong>Enquiry Type:</strong> ${payload.enquiryType}<br>
+<hr/>
+<strong>Message:</strong><br>${payload.message.replace(/\n/g, "<br>")}
+        `;
+
+        return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          from_name: `${payload.firstName} ${payload.lastName}`,
+          from_email: "private@veiraglobal.com",
+          message_html: fullMessage,
+          enquiry_type: payload.enquiryType,
+          reply_to: payload.email,
+        });
+      }
+
       const cursor = document.getElementById("cursor");
       document.addEventListener("mousemove", (e) => {
         cursor.style.left = e.clientX + "px";
@@ -666,14 +729,36 @@
         nav.classList.toggle("scrolled", window.scrollY > 40);
       });
 
-      function handleSubmit() {
-        const btn = event.target;
-        btn.disabled = true;
-        btn.textContent = "Sending...";
-        setTimeout(() => {
-          document.getElementById("formWrap").style.display = "none";
-          document.getElementById("successState").classList.add("show");
-        }, 1200);
+      const enquiryForm = document.getElementById("enquiryForm");
+      if (enquiryForm) {
+        enquiryForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const btn = enquiryForm.querySelector(".btn-submit");
+          const originalText = btn.textContent;
+          btn.disabled = true;
+          btn.textContent = "Sending...";
+
+          const payload = {
+            firstName: document.getElementById("enqFirstName").value.trim(),
+            lastName: document.getElementById("enqLastName").value.trim(),
+            email: document.getElementById("enqEmail").value.trim(),
+            phone: document.getElementById("enqPhone").value.trim(),
+            enquiryType: document.getElementById("enqType").value,
+            message: document.getElementById("enqMessage").value.trim(),
+          };
+
+          try {
+            await sendEnquiryEmail(payload);
+            document.getElementById("formWrap").style.display = "none";
+            document.getElementById("successState").classList.add("show");
+          } catch (error) {
+            console.error("Enquiry send failed", error);
+            alert("Unable to send enquiry right now. Please try again.");
+            btn.disabled = false;
+            btn.textContent = originalText;
+          }
+        });
       }
     </script>
   </body>

@@ -1931,51 +1931,78 @@
           </p>
         </div>
 
-        <div class="contact-form">
+        <form class="contact-form" id="homeEnquiryForm">
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">First Name *</label>
+              <label class="form-label" for="homeFirstName">First Name *</label>
               <input
+                id="homeFirstName"
+                name="firstName"
                 type="text"
                 class="form-input"
                 placeholder="Your first name"
+                required
               />
             </div>
             <div class="form-group">
-              <label class="form-label">Last Name *</label>
+              <label class="form-label" for="homeLastName">Last Name *</label>
               <input
+                id="homeLastName"
+                name="lastName"
                 type="text"
                 class="form-input"
                 placeholder="Your last name"
+                required
               />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Phone *</label>
+              <label class="form-label" for="homePhone">Phone *</label>
               <input
+                id="homePhone"
+                name="phone"
                 type="tel"
                 class="form-input"
                 placeholder="+64 or +61 number"
+                required
               />
             </div>
             <div class="form-group">
-              <label class="form-label">Email Address *</label>
+              <label class="form-label" for="homeEmail">Email Address *</label>
               <input
+                id="homeEmail"
+                name="email"
                 type="email"
                 class="form-input"
                 placeholder="your@email.com"
+                required
               />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Company / Organisation</label>
-              <input type="text" class="form-input" placeholder="Optional" />
+              <label class="form-label" for="homeCompany"
+                >Company / Organisation</label
+              >
+              <input
+                id="homeCompany"
+                name="company"
+                type="text"
+                class="form-input"
+                placeholder="Optional"
+              />
             </div>
             <div class="form-group">
-              <label class="form-label">Type of Enquiry</label>
-              <select class="form-input form-select">
+              <label class="form-label" for="homeEnquiryType"
+                >Type of Enquiry</label
+              >
+              <select
+                id="homeEnquiryType"
+                name="enquiryType"
+                class="form-input form-select"
+                required
+              >
                 <option value="" disabled selected>Select a category</option>
                 <option>Private Aviation / Helicopter</option>
                 <option>Yacht / Marine Charter</option>
@@ -1992,20 +2019,25 @@
           </div>
           <div class="form-row">
             <div class="form-group full">
-              <label class="form-label">Tell Us About Your Request</label>
+              <label class="form-label" for="homeRequest"
+                >Tell Us About Your Request</label
+              >
               <textarea
+                id="homeRequest"
+                name="message"
                 class="form-textarea"
                 placeholder="Describe what you have in mind — the more detail, the better we can serve you. No request is too specific or too ambitious."
+                required
               ></textarea>
             </div>
           </div>
-          <button class="form-submit">Submit Enquiry</button>
+          <button class="form-submit" type="submit">Submit Enquiry</button>
           <p class="form-note">
             All enquiries are handled with complete discretion. We typically
             respond within 2 hours during business hours — and 24/7 for urgent
             requests.
           </p>
-        </div>
+        </form>
       </div>
     </section>
 
@@ -2049,7 +2081,33 @@
       </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
+      const EMAILJS_PUBLIC_KEY = "ofFPY_ZW8sYqLxy5E";
+      const EMAILJS_SERVICE_ID = "service_n0nzcfd";
+      const EMAILJS_TEMPLATE_ID = "template_tfk4l9k";
+      emailjs.init(EMAILJS_PUBLIC_KEY);
+
+      async function sendEnquiryEmail(payload) {
+        const fullMessage = `
+<strong>Name:</strong> ${payload.firstName} ${payload.lastName}<br>
+<strong>Email:</strong> ${payload.email}<br>
+<strong>Phone:</strong> ${payload.phone}<br>
+<strong>Company:</strong> ${payload.company || "Not provided"}<br>
+<strong>Enquiry Type:</strong> ${payload.enquiryType}<br>
+<hr/>
+<strong>Message:</strong><br>${payload.message.replace(/\n/g, "<br>")}
+        `;
+
+        return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          from_name: `${payload.firstName} ${payload.lastName}`,
+          from_email: "private@veiraglobal.com",
+          message_html: fullMessage,
+          enquiry_type: payload.enquiryType,
+          reply_to: payload.email,
+        });
+      }
+
       // ── CURSOR ──
       const cursor = document.getElementById("cursor");
       document.addEventListener("mousemove", (e) => {
@@ -2128,6 +2186,46 @@
         qIdx = (qIdx + 1) % slides.length;
         switchQuote(qIdx);
       }, 5000);
+
+      const homeEnquiryForm = document.getElementById("homeEnquiryForm");
+      if (homeEnquiryForm) {
+        homeEnquiryForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const submitButton = homeEnquiryForm.querySelector(".form-submit");
+          const originalText = submitButton.textContent;
+          submitButton.disabled = true;
+          submitButton.textContent = "Sending...";
+
+          const payload = {
+            firstName: document.getElementById("homeFirstName").value.trim(),
+            lastName: document.getElementById("homeLastName").value.trim(),
+            phone: document.getElementById("homePhone").value.trim(),
+            email: document.getElementById("homeEmail").value.trim(),
+            company: document.getElementById("homeCompany").value.trim(),
+            enquiryType: document.getElementById("homeEnquiryType").value,
+            message: document.getElementById("homeRequest").value.trim(),
+          };
+
+          try {
+            await sendEnquiryEmail(payload);
+            submitButton.textContent = "Sent";
+            homeEnquiryForm.reset();
+            alert("Enquiry sent successfully. We will be in touch shortly.");
+          } catch (error) {
+            console.error("Enquiry send failed", error);
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+            alert("Unable to send enquiry right now. Please try again.");
+            return;
+          }
+
+          setTimeout(() => {
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+          }, 1600);
+        });
+      }
     </script>
   </body>
 </html>
