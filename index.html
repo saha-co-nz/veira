@@ -88,15 +88,29 @@
         padding: 18px 64px;
       }
       .nav-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         font-family: "Cormorant Garamond", serif;
         font-size: 24px;
         font-weight: 500;
         letter-spacing: 0.35em;
         color: var(--white);
         text-decoration: none;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .nav-logo-icon {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+        display: block;
+        opacity: 0.95;
+        flex-shrink: 0;
       }
       .nav-logo span {
         color: var(--red);
+        margin-left: -0.1em;
       }
       .nav-links {
         display: flex;
@@ -1272,7 +1286,14 @@
 
     <!-- ═══════════ NAV ═══════════ -->
     <nav id="nav">
-      <a class="nav-logo" href="index.html">VEIR<span>A</span></a>
+      <a class="nav-logo" href="index.html"
+        >VEIR<span>A</span
+        ><img
+          class="nav-logo-icon"
+          src="/photos/header/veira-silver-star.png"
+          alt=""
+          aria-hidden="true"
+      /></a>
       <div class="nav-links">
         <a href="services.html">Services</a>
         <a href="about.html">About</a>
@@ -1590,11 +1611,10 @@
             alt="Luxury timepiece acquisition"
           />
           <div class="exp-overlay">
-            <span class="ov-cat">Acquisition</span>
-            <div class="ov-title">The Finest Things</div>
+            <span class="ov-cat">Personal Services</span>
+            <div class="ov-title">Convenience reimagined</div>
             <div class="ov-desc">
-              Sourcing rare timepieces, jewellery, and coveted luxury goods
-              worldwide.
+              Managing your daily activities on your behalf.
             </div>
           </div>
         </div>
@@ -1896,214 +1916,7 @@
       </div>
     </section>
 
-    <!-- ═══════════ TESTIMONIALS ═══════════ -->
-    <section class="testimonials reveal" id="testimonials">
-      <div class="testimonials-inner">
-        <div class="section-header">
-          <span class="eyebrow">Client Stories</span>
-          <h2>Trusted by those who<br /><em>expect the extraordinary.</em></h2>
-        </div>
-
-        <div class="testi-tabs">
-          <button class="testi-tab active" onclick="switchTab('exclusive')">
-            Exclusive Clients
-          </button>
-          <button class="testi-tab" onclick="switchTab('private')">
-            Private Clients
-          </button>
-        </div>
-
-        <!-- EXCLUSIVE CLIENTS PANEL -->
-        <div class="testi-panel active" id="panel-exclusive">
-          <div class="testi-cards">
-            <div class="testi-card">
-              <div class="testi-card-img">
-                <!-- ▼ REPLACE: Celebrity/public figure portrait — athlete, entertainer etc. -->
-                <div
-                  class="img-placeholder"
-                  style="
-                    height: 100%;
-                    background: var(--grey-light);
-                    border-color: rgba(13, 27, 42, 0.1);
-                  "
-                >
-                  <div class="ph-icon">⬡</div>
-                  <span class="ph-text"
-                    >Client Portrait — Celebrity / Athlete / Public Figure</span
-                  >
-                </div>
-              </div>
-              <div class="testi-card-body">
-                <div class="testi-name">Israel Adesanya</div>
-                <div class="testi-title-role">
-                  UFC Middleweight Champion · New Zealand
-                </div>
-                <div class="testi-quote">
-                  The level of access and care Veira delivers is unlike anything
-                  I've experienced. They anticipate needs I haven't even voiced
-                  yet.
-                </div>
-              </div>
-            </div>
-
-            <div class="testi-card">
-              <div class="testi-card-img">
-                <!-- ▼ REPLACE: Second celebrity/notable client portrait -->
-                <div
-                  class="img-placeholder"
-                  style="
-                    height: 100%;
-                    background: var(--grey-light);
-                    border-color: rgba(13, 27, 42, 0.1);
-                  "
-                >
-                  <div class="ph-icon">⬡</div>
-                  <span class="ph-text"
-                    >Client Portrait — Executive / Notable Figure</span
-                  >
-                </div>
-              </div>
-              <div class="testi-card-body">
-                <div class="testi-name">Corporate Client</div>
-                <div class="testi-title-role">Managing Director · Sydney</div>
-                <div class="testi-quote">
-                  We brought 12 international guests to Auckland for a summit.
-                  Veira handled everything — from the jet to the farewell
-                  dinner. Not a single detail missed.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testi-anon">
-            <div class="anon-label">Exclusive Member — Confidential</div>
-            <div class="anon-quotes-wrapper">
-              <div class="anon-quote-slide active">
-                <div class="anon-quote">
-                  "They found a sold-out suite in Queenstown for me with 4
-                  hours' notice, arranged a helicopter transfer, and had
-                  champagne waiting. I don't know how they do it."
-                </div>
-              </div>
-              <div class="anon-quote-slide">
-                <div class="anon-quote">
-                  "Veira arranged a private winery experience for my board that
-                  felt completely personal. My clients still talk about it."
-                </div>
-              </div>
-              <div class="anon-quote-slide">
-                <div class="anon-quote">
-                  "I call them before I book anything. They always find
-                  something better than I'd find myself — and it actually costs
-                  less when you factor in the time saved."
-                </div>
-              </div>
-            </div>
-            <div class="anon-dots">
-              <div class="anon-dot active" onclick="switchQuote(0)"></div>
-              <div class="anon-dot" onclick="switchQuote(1)"></div>
-              <div class="anon-dot" onclick="switchQuote(2)"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PRIVATE CLIENTS PANEL -->
-        <div class="testi-panel" id="panel-private">
-          <div class="testi-cards">
-            <div class="testi-card">
-              <div class="testi-card-img">
-                <!-- ▼ REPLACE: Private client lifestyle portrait — couple, family, individual -->
-                <div
-                  class="img-placeholder"
-                  style="
-                    height: 100%;
-                    background: var(--grey-light);
-                    border-color: rgba(13, 27, 42, 0.1);
-                  "
-                >
-                  <div class="ph-icon">⬡</div>
-                  <span class="ph-text"
-                    >Private Client — Lifestyle Portrait / Couple / Family</span
-                  >
-                </div>
-              </div>
-              <div class="testi-card-body">
-                <div class="testi-name">Priya & James R.</div>
-                <div class="testi-title-role">Private Client · Auckland</div>
-                <div class="testi-quote">
-                  Our 10-year anniversary was completely handled by Veira.
-                  Helicopter to Queenstown, private chef, vineyard buyout. My
-                  husband was speechless. So was I.
-                </div>
-              </div>
-            </div>
-
-            <div class="testi-card">
-              <div class="testi-card-img">
-                <!-- ▼ REPLACE: Second private client portrait -->
-                <div
-                  class="img-placeholder"
-                  style="
-                    height: 100%;
-                    background: var(--grey-light);
-                    border-color: rgba(13, 27, 42, 0.1);
-                  "
-                >
-                  <div class="ph-icon">⬡</div>
-                  <span class="ph-text"
-                    >Private Client Portrait — Individual / Lifestyle</span
-                  >
-                </div>
-              </div>
-              <div class="testi-card-body">
-                <div class="testi-name">Michael T.</div>
-                <div class="testi-title-role">Private Client · Melbourne</div>
-                <div class="testi-quote">
-                  I wanted to give my team a day they'd never forget after a
-                  brutal quarter. Veira put together something none of us could
-                  have planned ourselves. Extraordinary.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testi-anon">
-            <div class="anon-label">Private Member — Confidential</div>
-            <div class="anon-quotes-wrapper">
-              <div class="anon-quote-slide active">
-                <div class="anon-quote">
-                  "I needed a last-minute gift for an important client —
-                  something that would actually mean something. Veira turned it
-                  around in three hours. Perfectly curated."
-                </div>
-              </div>
-              <div class="anon-quote-slide">
-                <div class="anon-quote">
-                  "Visiting Auckland from Dubai, I had one free evening. Veira
-                  built me an entire night — from the restaurant to the rooftop
-                  bar. Felt like I lived there."
-                </div>
-              </div>
-              <div class="anon-quote-slide">
-                <div class="anon-quote">
-                  "The attention to detail is what separates Veira. Every
-                  preference I mentioned once was remembered and reflected in
-                  everything they arranged."
-                </div>
-              </div>
-            </div>
-            <div class="anon-dots">
-              <div
-                class="anon-dot active"
-                onclick="switchQuote(0, 'private')"
-              ></div>
-              <div class="anon-dot" onclick="switchQuote(1, 'private')"></div>
-              <div class="anon-dot" onclick="switchQuote(2, 'private')"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Testimonials section commented out per request -->
 
     <!-- ═══════════ CONTACT ═══════════ -->
     <section class="contact reveal" id="contact">
@@ -2277,14 +2090,18 @@
 
       // ── TESTIMONIAL TABS ──
       function switchTab(tab) {
+        const targetPanel = document.getElementById("panel-" + tab);
+        if (!targetPanel) return;
         document
           .querySelectorAll(".testi-tab")
           .forEach((t) => t.classList.remove("active"));
         document
           .querySelectorAll(".testi-panel")
           .forEach((p) => p.classList.remove("active"));
-        event.target.classList.add("active");
-        document.getElementById("panel-" + tab).classList.add("active");
+        if (event && event.target) {
+          event.target.classList.add("active");
+        }
+        targetPanel.classList.add("active");
       }
 
       // ── ANONYMOUS QUOTES ──
@@ -2292,6 +2109,7 @@
         const parentPanel = panel
           ? document.getElementById("panel-" + panel)
           : document.querySelector(".testi-panel.active");
+        if (!parentPanel) return;
         parentPanel
           .querySelectorAll(".anon-quote-slide")
           .forEach((s, i) => s.classList.toggle("active", i === idx));
@@ -2304,7 +2122,9 @@
       let qIdx = 0;
       setInterval(() => {
         const activePanel = document.querySelector(".testi-panel.active");
+        if (!activePanel) return;
         const slides = activePanel.querySelectorAll(".anon-quote-slide");
+        if (!slides.length) return;
         qIdx = (qIdx + 1) % slides.length;
         switchQuote(qIdx);
       }, 5000);

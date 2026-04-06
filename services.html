@@ -62,6 +62,9 @@
         border-bottom: none;
       }
       .nav-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         font-family: "Cormorant Garamond", serif;
         font-size: 22px;
         font-weight: 500;
@@ -69,9 +72,20 @@
         color: var(--white);
         text-decoration: none;
         cursor: pointer;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .nav-logo-icon {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+        display: block;
+        opacity: 0.95;
+        flex-shrink: 0;
       }
       .nav-logo span {
         color: var(--red);
+        margin-left: -0.1em;
       }
       .nav-right {
         display: flex;
@@ -170,8 +184,8 @@
         border: 1px solid var(--red);
       }
 
-      .hero {n
-        min-height: 100vh;
+      .hero {
+        min-height: 78vh;
         display: grid;
         grid-template-columns: 1fr 1fr;
         align-items: stretch;
@@ -237,6 +251,17 @@
       .hero-right {
         position: relative;
         overflow: hidden;
+        max-height: 78vh;
+      }
+      .hero-right img {
+        width: 130%;
+        height: 100%;
+        max-width: none;
+        min-height: 380px;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        margin-left: -15%;
       }
 
       .img-ph {
@@ -358,6 +383,13 @@
         height: 100%;
         overflow: hidden;
         transition: background 0.3s;
+      }
+      .svc-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
       }
       .svc-row:hover .svc-img {
         background: #e4e4e1;
@@ -846,6 +878,13 @@
         flex-direction: column;
         gap: 12px;
       }
+      .detail-hero-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
       .detail-hero-overlay {
         position: absolute;
         inset: 0;
@@ -1047,6 +1086,13 @@
         overflow: hidden;
         border: 1px solid var(--grey-light);
         transition: background 0.3s;
+      }
+      .detail-photo-ph img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
       }
       .detail-photo-ph:hover {
         background: #e4e4e1;
@@ -1325,7 +1371,14 @@
     <div class="cursor" id="cursor"></div>
 
     <nav>
-      <a class="nav-logo" href="index.html">VEIR<span>A</span></a>
+      <a class="nav-logo" href="index.html"
+        >VEIR<span>A</span
+        ><img
+          class="nav-logo-icon"
+          src="/photos/header/veira-silver-star.png"
+          alt=""
+          aria-hidden="true"
+      /></a>
       <div class="nav-right">
         <span class="nav-back" id="nav-back" onclick="showMain()"
           >All Services</span
@@ -1346,18 +1399,16 @@
             Australasia's Premier Private Services Company
           </p>
           <h1 class="hero-title">
-            Whatever You Need.<br /><em>Consider It Done.</em>
+            Whatever you feel,<br /><em>we make it real</em>
           </h1>
-          <p class="hero-sub">
-            Luxury travel · Private aviation<br />Concierge · Events · Access
-          </p>
+          <p class="hero-sub">Luxury &amp; Lifestyle<br />Concierge</p>
           <a class="hero-cta" href="enquire.html">Speak With Us</a>
         </div>
         <div class="hero-right">
-          <div class="img-ph">
-            <div class="img-ph-icon">⬡</div>
-            <span class="img-ph-label">Hero Image — Landscape / Lifestyle</span>
-          </div>
+          <img
+            src="/photos/services-page/hero-landscape-lifestyle.jpg"
+            alt="Landscape lifestyle scene"
+          />
         </div>
       </section>
 
@@ -1390,8 +1441,10 @@
       <section class="services-wrap">
         <div class="svc-row reveal" onclick="showDetail(0)">
           <div class="svc-img">
-            <div class="img-ph-icon">⬡</div>
-            <span class="img-ph-label">Image — Scenic NZ / AU Landscape</span>
+            <img
+              src="/photos/services-page/luxury-travel-cover.jpg"
+              alt="Luxury travel landscape"
+            />
             <span class="svc-img-tag">Luxury Travel</span>
           </div>
           <div class="svc-content">
@@ -1418,10 +1471,10 @@
 
         <div class="svc-row reverse reveal" onclick="showDetail(1)">
           <div class="svc-img">
-            <div class="img-ph-icon">⬡</div>
-            <span class="img-ph-label"
-              >Image — Concierge / Team on the Ground</span
-            >
+            <img
+              src="/photos/services-page/concierge-cover.jpg"
+              alt="Concierge team on the ground"
+            />
             <span class="svc-img-tag">Concierge</span>
           </div>
           <div class="svc-content">
@@ -1447,8 +1500,10 @@
 
         <div class="svc-row reveal" onclick="showDetail(2)">
           <div class="svc-img">
-            <div class="img-ph-icon">⬡</div>
-            <span class="img-ph-label">Image — Jet / Luxury Vehicle</span>
+            <img
+              src="/photos/services-page/aviation-transport-cover.jpg"
+              alt="Jet and luxury transport"
+            />
             <span class="svc-img-tag">Aviation & Transport</span>
           </div>
           <div class="svc-content">
@@ -1472,8 +1527,10 @@
 
         <div class="svc-row reverse reveal" onclick="showDetail(3)">
           <div class="svc-img">
-            <div class="img-ph-icon">⬡</div>
-            <span class="img-ph-label">Image — Venue / Winery / Event</span>
+            <img
+              src="/photos/services-page/events-access-cover.jpg"
+              alt="Venue and event access"
+            />
             <span class="svc-img-tag">Events & Access</span>
           </div>
           <div class="svc-content">
@@ -1497,10 +1554,10 @@
 
         <div class="svc-row reveal" onclick="showDetail(4)">
           <div class="svc-img">
-            <div class="img-ph-icon">⬡</div>
-            <span class="img-ph-label"
-              >Image — Gifting / Flowers / Luxury Packaging</span
-            >
+            <img
+              src="/photos/services-page/gifting-cover.jpg"
+              alt="Luxury gifting presentation"
+            />
             <span class="svc-img-tag">Gifting & Gestures</span>
           </div>
           <div class="svc-content">
@@ -1525,10 +1582,10 @@
 
         <div class="svc-row reverse reveal" onclick="showDetail(5)">
           <div class="svc-img">
-            <div class="img-ph-icon">⬡</div>
-            <span class="img-ph-label"
-              >Image — City Lights / Concert / Evening Out</span
-            >
+            <img
+              src="/photos/services-page/itinerary-cover.jpg"
+              alt="City lights and evening itinerary"
+            />
             <span class="svc-img-tag">Itinerary Design</span>
           </div>
           <div class="svc-content">
@@ -1551,10 +1608,10 @@
 
         <div class="svc-row reveal" onclick="showDetail(6)">
           <div class="svc-img">
-            <div class="img-ph-icon">⬡</div>
-            <span class="img-ph-label"
-              >Image — Helicopter / Tarmac / Speed</span
-            >
+            <img
+              src="/photos/services-page/priority-access-cover.jpg"
+              alt="Helicopter and priority access"
+            />
             <span class="svc-img-tag">Priority Access</span>
           </div>
           <div class="svc-content">
@@ -1577,10 +1634,10 @@
 
         <div class="svc-row reverse reveal" onclick="showDetail(7)">
           <div class="svc-img">
-            <div class="img-ph-icon">⬡</div>
-            <span class="img-ph-label"
-              >Image — Unique / Bespoke Experience</span
-            >
+            <img
+              src="/photos/services-page/bespoke-cover.jpg"
+              alt="Bespoke experience"
+            />
             <span class="svc-img-tag">Bespoke Requests</span>
           </div>
           <div class="svc-content">
@@ -1808,10 +1865,7 @@
     <div id="detail-page" class="page">
       <div class="detail-hero">
         <div class="detail-hero-bg">
-          <div class="img-ph-icon">⬡</div>
-          <span class="img-ph-label" id="detail-img-label"
-            >Image Placeholder</span
-          >
+          <img id="detail-hero-image" src="" alt="" />
         </div>
         <div class="detail-hero-overlay"></div>
         <div class="detail-hero-content">
@@ -2748,6 +2802,68 @@
         },
       ];
 
+      const serviceHeroImages = [
+        "/photos/services-page/luxury-travel-cover.jpg",
+        "/photos/services-page/concierge-cover.jpg",
+        "/photos/services-page/aviation-transport-cover.jpg",
+        "/photos/services-page/events-access-cover.jpg",
+        "/photos/services-page/gifting-cover.jpg",
+        "/photos/services-page/itinerary-cover.jpg",
+        "/photos/services-page/priority-access-cover.jpg",
+        "/photos/services-page/bespoke-cover.jpg",
+      ];
+
+      const serviceDetailImages = [
+        [
+          "/photos/services-page/hero-landscape-lifestyle.jpg",
+          "/photos/services-page/g5-boat-pacific.jpg",
+          "/photos/services-page/g2-fine-dining.jpg",
+          "/photos/services-page/g4-winery.jpg",
+        ],
+        [
+          "/photos/services-page/concierge-cover.jpg",
+          "/photos/services-page/g6-luxury-car.jpg",
+          "/photos/services-page/g8-gifting-box.jpg",
+          "/photos/services-page/g10-unique.jpg",
+        ],
+        [
+          "/photos/services-page/aviation-transport-cover.jpg",
+          "/photos/services-page/g3-jet-aviation.jpg",
+          "/photos/services-page/g7-helicopter-pad.jpg",
+          "/photos/services-page/g6-luxury-car.jpg",
+        ],
+        [
+          "/photos/services-page/events-access-cover.jpg",
+          "/photos/services-page/g2-fine-dining.jpg",
+          "/photos/services-page/g4-winery.jpg",
+          "/photos/services-page/g9-evening-nightlife.jpg",
+        ],
+        [
+          "/photos/services-page/gifting-cover.jpg",
+          "/photos/services-page/g8-gifting-box.jpg",
+          "/photos/services-page/g10-unique.jpg",
+          "/photos/services-page/g2-fine-dining.jpg",
+        ],
+        [
+          "/photos/services-page/itinerary-cover.jpg",
+          "/photos/services-page/g9-evening-nightlife.jpg",
+          "/photos/services-page/g1-aerial-nz.jpg",
+          "/photos/services-page/g2-fine-dining.jpg",
+        ],
+        [
+          "/photos/services-page/priority-access-cover.jpg",
+          "/photos/services-page/g7-helicopter-pad.jpg",
+          "/photos/services-page/g3-jet-aviation.jpg",
+          "/photos/services-page/g6-luxury-car.jpg",
+        ],
+        [
+          "/photos/services-page/bespoke-cover.jpg",
+          "/photos/services-page/g10-unique.jpg",
+          "/photos/services-page/g8-gifting-box.jpg",
+          "/photos/services-page/g1-aerial-nz.jpg",
+        ],
+      ];
+
       function showMain() {
         document.getElementById("main-page").classList.add("active");
         document.getElementById("detail-page").classList.remove("active");
@@ -2762,7 +2878,9 @@
         document.getElementById("detail-title").textContent = s.title;
         document.getElementById("detail-subtitle").textContent = s.subtitle;
         document.getElementById("detail-number").textContent = s.number;
-        document.getElementById("detail-img-label").textContent = s.imgLabel;
+        document.getElementById("detail-hero-image").src =
+          serviceHeroImages[index];
+        document.getElementById("detail-hero-image").alt = s.imgLabel;
         document.getElementById("detail-intro-heading").innerHTML =
           s.introHeading;
         const bodyEl = document.getElementById("detail-intro-body");
@@ -2805,27 +2923,23 @@
           )
           .join("");
         const photosTop = document.getElementById("detail-photos-top");
-        photosTop.innerHTML = s.photos
+        photosTop.innerHTML = serviceDetailImages[index]
           .slice(0, 2)
           .map(
-            (p) => `
+            (src) => `
     <div class="detail-photo-ph">
-      <div class="ph-icon">⬡</div>
-      <span class="ph-label">${p.label}</span>
-      <span class="ph-corner">Photo placeholder</span>
+      <img src="${src}" alt="${s.title} detail image" />
     </div>
   `,
           )
           .join("");
         const photosBottom = document.getElementById("detail-photos-bottom");
-        photosBottom.innerHTML = s.photos
-          .slice(1, 4)
+        photosBottom.innerHTML = serviceDetailImages[index]
+          .slice(2, 4)
           .map(
-            (p) => `
+            (src) => `
     <div class="detail-photo-ph">
-      <div class="ph-icon">⬡</div>
-      <span class="ph-label">${p.label}</span>
-      <span class="ph-corner">Photo placeholder</span>
+      <img src="${src}" alt="${s.title} detail image" />
     </div>
   `,
           )

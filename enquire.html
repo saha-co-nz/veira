@@ -78,15 +78,29 @@
         padding: 16px 56px;
       }
       .nav-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         font-family: "Cormorant Garamond", serif;
         font-size: 22px;
         font-weight: 500;
         letter-spacing: 0.38em;
         color: var(--white);
         text-decoration: none;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .nav-logo-icon {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+        display: block;
+        opacity: 0.95;
+        flex-shrink: 0;
       }
       .nav-logo span {
         color: var(--red);
+        margin-left: -0.1em;
       }
       .nav-links {
         display: flex;
@@ -489,7 +503,14 @@
     <div class="cursor" id="cursor"></div>
 
     <nav id="nav">
-      <a class="nav-logo" href="index.html">VEIR<span>A</span></a>
+      <a class="nav-logo" href="index.html"
+        >VEIR<span>A</span
+        ><img
+          class="nav-logo-icon"
+          src="/photos/header/veira-silver-star.png"
+          alt=""
+          aria-hidden="true"
+      /></a>
       <div class="nav-links">
         <a href="services.html">Services</a>
         <a href="about.html">About</a>
