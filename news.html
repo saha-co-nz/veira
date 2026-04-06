@@ -268,6 +268,12 @@
         position: relative;
         overflow: hidden;
       }
+      .featured-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
       .featured-img-tag {
         position: absolute;
         top: 24px;
@@ -440,6 +446,12 @@
         gap: 10px;
         position: relative;
         overflow: hidden;
+      }
+      .article-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
       }
       .article-card-img .img-tag {
         position: absolute;
@@ -730,6 +742,18 @@
         justify-content: center;
         flex-direction: column;
         gap: 14px;
+        position: relative;
+        overflow: hidden;
+      }
+      .modal-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .modal-img .ph-icon.hidden,
+      .modal-img .ph-label.hidden {
+        display: none;
       }
       .modal-body {
         padding: 56px 60px;
@@ -861,8 +885,7 @@
 
     <nav id="nav">
       <a class="nav-logo" href="index.html"
-        >VEIR<span>A</span
-        ><img
+        >VEIRA<img
           class="nav-logo-icon"
           src="/photos/header/veira-silver-star.png"
           alt=""
@@ -897,10 +920,7 @@
         <div class="featured-card" onclick="openModal('launch')">
           <div class="featured-img">
             <span class="featured-img-tag">Company News</span>
-            <div class="ph-icon">⬡</div>
-            <span class="ph-label"
-              >Feature image — NZ landscape or Veira brand imagery</span
-            >
+            <img src="public/photos/news/launch.jpg" alt="Veira launch news" />
           </div>
           <div class="featured-body">
             <div class="article-cat">Company Announcement</div>
@@ -968,20 +988,10 @@
             onclick="openModal('starc')"
           >
             <div class="article-card-img">
-              <div
-                class="ph-icon"
-                style="border-color: #bbb; color: #bbb"
-              ></div>
-              <span
-                class="ph-label"
-                style="
-                  font-size: 9px;
-                  letter-spacing: 0.22em;
-                  text-transform: uppercase;
-                  color: #bbb;
-                "
-                >Image — Framework / Brand Visual</span
-              >
+              <img
+                src="public/photos/news/starc.jpg"
+                alt="Introducing the STARC Framework"
+              />
               <span class="img-tag">Company</span>
             </div>
             <div class="article-card-body">
@@ -1014,20 +1024,10 @@
             onclick="openModal('aviation')"
           >
             <div class="article-card-img">
-              <div
-                class="ph-icon"
-                style="border-color: #bbb; color: #bbb"
-              ></div>
-              <span
-                class="ph-label"
-                style="
-                  font-size: 9px;
-                  letter-spacing: 0.22em;
-                  text-transform: uppercase;
-                  color: #bbb;
-                "
-                >Image — Private jet or helicopter</span
-              >
+              <img
+                src="public/photos/news/aviation.jpg"
+                alt="Private Aviation"
+              />
               <span class="img-tag">Services</span>
             </div>
             <div class="article-card-body">
@@ -1061,20 +1061,10 @@
             onclick="openModal('discretion')"
           >
             <div class="article-card-img">
-              <div
-                class="ph-icon"
-                style="border-color: #bbb; color: #bbb"
-              ></div>
-              <span
-                class="ph-label"
-                style="
-                  font-size: 9px;
-                  letter-spacing: 0.22em;
-                  text-transform: uppercase;
-                  color: #bbb;
-                "
-                >Image — Understated / Elegant detail</span
-              >
+              <img
+                src="public/photos/news/discretion.jpg"
+                alt="Why Discretion Is the Real Luxury"
+              />
               <span class="img-tag">Insights</span>
             </div>
             <div class="article-card-body">
@@ -1108,20 +1098,10 @@
             onclick="openModal('nz')"
           >
             <div class="article-card-img">
-              <div
-                class="ph-icon"
-                style="border-color: #bbb; color: #bbb"
-              ></div>
-              <span
-                class="ph-label"
-                style="
-                  font-size: 9px;
-                  letter-spacing: 0.22em;
-                  text-transform: uppercase;
-                  color: #bbb;
-                "
-                >Image — New Zealand landscape</span
-              >
+              <img
+                src="public/photos/news/why-nz.jpg"
+                alt="Why We Built Veira in New Zealand"
+              />
               <span class="img-tag">Company</span>
             </div>
             <div class="article-card-body">
@@ -1155,20 +1135,10 @@
             onclick="openModal('bespoke')"
           >
             <div class="article-card-img">
-              <div
-                class="ph-icon"
-                style="border-color: #bbb; color: #bbb"
-              ></div>
-              <span
-                class="ph-label"
-                style="
-                  font-size: 9px;
-                  letter-spacing: 0.22em;
-                  text-transform: uppercase;
-                  color: #bbb;
-                "
-                >Image — Bespoke / unique moment</span
-              >
+              <img
+                src="public/photos/news/unusual.jpg"
+                alt="The Most Unusual Requests We've Handled"
+              />
               <span class="img-tag">Services</span>
             </div>
             <div class="article-card-body">
@@ -1202,20 +1172,10 @@
             onclick="openModal('lastminute')"
           >
             <div class="article-card-img">
-              <div
-                class="ph-icon"
-                style="border-color: #bbb; color: #bbb"
-              ></div>
-              <span
-                class="ph-label"
-                style="
-                  font-size: 9px;
-                  letter-spacing: 0.22em;
-                  text-transform: uppercase;
-                  color: #bbb;
-                "
-                >Image — Urgency / Speed / City</span
-              >
+              <img
+                src="public/photos/news/last-min.jpg"
+                alt="The Art of the Last-Minute Request"
+              />
               <span class="img-tag">Insights</span>
             </div>
             <div class="article-card-body">
@@ -1271,7 +1231,7 @@
     <footer>
       <div class="footer-top">
         <div>
-          <div class="footer-logo">VEIR<span>A</span></div>
+          <div class="footer-logo">VEIRA</div>
           <div class="footer-tagline">Whatever You Feel — We Make It Real</div>
         </div>
         <div class="footer-links">
@@ -1315,7 +1275,8 @@
       <div class="modal" id="modal">
         <button class="modal-close" onclick="closeModal()">✕ Close</button>
         <div class="modal-img" id="modalImg">
-          <div class="ph-icon">⬡</div>
+          <img id="modalImgTag" src="" alt="" />
+          <div class="ph-icon" id="modalImgIcon">⬡</div>
           <span class="ph-label" id="modalImgLabel">Article image</span>
         </div>
         <div class="modal-body">
@@ -1379,49 +1340,49 @@
           cat: "Company Announcement",
           date: "April 2026",
           title: "Veira Launches Formally this June 2026",
-          img: "Brand / Aerial NZ / Company visual",
+          img: "public/photos/news/launch.jpg",
           content: `<p>After months of quiet preparation — refining our vendor network, building our operating model, and defining exactly what Veira should be — we're ready to formally open our doors to clients this June.</p><p>Veira is a New Zealand-based private outcomes company. We work with high-profile individuals, entertainment figures, corporate clients, and private families to fulfil desires and achieve outcomes with complete discretion and precision.</p><p>Our launch represents the culmination of extensive work across partnerships, logistics, and brand. We've chosen not to announce loudly. The people who should know about Veira will find us through the right channels. Those who do find us can expect a team that takes every request seriously, operates with the highest standards of confidentiality, and delivers outcomes — not promises.</p><p>We're taking enquiries from June 1, 2026 onwards. If you'd like to speak with us before that date, you're welcome to reach out privately.</p>`,
         },
         starc: {
           cat: "Company",
           date: "March 2026",
           title: "Introducing the STARC Framework",
-          img: "Framework / Brand Visual / Logo detail",
+          img: "public/photos/news/starc.jpg",
           content: `<p>Every company that operates at a high level needs a framework — a set of principles that governs how it operates when no one is looking. For Veira, that framework is STARC.</p><p><strong>Structure.</strong> Every outcome we deliver is underpinned by a clear plan. Nothing is assumed, and nothing is left to chance. Before we confirm anything to a client, we've already mapped the path from request to delivery.</p><p><strong>Time.</strong> We move at the pace that the situation requires. Sometimes that means acting in minutes. Sometimes it means taking the time required to do something correctly. In all cases, time is respected — ours and our clients'.</p><p><strong>Access.</strong> Our network is the core of what makes Veira possible. Years of relationship-building across aviation, hospitality, events, and private services gives us access to options that most people can't arrange independently.</p><p><strong>Representation.</strong> When we act on a client's behalf, we act as if the outcome were our own. We carry the same expectations, the same standards, and the same personal investment as if it were our own experience we were arranging.</p><p><strong>Connection.</strong> At the heart of everything Veira does is connection — between people, places, and possibilities. We bring the right things together in service of what our clients want.</p>`,
         },
         aviation: {
           cat: "Services",
           date: "March 2026",
           title: "Private Aviation in New Zealand: What You Should Know",
-          img: "Private jet on tarmac / Helicopter over NZ",
+          img: "public/photos/news/aviation.jpg",
           content: `<p>Private aviation in New Zealand is more accessible than most people realise — and significantly more practical than they assume. The country's geography, with its two main islands and scattered regional airports, makes private aircraft a genuinely useful mode of transport rather than a luxury statement.</p><p>A one-way charter from Auckland to Queenstown on a light aircraft costs considerably less than many people expect. A helicopter transfer from Queenstown to a remote lodge can be arranged with as little as two hours' notice. And for those with urgent requirements — a missed flight, a last-minute board meeting, a time-sensitive personal matter — a light aircraft charter is often the only reliable option.</p><p>Through our partnerships with NZ Jet and Volta Aviation, Veira can arrange everything from a Cessna Citation for a small group to a Sikorsky S76C++ helicopter for aerial transfers across the South Island.</p><p>If you've never chartered an aircraft before, the process is simpler than you'd expect. Contact us with your route, your preferred timing, and your party size. We'll handle everything else.</p>`,
         },
         discretion: {
           cat: "Insights",
           date: "February 2026",
           title: "Why Discretion Is the Real Luxury",
-          img: "Understated / Quiet elegance / Detail shot",
+          img: "public/photos/news/discretion.jpg",
           content: `<p>There's a common assumption that luxury is loud. That the more expensive something is, the more visible it should be. In our experience, the opposite is true for those who actually operate at the highest level.</p><p>The people who use Veira are not interested in being seen to use a service. They are interested in outcomes. They want the helicopter to arrive on time, the restaurant to be exactly as promised, the vehicle to be waiting. They don't want to explain themselves, justify their preferences, or manage multiple vendors. They want it done — and they want to trust that it will be.</p><p>Discretion is not a feature we offer. It is the way we operate. We do not discuss who our clients are. We do not share information across engagements. We do not post about outcomes on social media. The work speaks through the experience — not through the announcement of it.</p><p>This is, in our view, the real luxury: a team that takes your request seriously, handles it completely, and asks nothing in return except that you tell us what you need.</p>`,
         },
         nz: {
           cat: "Company",
           date: "February 2026",
           title: "Why We Built Veira in New Zealand",
-          img: "New Zealand aerial / Iconic NZ landscape",
+          img: "public/photos/news/why-nz.jpg",
           content: `<p>New Zealand is one of the most extraordinary countries in the world. It offers world-class scenery, a growing entertainment and corporate sector, a thriving luxury tourism market, and a geography that creates genuine demand for private transport and bespoke experiences.</p><p>It is also, in our view, underserved. The kind of private outcomes company that operates in London, Dubai, or New York — one that takes a brief and returns with it fully executed — doesn't really exist here in a form that matches what the market deserves.</p><p>That gap is what Veira was created to fill. New Zealand-based, regionally connected, and built for the specific demands of clients operating across Australasia and the Pacific. We know the vendors, the venues, the pilots, and the chefs. We know which lodge in Queenstown will close early for a private dinner, and which winery in Hawke's Bay will open for a Saturday morning tasting for a visiting corporate group.</p><p>The market here is smaller than London. That's fine — it means we can serve it properly. And increasingly, it means New Zealand attracts clients from further afield who expect a level of service the country hasn't always been able to provide. We intend to change that.</p>`,
         },
         bespoke: {
           cat: "Services",
           date: "January 2026",
           title: "The Most Unusual Requests We've Handled",
-          img: "Bespoke / Unique / One-off moment",
+          img: "public/photos/news/unusual.jpg",
           content: `<p>People sometimes ask what the most unusual request we've ever fulfilled is. The honest answer is that the requests we find most meaningful are rarely the most unusual — they're the most personal.</p><p>We've arranged a Paris-style anniversary dinner in a client's Auckland home, with the exact restaurant replicated down to the wine list. We've sourced a vintage that wasn't available in New Zealand in time for a specific occasion. We've organised a private surf lesson at sunrise followed by a helicopter to a remote beach for a father's gift to his son on his 18th birthday.</p><p>None of these fit a standard service category. None required a particularly exotic network. All of them required careful listening, genuine problem-solving, and a team prepared to commit fully to an outcome that mattered to someone.</p><p>This is what bespoke service actually looks like. Not unusual for the sake of it — but precisely right, for the person asking.</p>`,
         },
         lastminute: {
           cat: "Insights",
           date: "January 2026",
           title: "The Art of the Last-Minute Request",
-          img: "Urgency / Movement / City at speed",
+          img: "public/photos/news/last-min.jpg",
           content: `<p>There's a category of service request that most providers dread: the last-minute call. The flight cancelled. The driver didn't show. The original venue fell through with 24 hours to go. The client is arriving tomorrow and nothing is arranged.</p><p>We think about it differently. Last-minute requests are the clearest demonstration of what a services company is actually capable of. Anyone can arrange something with three weeks' notice. It takes a different kind of network — and a different kind of commitment — to deliver something extraordinary with three hours.</p><p>Our operating model is built for this. We don't have the bureaucratic structure that slows most providers down. We have direct relationships with the right people across aviation, ground transport, hospitality, and logistics. When a call comes in at 9pm, we don't triage it into a queue. We act.</p><p>We've dispatched a replacement luxury vehicle to a client 40 minutes before a high-profile dinner. We've chartered a light aircraft for a cancelled commercial flight with less than two hours to spare. We've confirmed a private dining reservation in Auckland on a Saturday night with four hours' notice.</p><p>None of these should be possible. That's the point.</p>`,
         },
       };
@@ -1433,7 +1394,25 @@
         document.getElementById("modalDate").textContent = a.date;
         document.getElementById("modalTitle").innerHTML = a.title;
         document.getElementById("modalContent").innerHTML = a.content;
-        document.getElementById("modalImgLabel").textContent = a.img;
+
+        const imgTag = document.getElementById("modalImgTag");
+        const imgIcon = document.getElementById("modalImgIcon");
+        const imgLabel = document.getElementById("modalImgLabel");
+        const isImagePath = /\.(jpe?g|png|webp|gif|svg)$/i.test(a.img);
+
+        if (isImagePath) {
+          imgTag.src = a.img;
+          imgTag.alt = a.title;
+          imgTag.style.display = "block";
+          imgIcon.classList.add("hidden");
+          imgLabel.classList.add("hidden");
+        } else {
+          imgTag.style.display = "none";
+          imgIcon.classList.remove("hidden");
+          imgLabel.classList.remove("hidden");
+          imgLabel.textContent = a.img;
+        }
+
         document.getElementById("modalOverlay").classList.add("open");
         document.body.style.overflow = "hidden";
       }
@@ -1461,7 +1440,7 @@
       function hidePageLoader() {
         const loader = document.getElementById("page-loader");
         if (!loader) return;
-        const minVisible = 1000;
+        const minVisible = 0;
         const start = window.pageLoaderStart || Date.now();
         const elapsed = Date.now() - start;
         const delay = Math.max(0, minVisible - elapsed);
