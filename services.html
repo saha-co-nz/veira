@@ -1493,7 +1493,11 @@
       </div>
 
       <section class="services-wrap">
-        <div class="svc-row reveal" onclick="showDetail(0)">
+        <div
+          class="svc-row reveal"
+          id="service-luxury-travel"
+          onclick="showDetail(0)"
+        >
           <div class="svc-img">
             <img
               src="/photos/services-page/luxury-travel-cover.jpg"
@@ -1523,7 +1527,11 @@
           </div>
         </div>
 
-        <div class="svc-row reverse reveal" onclick="showDetail(1)">
+        <div
+          class="svc-row reverse reveal"
+          id="service-full-service-concierge"
+          onclick="showDetail(1)"
+        >
           <div class="svc-img">
             <img
               src="/photos/services-page/concierge-cover.jpg"
@@ -1552,7 +1560,11 @@
           </div>
         </div>
 
-        <div class="svc-row reveal" onclick="showDetail(2)">
+        <div
+          class="svc-row reveal"
+          id="service-aviation-ground"
+          onclick="showDetail(2)"
+        >
           <div class="svc-img">
             <img
               src="/photos/services-page/aviation-transport-cover.jpg"
@@ -1579,7 +1591,11 @@
           </div>
         </div>
 
-        <div class="svc-row reverse reveal" onclick="showDetail(3)">
+        <div
+          class="svc-row reverse reveal"
+          id="service-events-access"
+          onclick="showDetail(3)"
+        >
           <div class="svc-img">
             <img
               src="/photos/services-page/events-access-cover.jpg"
@@ -1686,7 +1702,11 @@
           </div>
         </div>
 
-        <div class="svc-row reverse reveal" onclick="showDetail(7)">
+        <div
+          class="svc-row reverse reveal"
+          id="service-bespoke-requests"
+          onclick="showDetail(7)"
+        >
           <div class="svc-img">
             <img
               src="/photos/services-page/bespoke-cover.jpg"
@@ -3034,7 +3054,29 @@
         });
       }
 
-      document.addEventListener("DOMContentLoaded", initReveal);
+      const serviceHashMap = {
+        "service-luxury-travel": 0,
+        "service-full-service-concierge": 1,
+        "service-aviation-ground": 2,
+        "service-events-access": 3,
+        "service-gifting": 4,
+        "service-itinerary-design": 5,
+        "service-priority-access": 6,
+        "service-bespoke-requests": 7,
+      };
+
+      function loadDetailFromHash() {
+        const hash = window.location.hash.slice(1);
+        if (!hash) return false;
+        const detailIndex = serviceHashMap[hash];
+        if (detailIndex === undefined) return false;
+        showDetail(detailIndex);
+        return true;
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!loadDetailFromHash()) initReveal();
+      });
 
       // ── CURSOR ──
       const cursor = document.getElementById("cursor");
