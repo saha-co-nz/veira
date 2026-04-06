@@ -1,0 +1,1155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Veira — About Us</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Raleway:wght@200;300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #0d1b2a;
+        --navy-light: #1a2e45;
+        --red: #b82c22;
+        --red-light: #d63b30;
+        --white: #ffffff;
+        --offwhite: #f7f6f3;
+        --offwhite2: #efefed;
+        --grey-light: #e4e2de;
+        --grey-mid: #9a9a98;
+        --grey-dark: #4a4a48;
+        --black: #111111;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--white);
+        color: var(--navy);
+        font-family: "Raleway", sans-serif;
+        font-weight: 300;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* CURSOR */
+      .cursor {
+        width: 10px;
+        height: 10px;
+        background: var(--red);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.1s ease,
+          width 0.3s ease,
+          height 0.3s ease,
+          background 0.3s ease;
+      }
+      .cursor.hover {
+        width: 36px;
+        height: 36px;
+        background: rgba(184, 44, 34, 0.12);
+        border: 1px solid var(--red);
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 26px 64px;
+        background: var(--navy);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        transition: padding 0.4s ease;
+      }
+      nav.scrolled {
+        padding: 18px 64px;
+      }
+      .nav-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0.35em;
+        color: var(--white);
+        text-decoration: none;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .nav-logo-icon {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+        display: block;
+        opacity: 0.95;
+        flex-shrink: 0;
+      }
+      .nav-logo span {
+        color: var(--red);
+        margin-left: -0.1em;
+      }
+      .nav-links {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+      }
+      .nav-links a {
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--white);
+      }
+      .nav-cta {
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--white) !important;
+        background: var(--red);
+        padding: 11px 28px;
+        transition: background 0.3s !important;
+      }
+      .nav-cta:hover {
+        background: #9a2219 !important;
+      }
+
+      /* HERO */
+      .page-hero {
+        padding-top: 90px;
+        min-height: 70vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+      }
+      .page-hero-left {
+        background: var(--navy);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 80px;
+      }
+      .page-hero-right {
+        position: relative;
+        overflow: hidden;
+        background: var(--offwhite2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 14px;
+        min-height: 460px;
+      }
+      .page-hero-right img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+      .ph-icon {
+        width: 52px;
+        height: 52px;
+        border: 1.5px solid #bbb;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #bbb;
+        font-size: 20px;
+      }
+      .ph-label {
+        font-size: 9.5px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: #bbb;
+        text-align: center;
+        padding: 0 32px;
+      }
+
+      .hero-eyebrow {
+        font-size: 9px;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+        margin-bottom: 28px;
+        opacity: 0;
+        animation: fadeUp 0.9s ease forwards 0.2s;
+      }
+      .hero-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(44px, 6vw, 84px);
+        font-weight: 300;
+        line-height: 1.05;
+        color: var(--white);
+        margin-bottom: 28px;
+        opacity: 0;
+        animation: fadeUp 0.9s ease forwards 0.4s;
+      }
+      .hero-title em {
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.45);
+      }
+      .hero-body {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.55);
+        line-height: 2;
+        max-width: 520px;
+        opacity: 0;
+        animation: fadeUp 0.9s ease forwards 0.6s;
+      }
+
+      /* SHARED */
+      .eyebrow {
+        font-size: 9px;
+        letter-spacing: 0.48em;
+        text-transform: uppercase;
+        color: var(--red);
+        display: block;
+        margin-bottom: 20px;
+      }
+      .section-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(34px, 4.5vw, 60px);
+        font-weight: 300;
+        color: var(--navy);
+        line-height: 1.1;
+        margin-bottom: 28px;
+      }
+      .section-title em {
+        font-style: italic;
+        color: var(--grey-mid);
+      }
+      .btn-navy {
+        display: inline-block;
+        font-size: 9px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: var(--navy);
+        padding: 16px 44px;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+      .btn-navy:hover {
+        background: var(--red);
+      }
+      .btn-outline {
+        display: inline-block;
+        font-size: 9px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--navy);
+        border: 1px solid var(--navy);
+        padding: 16px 44px;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+      .btn-outline:hover {
+        background: var(--navy);
+        color: var(--white);
+      }
+
+      /* WHO WE ARE */
+      .who {
+        padding: 120px 80px;
+        background: var(--offwhite);
+      }
+      .who-inner {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 100px;
+        align-items: start;
+      }
+      .who-left p {
+        font-size: 14px;
+        color: var(--grey-dark);
+        line-height: 2.1;
+        margin-bottom: 22px;
+      }
+      .who-right {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3px;
+      }
+      .stat-box {
+        background: var(--navy);
+        padding: 36px 28px;
+        text-align: center;
+      }
+      .stat-box.light {
+        background: var(--white);
+        border: 1px solid var(--grey-light);
+      }
+      .stat-num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 44px;
+        font-weight: 300;
+        color: var(--white);
+        line-height: 1;
+        margin-bottom: 10px;
+      }
+      .stat-num span {
+        font-size: 26px;
+        color: var(--red);
+      }
+      .stat-box.light .stat-num {
+        color: var(--navy);
+      }
+      .stat-lbl {
+        font-size: 8.5px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+      }
+      .stat-box.light .stat-lbl {
+        color: var(--grey-mid);
+      }
+
+      /* FOUNDERS */
+      .founders {
+        padding: 120px 80px;
+        background: var(--white);
+        border-top: 1px solid var(--grey-light);
+      }
+      .founders-inner {
+        max-width: 1300px;
+        margin: 0 auto;
+      }
+      .founders-header {
+        text-align: center;
+        margin-bottom: 72px;
+      }
+      .founders-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3px;
+      }
+      .founder-card {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        background: var(--offwhite);
+        border: 1px solid var(--grey-light);
+        overflow: hidden;
+      }
+      .founder-img {
+        background: var(--offwhite2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 320px;
+      }
+      .founder-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+      .founder-body {
+        padding: 48px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .founder-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 30px;
+        font-weight: 400;
+        color: var(--navy);
+        margin-bottom: 6px;
+      }
+      .founder-role {
+        font-size: 8.5px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 24px;
+      }
+      .founder-bio {
+        font-size: 13.5px;
+        color: var(--grey-dark);
+        line-height: 1.9;
+      }
+
+      /* STARC */
+      .starc {
+        padding: 120px 80px;
+        background: var(--navy);
+      }
+      .starc-inner {
+        max-width: 1300px;
+        margin: 0 auto;
+      }
+      .starc-header {
+        margin-bottom: 72px;
+      }
+      .starc-header .eyebrow {
+        color: rgba(255, 255, 255, 0.4);
+      }
+      .starc-header .section-title {
+        color: var(--white);
+      }
+      .starc-header .section-title em {
+        color: rgba(255, 255, 255, 0.3);
+      }
+      .starc-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 3px;
+      }
+      .starc-card {
+        padding: 44px 32px;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        background: rgba(255, 255, 255, 0.03);
+        transition: background 0.3s;
+      }
+      .starc-card:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .starc-letter {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 72px;
+        font-weight: 300;
+        color: var(--red);
+        line-height: 1;
+        margin-bottom: 12px;
+        opacity: 0.7;
+      }
+      .starc-word {
+        font-size: 9px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+      .starc-desc {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.38);
+        line-height: 1.8;
+      }
+
+      /* APPROACH */
+      .approach {
+        padding: 120px 80px;
+        background: var(--offwhite2);
+      }
+      .approach-inner {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 100px;
+        align-items: center;
+      }
+      .approach-left p {
+        font-size: 14px;
+        color: var(--grey-dark);
+        line-height: 2.1;
+        margin-bottom: 22px;
+      }
+      .approach-right {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .approach-item {
+        padding: 28px 0;
+        border-bottom: 1px solid var(--grey-light);
+        display: flex;
+        gap: 28px;
+        align-items: flex-start;
+      }
+      .approach-item:first-child {
+        border-top: 1px solid var(--grey-light);
+      }
+      .approach-num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 40px;
+        font-weight: 300;
+        color: rgba(184, 44, 34, 0.2);
+        line-height: 1;
+        flex-shrink: 0;
+        width: 48px;
+      }
+      .approach-content h4 {
+        font-size: 10px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--navy);
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+      .approach-content p {
+        font-size: 13px;
+        color: var(--grey-mid);
+        line-height: 1.75;
+      }
+
+      /* CLIENTS STRIP */
+      .clients-strip {
+        padding: 100px 80px;
+        background: var(--white);
+        border-top: 1px solid var(--grey-light);
+        text-align: center;
+      }
+      .clients-strip-inner {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .clients-strip h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(32px, 4.5vw, 56px);
+        font-weight: 300;
+        color: var(--navy);
+        line-height: 1.15;
+        margin-bottom: 24px;
+      }
+      .clients-strip h2 em {
+        font-style: italic;
+        color: var(--grey-mid);
+      }
+      .clients-strip p {
+        font-size: 14px;
+        color: var(--grey-dark);
+        line-height: 2;
+        margin-bottom: 48px;
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .client-types {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 48px;
+      }
+      .client-tag {
+        font-size: 9.5px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--navy);
+        border: 1px solid var(--grey-light);
+        padding: 10px 22px;
+      }
+
+      /* CTA BAND */
+      .cta-band {
+        background: var(--navy);
+        padding: 100px 80px;
+        text-align: center;
+        border-top: 3px solid var(--red);
+      }
+      .cta-band h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(36px, 5vw, 66px);
+        font-weight: 300;
+        color: var(--white);
+        line-height: 1.1;
+        margin-bottom: 20px;
+      }
+      .cta-band h2 em {
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .cta-band p {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.45);
+        max-width: 520px;
+        margin: 0 auto 48px;
+        line-height: 1.9;
+      }
+      .cta-band .btn-red {
+        display: inline-block;
+        font-size: 9px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: var(--red);
+        padding: 18px 52px;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+      .cta-band .btn-red:hover {
+        background: var(--red-light);
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--navy);
+        border-top: 3px solid var(--red);
+        padding: 60px 80px 40px;
+      }
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 48px;
+        padding-bottom: 48px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .footer-logo {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 28px;
+        font-weight: 500;
+        letter-spacing: 0.32em;
+        color: var(--white);
+      }
+      .footer-logo span {
+        color: var(--red);
+      }
+      .footer-tagline {
+        font-size: 9px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.25);
+        margin-top: 8px;
+      }
+      .footer-links {
+        display: flex;
+        gap: 60px;
+      }
+      .footer-col h5 {
+        font-size: 8.5px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+        margin-bottom: 20px;
+      }
+      .footer-col a {
+        display: block;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.38);
+        text-decoration: none;
+        margin-bottom: 12px;
+        transition: color 0.3s;
+      }
+      .footer-col a:hover {
+        color: var(--white);
+      }
+      .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-copy {
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.18);
+        text-transform: uppercase;
+      }
+      .footer-email a {
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.25);
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 0.3s;
+      }
+      .footer-email a:hover {
+        color: var(--white);
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 1024px) {
+        nav {
+          padding: 20px 32px;
+        }
+        .nav-links {
+          gap: 24px;
+        }
+        .page-hero {
+          grid-template-columns: 1fr;
+        }
+        .page-hero-left {
+          padding: 120px 40px 60px;
+        }
+        .who-inner,
+        .approach-inner {
+          grid-template-columns: 1fr;
+          gap: 60px;
+        }
+        .starc-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .founders-grid {
+          grid-template-columns: 1fr;
+        }
+        .founder-card {
+          grid-template-columns: 1fr;
+        }
+        .founder-img {
+          min-height: 220px;
+        }
+      }
+      @media (max-width: 768px) {
+        nav {
+          padding: 18px 24px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .who,
+        .founders,
+        .approach,
+        .starc,
+        .clients-strip,
+        .cta-band {
+          padding: 80px 28px;
+        }
+        .starc-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .who-right {
+          grid-template-columns: 1fr 1fr;
+        }
+        footer {
+          padding: 48px 28px 32px;
+        }
+        .footer-top {
+          flex-direction: column;
+          gap: 40px;
+        }
+        .footer-links {
+          gap: 40px;
+          flex-wrap: wrap;
+        }
+        .footer-bottom {
+          flex-direction: column;
+          gap: 12px;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor" id="cursor"></div>
+
+    <nav id="nav">
+      <a class="nav-logo" href="index.html"
+        >VEIR<span>A</span
+        ><img
+          class="nav-logo-icon"
+          src="/photos/header/veira-silver-star.png"
+          alt=""
+          aria-hidden="true"
+      /></a>
+      <div class="nav-links">
+        <a href="services.html">Services</a>
+        <a href="about.html" class="active">About</a>
+        <a href="news.html">News</a>
+        <a href="enquire.html" class="nav-cta">Enquire</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="page-hero-left">
+        <div class="hero-eyebrow">Who We Are</div>
+        <h1 class="hero-title">
+          A company built on<br /><em>outcomes, not promises.</em>
+        </h1>
+        <p class="hero-body">
+          Veira is a New Zealand-based private outcomes company. We work with
+          individuals, corporations, and private families to fulfil desires and
+          achieve results — with precision and complete discretion.
+        </p>
+      </div>
+      <div class="page-hero-right">
+        <img
+          src="/photos/about/about-top-banner.jpg"
+          alt="Veira luxury transport banner"
+        />
+      </div>
+    </section>
+
+    <!-- WHO WE ARE -->
+    <section class="who reveal" id="about">
+      <div class="who-inner">
+        <div class="who-left">
+          <span class="eyebrow">The Company</span>
+          <h2 class="section-title">
+            Privately held.<br /><em>Precisely delivered.</em>
+          </h2>
+          <p>
+            Veira was founded in New Zealand with a single conviction: that
+            outcomes — real, meaningful ones — require more than a booking
+            platform or a phone number. They require a team that genuinely takes
+            ownership of a request and delivers it to a standard that reflects
+            who their clients are.
+          </p>
+          <p>
+            We don't own aircraft. We don't hold inventory. We operate through
+            relationships, established networks, and an obsessive commitment to
+            execution. What we offer is access, discretion, and the capacity to
+            handle complexity — so our clients never have to.
+          </p>
+          <p>
+            Our clients include high-profile individuals, entertainment figures,
+            corporate executives, and private families across New Zealand,
+            Australia, and internationally. Each is served by the same small,
+            trusted team.
+          </p>
+        </div>
+        <div class="who-right">
+          <div class="stat-box">
+            <div class="stat-num">24<span>/7</span></div>
+            <div class="stat-lbl">Always Available</div>
+          </div>
+          <div class="stat-box light">
+            <div class="stat-num" style="color: var(--navy)">
+              100<span style="color: var(--red)">%</span>
+            </div>
+            <div class="stat-lbl" style="color: var(--grey-mid)">Discreet</div>
+          </div>
+          <div class="stat-box light">
+            <div class="stat-num" style="color: var(--navy)">
+              End<span style="color: var(--red); font-size: 22px">–to–</span>End
+            </div>
+            <div class="stat-lbl" style="color: var(--grey-mid)">
+              Fully Managed
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">NZ<span> + </span>AU</div>
+            <div class="stat-lbl">& The Pacific</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDERS -->
+    <section class="founders reveal">
+      <div class="founders-inner">
+        <div class="founders-header">
+          <span class="eyebrow">Our Team</span>
+          <h2 class="section-title" style="text-align: center">
+            The people <em>behind Veira.</em>
+          </h2>
+        </div>
+        <div class="founders-grid">
+          <div class="founder-card">
+            <div class="founder-img">
+              <img src="/photos/daniel.jpg" alt="Daniel portrait" />
+            </div>
+            <div class="founder-body">
+              <div class="founder-name">Daniel</div>
+              <div class="founder-role">Co-Founder · Veira Global</div>
+              <p class="founder-bio">
+                Daniel brings a background in high-stakes client relationships
+                and an understanding of what it takes to operate at a level
+                where precision is not optional. His approach is direct,
+                discreet, and outcomes-focused — values that define how Veira
+                operates at every level.
+              </p>
+            </div>
+          </div>
+          <div class="founder-card">
+            <div class="founder-img">
+              <img src="/photos/satyam.jpg" alt="Satyam Saha portrait" />
+            </div>
+            <div class="founder-body">
+              <div class="founder-name">Satyam Saha</div>
+              <div class="founder-role">Co-Founder · Veira Global</div>
+              <p class="founder-bio">
+                Satyam's strengths lie in strategy, operations, and the
+                architecture of complex logistics. He ensures that what Veira
+                commits to is actually delivered — with the rigour and attention
+                to detail that high-profile clients depend on, every time.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STARC FRAMEWORK -->
+    <section class="starc reveal" id="starc">
+      <div class="starc-inner">
+        <div class="starc-header">
+          <span class="eyebrow">Our Framework</span>
+          <h2 class="section-title">
+            Everything we do is<br /><em>built on STARC.</em>
+          </h2>
+        </div>
+        <div class="starc-grid">
+          <div class="starc-card">
+            <div class="starc-letter">S</div>
+            <div class="starc-word">Structure</div>
+            <p class="starc-desc">
+              Every outcome is underpinned by a clear plan. Nothing is left to
+              chance, and no detail is assumed to take care of itself.
+            </p>
+          </div>
+          <div class="starc-card">
+            <div class="starc-letter">T</div>
+            <div class="starc-word">Time</div>
+            <p class="starc-desc">
+              We move at your pace — with urgency when required and patience
+              when precision demands it. Time is always respected.
+            </p>
+          </div>
+          <div class="starc-card">
+            <div class="starc-letter">A</div>
+            <div class="starc-word">Access</div>
+            <p class="starc-desc">
+              Our network opens doors that rarely open for others. Relationships
+              built over years, activated in hours.
+            </p>
+          </div>
+          <div class="starc-card">
+            <div class="starc-letter">R</div>
+            <div class="starc-word">Representation</div>
+            <p class="starc-desc">
+              We act on your behalf as if the outcome were our own — with the
+              same standards, expectations, and personal investment.
+            </p>
+          </div>
+          <div class="starc-card">
+            <div class="starc-letter">C</div>
+            <div class="starc-word">Connection</div>
+            <p class="starc-desc">
+              We bring people, places, and possibilities together — turning
+              complex requests into coherent, seamless experiences.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUR APPROACH -->
+    <section class="approach reveal" id="approach">
+      <div class="approach-inner">
+        <div class="approach-left">
+          <span class="eyebrow">How We Operate</span>
+          <h2 class="section-title">What sets Veira<br /><em>apart.</em></h2>
+          <p>
+            We are not a platform, a marketplace, or a traditional concierge. We
+            are a small, trusted team that takes complete ownership of every
+            brief we accept — from first contact to final delivery.
+          </p>
+          <p>
+            Our asset-light model means we can act quickly, across industries,
+            without constraint. We have no interest in scale for its own sake.
+            We are interested in quality — and in doing things correctly, every
+            time.
+          </p>
+          <div style="margin-top: 40px; display: flex; gap: 14px">
+            <a href="services.html" class="btn-navy">Explore Our Services</a>
+            <a href="enquire.html" class="btn-outline">Get in Touch</a>
+          </div>
+        </div>
+        <div class="approach-right">
+          <div class="approach-item">
+            <div class="approach-num">01</div>
+            <div class="approach-content">
+              <h4>We Take Complete Ownership</h4>
+              <p>
+                A brief handed to Veira is a brief managed entirely by Veira. We
+                don't pass requests to third parties and hope for the best.
+              </p>
+            </div>
+          </div>
+          <div class="approach-item">
+            <div class="approach-num">02</div>
+            <div class="approach-content">
+              <h4>We Work With Discretion as a Default</h4>
+              <p>
+                We do not discuss client relationships. We do not share
+                information. Confidentiality is not a service option — it's how
+                we operate.
+              </p>
+            </div>
+          </div>
+          <div class="approach-item">
+            <div class="approach-num">03</div>
+            <div class="approach-content">
+              <h4>We Are Asset-Light by Design</h4>
+              <p>
+                Because we don't own assets, we can access the best option
+                available — not just whatever we happen to have on hand.
+              </p>
+            </div>
+          </div>
+          <div class="approach-item">
+            <div class="approach-num">04</div>
+            <div class="approach-content">
+              <h4>We Move at Speed When Needed</h4>
+              <p>
+                Last-minute requests are not an afterthought. Our operating
+                model is built for urgency without sacrificing quality.
+              </p>
+            </div>
+          </div>
+          <div class="approach-item">
+            <div class="approach-num">05</div>
+            <div class="approach-content">
+              <h4>We Don't Over-Promise</h4>
+              <p>
+                If we can do something, we'll do it. If we can't, we'll say so —
+                and suggest who can. Honesty is part of our service.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENT TYPES -->
+    <section class="clients-strip reveal">
+      <div class="clients-strip-inner">
+        <span class="eyebrow">Who We Serve</span>
+        <h2>Built for those who<br /><em>expect the best.</em></h2>
+        <p>
+          Veira serves a small number of clients across sectors — each selected
+          for the strength of the relationship, not the volume of the request.
+          We work with individuals and organisations for whom outcomes genuinely
+          matter.
+        </p>
+        <div class="client-types">
+          <span class="client-tag">High-Net-Worth Individuals</span>
+          <span class="client-tag">Corporate Executives</span>
+          <span class="client-tag">Entertainment Figures</span>
+          <span class="client-tag">Private Families</span>
+          <span class="client-tag">Visiting Dignitaries</span>
+          <span class="client-tag">International Clients</span>
+        </div>
+        <a href="enquire.html" class="btn-navy">Begin an Enquiry</a>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="cta-band">
+      <h2>Ready to work<br /><em>with Veira?</em></h2>
+      <p>
+        Tell us what you need. We'll take it from there — with the precision,
+        speed, and discretion you'd expect from a team like ours.
+      </p>
+      <a href="enquire.html" class="btn-red">Begin an Enquiry</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">VEIR<span>A</span></div>
+          <div class="footer-tagline">Whatever You Feel — We Make It Real</div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h5>Services</h5>
+            <a href="services.html">Private Aviation</a>
+            <a href="services.html">Superyacht & Marine</a>
+            <a href="services.html">Fine Dining & Events</a>
+            <a href="services.html">Luxury Concierge</a>
+            <a href="services.html">Bespoke Requests</a>
+          </div>
+          <div class="footer-col">
+            <h5>Company</h5>
+            <a href="about.html">About Veira</a>
+            <a href="about.html#approach">Our Approach</a>
+            <a href="about.html#starc">The STARC Framework</a>
+            <a href="enquire.html">Get in Touch</a>
+          </div>
+          <div class="footer-col">
+            <h5>Navigate</h5>
+            <a href="news.html">News</a>
+            <a href="enquire.html">Enquire</a>
+            <a href="index.html">Home</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 Veira Global. All rights reserved.</div>
+        <div class="footer-email">
+          <a href="mailto:private@veiraglobal.com">private@veiraglobal.com</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const cursor = document.getElementById("cursor");
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+      });
+      document.querySelectorAll("a, button").forEach((el) => {
+        el.addEventListener("mouseenter", () => cursor.classList.add("hover"));
+        el.addEventListener("mouseleave", () =>
+          cursor.classList.remove("hover"),
+        );
+      });
+      const nav = document.getElementById("nav");
+      window.addEventListener("scroll", () => {
+        nav.classList.toggle("scrolled", window.scrollY > 60);
+      });
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

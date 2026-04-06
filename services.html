@@ -1,0 +1,3003 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Veira — What We Do</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Raleway:wght@200;300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #0d1b2a;
+        --red: #b82c22;
+        --white: #ffffff;
+        --offwhite: #f7f7f5;
+        --offwhite2: #efefed;
+        --grey-light: #e2e2e0;
+        --grey-mid: #8a8a8a;
+        --grey-dark: #444444;
+        --black: #111111;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: var(--white);
+        color: var(--black);
+        font-family: "Raleway", sans-serif;
+        font-weight: 300;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 60px;
+        background: var(--navy);
+        border-bottom: none;
+      }
+      .nav-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 22px;
+        font-weight: 500;
+        letter-spacing: 0.32em;
+        color: var(--white);
+        text-decoration: none;
+        cursor: pointer;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .nav-logo-icon {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+        display: block;
+        opacity: 0.95;
+        flex-shrink: 0;
+      }
+      .nav-logo span {
+        color: var(--red);
+        margin-left: -0.1em;
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+      }
+      .nav-back {
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        cursor: pointer;
+        transition: color 0.3s;
+        display: none;
+        align-items: center;
+        gap: 8px;
+      }
+      .nav-back.visible {
+        display: flex;
+      }
+      .nav-back:hover {
+        color: var(--white);
+      }
+      .nav-back::before {
+        content: "←";
+        font-size: 14px;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+      }
+      .nav-link {
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+        text-decoration: none;
+        transition: color 0.3s;
+        font-weight: 400;
+      }
+      .nav-link:hover {
+        color: var(--white);
+      }
+      .nav-enquire {
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: var(--red);
+        padding: 12px 28px;
+        text-decoration: none;
+        transition: background 0.3s;
+        font-weight: 500;
+        cursor: pointer;
+        border: none;
+      }
+      .nav-enquire:hover {
+        background: #8f1f17;
+      }
+      .nav-contact {
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .nav-contact:hover {
+        color: var(--white);
+      }
+
+      /* ── CUSTOM CURSOR ── */
+      .cursor {
+        width: 10px;
+        height: 10px;
+        background: var(--red);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.1s ease,
+          width 0.3s ease,
+          height 0.3s ease,
+          background 0.3s ease;
+      }
+      .cursor.hover {
+        width: 36px;
+        height: 36px;
+        background: rgba(184, 44, 34, 0.12);
+        border: 1px solid var(--red);
+      }
+
+      .hero {
+        min-height: 78vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+        padding-top: 67px;
+      }
+      .hero-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 80px 70px 80px 80px;
+        background: var(--white);
+      }
+      .hero-eyebrow {
+        font-size: 10px;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 28px;
+        opacity: 0;
+        animation: fadeUp 0.8s ease forwards 0.2s;
+      }
+      .hero-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(46px, 5vw, 80px);
+        font-weight: 300;
+        line-height: 1.05;
+        color: var(--navy);
+        margin-bottom: 28px;
+        opacity: 0;
+        animation: fadeUp 0.9s ease forwards 0.35s;
+      }
+      .hero-title em {
+        font-style: italic;
+        color: var(--grey-mid);
+      }
+      .hero-sub {
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        color: var(--grey-mid);
+        line-height: 2.2;
+        text-transform: uppercase;
+        margin-bottom: 44px;
+        opacity: 0;
+        animation: fadeUp 0.9s ease forwards 0.5s;
+      }
+      .hero-cta {
+        display: inline-block;
+        font-size: 10px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: var(--navy);
+        padding: 15px 38px;
+        text-decoration: none;
+        transition: background 0.3s;
+        align-self: flex-start;
+        opacity: 0;
+        animation: fadeUp 0.9s ease forwards 0.65s;
+      }
+      .hero-cta:hover {
+        background: var(--red);
+      }
+      .hero-right {
+        position: relative;
+        overflow: hidden;
+        max-height: 78vh;
+      }
+      .hero-right img {
+        width: 130%;
+        height: 100%;
+        max-width: none;
+        min-height: 380px;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        margin-left: -15%;
+      }
+
+      .img-ph {
+        width: 100%;
+        height: 100%;
+        min-height: 500px;
+        background: var(--offwhite2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+      .img-ph-icon {
+        width: 52px;
+        height: 52px;
+        border: 1.5px solid #bbb;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #bbb;
+        font-size: 20px;
+      }
+      .img-ph-label {
+        font-size: 9.5px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: #bbb;
+      }
+
+      .stats-strip {
+        background: var(--navy);
+        padding: 36px 60px;
+        display: flex;
+        justify-content: center;
+        gap: 80px;
+        flex-wrap: wrap;
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat .num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 34px;
+        font-weight: 300;
+        color: var(--white);
+        display: block;
+      }
+      .stat .num span {
+        color: var(--red);
+      }
+      .stat .lbl {
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.38);
+        margin-top: 4px;
+        display: block;
+      }
+
+      .section-intro {
+        text-align: center;
+        padding: 90px 40px 50px;
+        background: var(--white);
+      }
+      .eyebrow {
+        font-size: 10px;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 18px;
+        display: block;
+      }
+      .section-intro h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(32px, 4.5vw, 56px);
+        font-weight: 300;
+        color: var(--navy);
+        line-height: 1.15;
+      }
+      .section-intro h2 em {
+        font-style: italic;
+        color: var(--grey-mid);
+      }
+
+      .services-wrap {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 40px 100px;
+      }
+      .svc-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        height: 420px;
+        margin-bottom: 3px;
+        border: 1px solid var(--grey-light);
+        overflow: hidden;
+        transition: box-shadow 0.3s;
+        cursor: pointer;
+      }
+      .svc-row:hover {
+        box-shadow: 0 4px 30px rgba(13, 27, 42, 0.1);
+      }
+      .svc-row.reverse {
+        direction: rtl;
+      }
+      .svc-row.reverse > * {
+        direction: ltr;
+      }
+      .svc-img {
+        position: relative;
+        background: var(--offwhite2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        height: 100%;
+        overflow: hidden;
+        transition: background 0.3s;
+      }
+      .svc-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+      .svc-row:hover .svc-img {
+        background: #e4e4e1;
+      }
+      .svc-img-tag {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        font-size: 9px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: var(--navy);
+        padding: 6px 14px;
+      }
+      .svc-content {
+        background: var(--white);
+        padding: 44px 52px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        height: 100%;
+      }
+      .svc-content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0;
+        background: var(--red);
+        transition: width 0.4s ease;
+      }
+      .svc-row:hover .svc-content::before {
+        width: 100%;
+      }
+      .svc-explore {
+        position: absolute;
+        bottom: 24px;
+        right: 28px;
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--red);
+        opacity: 0;
+        transition: opacity 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .svc-explore::after {
+        content: "→";
+        font-size: 12px;
+      }
+      .svc-row:hover .svc-explore {
+        opacity: 1;
+      }
+      .svc-number {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 72px;
+        font-weight: 300;
+        color: var(--offwhite2);
+        line-height: 1;
+        position: absolute;
+        top: 16px;
+        right: 24px;
+      }
+      .svc-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 30px;
+        font-weight: 400;
+        color: var(--navy);
+        margin-bottom: 6px;
+        line-height: 1.15;
+      }
+      .svc-tag {
+        font-size: 9.5px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 20px;
+        display: block;
+      }
+      .svc-desc {
+        font-size: 13.5px;
+        line-height: 1.88;
+        color: var(--grey-dark);
+        margin-bottom: 26px;
+      }
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .pill {
+        font-size: 9.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--navy);
+        border: 1px solid var(--grey-light);
+        padding: 5px 14px;
+        border-radius: 20px;
+        transition: all 0.25s;
+      }
+      .svc-row:hover .pill {
+        border-color: var(--red);
+        color: var(--red);
+      }
+
+      /* ── EXPERIENCES GALLERY ── */
+      .exp-section {
+        background: var(--offwhite);
+        padding: 90px 0 0;
+        border-top: 1px solid var(--grey-light);
+      }
+      .exp-header {
+        text-align: center;
+        padding: 0 40px 60px;
+      }
+      .exp-header h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(32px, 4.5vw, 56px);
+        font-weight: 300;
+        color: var(--navy);
+        line-height: 1.15;
+      }
+      .exp-header h2 em {
+        font-style: italic;
+        color: var(--grey-mid);
+      }
+      .exp-header p {
+        font-size: 13.5px;
+        color: var(--grey-dark);
+        line-height: 1.9;
+        max-width: 520px;
+        margin: 16px auto 0;
+      }
+
+      /* ALL CELLS UNIFORM — 5 columns, equal height */
+      .exp-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-auto-rows: 280px;
+        gap: 3px;
+      }
+      .exp-cell,
+      .exp-cell.wide,
+      .exp-cell.tall,
+      .exp-cell.big {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+
+      .exp-tile {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        background: var(--offwhite2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+      }
+      .exp-tile .tile-ph {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        height: 100%;
+        background: var(--offwhite2);
+        transition: background 0.4s;
+      }
+      .exp-tile:hover .tile-ph {
+        background: #e4e4e2;
+      }
+      .exp-tile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      /* Fine-tune crops so the visual subject stays in frame */
+      .exp-tile img[src*="superyacht.jpg"] {
+        object-position: center 78%;
+      }
+      .exp-tile img[src*="scenic-golf.jpg"] {
+        object-position: 72% 78%;
+      }
+      .exp-tile img[src*="winery-view.jpg"],
+      .exp-tile img[src*="winery-estate.jpg"] {
+        object-position: 62% center;
+      }
+      .exp-tile img[src*="nz-from-above.jpg"],
+      .exp-tile img[src*="vip-airport-arrival.jpg"] {
+        object-position: center 86%;
+      }
+      .exp-tile:hover img {
+        transform: scale(1.06);
+      }
+      .exp-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(13, 27, 42, 0.88) 0%,
+          rgba(13, 27, 42, 0.15) 55%,
+          transparent 100%
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 28px 26px;
+      }
+      .exp-tile:hover .exp-overlay {
+        opacity: 1;
+      }
+      .exp-overlay-label {
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 6px;
+      }
+      .exp-overlay-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 22px;
+        font-weight: 400;
+        color: var(--white);
+        line-height: 1.2;
+        margin-bottom: 8px;
+      }
+      .exp-overlay-desc {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.7;
+      }
+      .tile-ph .tph-icon {
+        width: 44px;
+        height: 44px;
+        border: 1.5px solid #ccc;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ccc;
+        font-size: 16px;
+      }
+      .tile-ph .tph-label {
+        font-size: 9px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #ccc;
+        text-align: center;
+        padding: 0 12px;
+      }
+
+      .promise {
+        background: var(--white);
+        border-top: 1px solid var(--grey-light);
+        border-bottom: 1px solid var(--grey-light);
+        padding: 90px 60px;
+        text-align: center;
+      }
+      .promise h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(30px, 4vw, 50px);
+        font-weight: 300;
+        color: var(--navy);
+        line-height: 1.2;
+        margin-bottom: 18px;
+      }
+      .promise h3 em {
+        font-style: italic;
+        color: var(--grey-mid);
+      }
+      .promise p {
+        font-size: 14px;
+        color: var(--grey-dark);
+        max-width: 540px;
+        margin: 0 auto 36px;
+        line-height: 1.9;
+      }
+      .btn-navy {
+        display: inline-block;
+        font-size: 10px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: var(--navy);
+        padding: 15px 42px;
+        text-decoration: none;
+        transition: background 0.3s;
+        margin-right: 12px;
+        cursor: pointer;
+        border: none;
+      }
+      .btn-navy:hover {
+        background: var(--red);
+      }
+      .btn-outline {
+        display: inline-block;
+        font-size: 10px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--navy);
+        border: 1px solid var(--navy);
+        padding: 15px 42px;
+        text-decoration: none;
+        transition: all 0.3s;
+        cursor: pointer;
+        background: none;
+      }
+      .btn-outline:hover {
+        background: var(--navy);
+        color: var(--white);
+      }
+
+      .how {
+        padding: 90px 40px;
+        max-width: 960px;
+        margin: 0 auto;
+        text-align: center;
+        background: var(--white);
+      }
+      .how h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(30px, 4vw, 48px);
+        font-weight: 300;
+        color: var(--navy);
+        margin-bottom: 60px;
+      }
+      .steps {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
+      }
+      .steps::before {
+        content: "";
+        position: absolute;
+        top: 22px;
+        left: 18%;
+        width: 64%;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(184, 44, 34, 0.35),
+          transparent
+        );
+      }
+      .step {
+        flex: 1;
+        min-width: 160px;
+        max-width: 200px;
+        padding: 0 20px;
+      }
+      .step-dot {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1.5px solid var(--navy);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 18px;
+        color: var(--navy);
+        background: var(--white);
+        position: relative;
+        z-index: 1;
+      }
+      .step-title {
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--navy);
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+      .step-desc {
+        font-size: 13px;
+        line-height: 1.8;
+        color: var(--grey-mid);
+      }
+
+      footer {
+        background: var(--navy);
+        padding: 56px 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 24px;
+        border-top: 3px solid var(--red);
+      }
+      .footer-logo {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 26px;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        color: var(--white);
+      }
+      .footer-logo span {
+        color: var(--red);
+      }
+      .footer-mid p {
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.28);
+        text-align: center;
+      }
+      .footer-contact a {
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.45);
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 0.3s;
+      }
+      .footer-contact a:hover {
+        color: var(--red);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      #detail-page {
+        animation: fadeIn 0.5s ease;
+      }
+
+      .detail-hero {
+        min-height: 52vh;
+        display: flex;
+        align-items: flex-end;
+        padding-top: 67px;
+        background: var(--navy);
+        position: relative;
+        overflow: hidden;
+      }
+      .detail-hero-bg {
+        position: absolute;
+        inset: 0;
+        background: var(--offwhite2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .detail-hero-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+      .detail-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(13, 27, 42, 0.92) 0%,
+          rgba(13, 27, 42, 0.6) 100%
+        );
+      }
+      .detail-hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 60px 80px 70px;
+        max-width: 860px;
+      }
+      .detail-number {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 120px;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.06);
+        line-height: 1;
+        position: absolute;
+        right: 60px;
+        bottom: 40px;
+        pointer-events: none;
+      }
+      .detail-eyebrow {
+        font-size: 9.5px;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 20px;
+        display: block;
+      }
+      .detail-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(38px, 5vw, 68px);
+        font-weight: 300;
+        line-height: 1.08;
+        color: var(--white);
+        margin-bottom: 18px;
+      }
+      .detail-subtitle {
+        font-size: 11px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 2;
+      }
+
+      .detail-body {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 80px 100px;
+      }
+
+      .detail-intro {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 80px;
+        margin-bottom: 80px;
+        padding-bottom: 80px;
+        border-bottom: 1px solid var(--grey-light);
+        align-items: start;
+      }
+      .detail-intro-text h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(26px, 3vw, 40px);
+        font-weight: 300;
+        color: var(--navy);
+        line-height: 1.2;
+        margin-bottom: 24px;
+      }
+      .detail-intro-text h2 em {
+        font-style: italic;
+        color: var(--grey-mid);
+      }
+      .detail-intro-text p {
+        font-size: 14.5px;
+        line-height: 2;
+        color: var(--grey-dark);
+        margin-bottom: 16px;
+      }
+
+      .detail-intro-aside {
+        padding: 36px;
+        background: var(--offwhite);
+        border-left: 3px solid var(--red);
+      }
+      .detail-aside-label {
+        font-size: 9px;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 20px;
+        display: block;
+      }
+      .detail-aside-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--grey-light);
+      }
+      .detail-aside-item:last-child {
+        border-bottom: none;
+      }
+      .aside-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--red);
+        border-radius: 50%;
+        flex-shrink: 0;
+        margin-top: 7px;
+      }
+      .aside-item-text {
+        font-size: 12.5px;
+        line-height: 1.7;
+        color: var(--grey-dark);
+      }
+      .aside-item-text strong {
+        color: var(--navy);
+        font-weight: 500;
+        display: block;
+        margin-bottom: 2px;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+      }
+
+      .detail-what-section {
+        margin-bottom: 80px;
+      }
+      .detail-what-section h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 32px;
+        font-weight: 400;
+        color: var(--navy);
+        margin-bottom: 36px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--grey-light);
+      }
+      .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3px;
+      }
+      .detail-card {
+        background: var(--offwhite);
+        padding: 32px 28px;
+        border: 1px solid var(--grey-light);
+        transition: box-shadow 0.25s;
+      }
+      .detail-card:hover {
+        box-shadow: 0 4px 20px rgba(13, 27, 42, 0.07);
+      }
+      .detail-card-num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 28px;
+        font-weight: 300;
+        color: var(--red);
+        margin-bottom: 12px;
+        display: block;
+        opacity: 0.5;
+      }
+      .detail-card h4 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 20px;
+        font-weight: 400;
+        color: var(--navy);
+        margin-bottom: 10px;
+      }
+      .detail-card p {
+        font-size: 12.5px;
+        line-height: 1.8;
+        color: var(--grey-dark);
+      }
+
+      .detail-photo-strip {
+        display: grid;
+        gap: 3px;
+        margin-bottom: 80px;
+      }
+      .detail-photo-strip.two-col {
+        grid-template-columns: 1.4fr 1fr;
+        height: 360px;
+      }
+      .detail-photo-strip.three-col {
+        grid-template-columns: 1fr 1fr 1fr;
+        height: 300px;
+      }
+      .detail-photo-ph {
+        background: var(--offwhite2);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        overflow: hidden;
+        border: 1px solid var(--grey-light);
+        transition: background 0.3s;
+      }
+      .detail-photo-ph img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+      .detail-photo-ph:hover {
+        background: #e4e4e1;
+      }
+      .detail-photo-ph .ph-icon {
+        width: 48px;
+        height: 48px;
+        border: 1.5px solid #c8c8c6;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #c8c8c6;
+        font-size: 18px;
+      }
+      .detail-photo-ph .ph-label {
+        font-size: 9px;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: #bbb;
+        text-align: center;
+        padding: 0 20px;
+        line-height: 1.7;
+      }
+      .detail-photo-ph .ph-corner {
+        position: absolute;
+        bottom: 14px;
+        right: 16px;
+        font-size: 8.5px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #ccc;
+      }
+
+      .detail-scenarios {
+        margin-bottom: 80px;
+      }
+      .detail-scenarios h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 32px;
+        font-weight: 400;
+        color: var(--navy);
+        margin-bottom: 36px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--grey-light);
+      }
+      .scenarios-list {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .scenario-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 22px 28px;
+        background: var(--offwhite);
+        border: 1px solid var(--grey-light);
+        transition:
+          border-color 0.25s,
+          box-shadow 0.25s;
+      }
+      .scenario-item:hover {
+        border-color: var(--red);
+        box-shadow: 0 2px 16px rgba(13, 27, 42, 0.06);
+      }
+      .scenario-dash {
+        width: 20px;
+        height: 1px;
+        background: var(--red);
+        flex-shrink: 0;
+        margin-top: 10px;
+      }
+      .scenario-text {
+        font-size: 13.5px;
+        line-height: 1.85;
+        color: var(--grey-dark);
+      }
+
+      .detail-process {
+        background: var(--navy);
+        padding: 70px 80px;
+        margin: 0 -80px 80px;
+      }
+      .detail-process h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 32px;
+        font-weight: 300;
+        color: var(--white);
+        margin-bottom: 48px;
+        text-align: center;
+      }
+      .process-steps {
+        display: flex;
+        gap: 0;
+      }
+      .process-step {
+        flex: 1;
+        padding: 0 30px;
+        position: relative;
+        text-align: center;
+      }
+      .process-step::after {
+        content: "";
+        position: absolute;
+        top: 22px;
+        right: -1px;
+        width: 1px;
+        height: 44px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .process-step:last-child::after {
+        display: none;
+      }
+      .process-num {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 1px solid rgba(184, 44, 34, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 18px;
+        color: var(--red);
+        margin: 0 auto 18px;
+      }
+      .process-step h4 {
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--white);
+        margin-bottom: 10px;
+      }
+      .process-step p {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.7;
+      }
+
+      .detail-cta-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 48px 52px;
+        background: var(--offwhite);
+        border: 1px solid var(--grey-light);
+      }
+      .detail-cta-text h4 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 26px;
+        font-weight: 300;
+        color: var(--navy);
+        margin-bottom: 6px;
+      }
+      .detail-cta-text p {
+        font-size: 12px;
+        color: var(--grey-mid);
+        letter-spacing: 0.06em;
+      }
+      .detail-cta-buttons {
+        display: flex;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+
+      .back-to-services {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 9.5px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--grey-mid);
+        margin-bottom: 48px;
+        cursor: pointer;
+        transition: color 0.25s;
+        background: none;
+        border: none;
+        padding: 0;
+      }
+      .back-to-services:hover {
+        color: var(--red);
+      }
+      .back-to-services::before {
+        content: "←";
+        font-size: 13px;
+      }
+
+      @media (max-width: 900px) {
+        nav {
+          padding: 18px 24px;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .hero-left {
+          padding: 90px 28px 50px;
+        }
+        .hero-right .img-ph {
+          min-height: 280px;
+        }
+        .stats-strip {
+          gap: 36px;
+          padding: 32px 24px;
+        }
+        .services-wrap {
+          padding: 0 16px 60px;
+        }
+        .svc-row {
+          grid-template-columns: 1fr;
+          height: auto;
+        }
+        .svc-img {
+          min-height: 220px;
+        }
+        .svc-row.reverse {
+          direction: ltr;
+        }
+        .svc-content {
+          padding: 36px 28px;
+        }
+        .exp-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .promise {
+          padding: 60px 24px;
+        }
+        footer {
+          padding: 40px 24px;
+          flex-direction: column;
+          text-align: center;
+        }
+        .steps::before {
+          display: none;
+        }
+        .detail-hero-content {
+          padding: 40px 28px 50px;
+        }
+        .detail-body {
+          padding: 40px 28px 60px;
+        }
+        .detail-intro {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+        .detail-grid {
+          grid-template-columns: 1fr;
+        }
+        .detail-process {
+          padding: 50px 28px;
+          margin: 0 -28px 60px;
+        }
+        .process-steps {
+          flex-direction: column;
+          gap: 28px;
+        }
+        .process-step::after {
+          display: none;
+        }
+        .detail-cta-bar {
+          flex-direction: column;
+          gap: 24px;
+          padding: 36px 28px;
+          text-align: center;
+        }
+        .detail-cta-buttons {
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- CURSOR -->
+    <div class="cursor" id="cursor"></div>
+
+    <nav>
+      <a class="nav-logo" href="index.html"
+        >VEIR<span>A</span
+        ><img
+          class="nav-logo-icon"
+          src="/photos/header/veira-silver-star.png"
+          alt=""
+          aria-hidden="true"
+      /></a>
+      <div class="nav-right">
+        <span class="nav-back" id="nav-back" onclick="showMain()"
+          >All Services</span
+        >
+        <div class="nav-links">
+          <a class="nav-link" href="services.html">Services</a>
+          <a class="nav-link" href="about.html">About</a>
+          <a class="nav-link" href="news.html">News</a>
+        </div>
+        <a class="nav-enquire" href="enquire.html">Enquire</a>
+      </div>
+    </nav>
+
+    <div id="main-page" class="page active">
+      <section class="hero">
+        <div class="hero-left">
+          <p class="hero-eyebrow">
+            Australasia's Premier Private Services Company
+          </p>
+          <h1 class="hero-title">
+            Whatever you feel,<br /><em>we make it real</em>
+          </h1>
+          <p class="hero-sub">Luxury &amp; Lifestyle<br />Concierge</p>
+          <a class="hero-cta" href="enquire.html">Speak With Us</a>
+        </div>
+        <div class="hero-right">
+          <img
+            src="/photos/services-page/hero-landscape-lifestyle.jpg"
+            alt="Landscape lifestyle scene"
+          />
+        </div>
+      </section>
+
+      <div class="stats-strip">
+        <div class="stat">
+          <span class="num">24<span>/</span>7</span
+          ><span class="lbl">Always On</span>
+        </div>
+        <div class="stat">
+          <span class="num">End<span>—</span>to<span>—</span>End</span
+          ><span class="lbl">Fully Managed</span>
+        </div>
+        <div class="stat">
+          <span class="num">100<span>%</span></span
+          ><span class="lbl">Discreet</span>
+        </div>
+        <div class="stat">
+          <span class="num">NZ <span>+</span> AU</span
+          ><span class="lbl">& The Pacific</span>
+        </div>
+      </div>
+
+      <div class="section-intro reveal">
+        <span class="eyebrow">What We Offer</span>
+        <h2>
+          Eight ways we serve you.<br /><em>One team behind all of it.</em>
+        </h2>
+      </div>
+
+      <section class="services-wrap">
+        <div class="svc-row reveal" onclick="showDetail(0)">
+          <div class="svc-img">
+            <img
+              src="/photos/services-page/luxury-travel-cover.jpg"
+              alt="Luxury travel landscape"
+            />
+            <span class="svc-img-tag">Luxury Travel</span>
+          </div>
+          <div class="svc-content">
+            <span class="svc-number">01</span>
+            <h3 class="svc-title">Luxury Travel Experiences</h3>
+            <span class="svc-tag"
+              >Across Australia, New Zealand & The Pacific</span
+            >
+            <p class="svc-desc">
+              You tell us where and when. We handle everything in between —
+              scenic transfers, private boat tours, the best restaurants,
+              exclusive venues, and curated itineraries that feel effortless
+              from the moment you land.
+            </p>
+            <div class="pills">
+              <span class="pill">Boat Tours</span
+              ><span class="pill">Scenic Drives</span
+              ><span class="pill">Fine Dining</span
+              ><span class="pill">Exclusive Venues</span>
+            </div>
+            <span class="svc-explore">Explore this service</span>
+          </div>
+        </div>
+
+        <div class="svc-row reverse reveal" onclick="showDetail(1)">
+          <div class="svc-img">
+            <img
+              src="/photos/services-page/concierge-cover.jpg"
+              alt="Concierge team on the ground"
+            />
+            <span class="svc-img-tag">Concierge</span>
+          </div>
+          <div class="svc-content">
+            <span class="svc-number">02</span>
+            <h3 class="svc-title">Full-Service Concierge</h3>
+            <span class="svc-tag"
+              >For Individuals, Corporates & Public Figures</span
+            >
+            <p class="svc-desc">
+              Your personal team on the ground — handling travel logistics,
+              corporate coordination, event support, and everything in between.
+              Discreet, precise, and always one step ahead of what you need.
+            </p>
+            <div class="pills">
+              <span class="pill">Travel Concierge</span
+              ><span class="pill">Corporate</span
+              ><span class="pill">Security</span
+              ><span class="pill">Event Support</span>
+            </div>
+            <span class="svc-explore">Explore this service</span>
+          </div>
+        </div>
+
+        <div class="svc-row reveal" onclick="showDetail(2)">
+          <div class="svc-img">
+            <img
+              src="/photos/services-page/aviation-transport-cover.jpg"
+              alt="Jet and luxury transport"
+            />
+            <span class="svc-img-tag">Aviation & Transport</span>
+          </div>
+          <div class="svc-content">
+            <span class="svc-number">03</span>
+            <h3 class="svc-title">Aviation & Ground Transport</h3>
+            <span class="svc-tag">Jets · Helicopters · Luxury Fleets</span>
+            <p class="svc-desc">
+              Charter a jet, book a helicopter, or arrange a full fleet of
+              luxury vehicles for you and your team. Single trips or multi-leg
+              journeys — we manage the aircraft and the road between them.
+            </p>
+            <div class="pills">
+              <span class="pill">Jet Charter</span
+              ><span class="pill">Helicopter</span
+              ><span class="pill">Luxury Vehicles</span
+              ><span class="pill">Fleet Coordination</span>
+            </div>
+            <span class="svc-explore">Explore this service</span>
+          </div>
+        </div>
+
+        <div class="svc-row reverse reveal" onclick="showDetail(3)">
+          <div class="svc-img">
+            <img
+              src="/photos/services-page/events-access-cover.jpg"
+              alt="Venue and event access"
+            />
+            <span class="svc-img-tag">Events & Access</span>
+          </div>
+          <div class="svc-content">
+            <span class="svc-number">04</span>
+            <h3 class="svc-title">Events & Exclusive Access</h3>
+            <span class="svc-tag">Venues, Experiences & Moments</span>
+            <p class="svc-desc">
+              Want a winery to yourself? A restaurant closed off for your
+              evening? An event designed from the ground up? We secure access to
+              spaces others can't, and make the experience unforgettable.
+            </p>
+            <div class="pills">
+              <span class="pill">Fine Dining</span
+              ><span class="pill">Winery Buyouts</span
+              ><span class="pill">Corporate Events</span
+              ><span class="pill">Venue Exclusives</span>
+            </div>
+            <span class="svc-explore">Explore this service</span>
+          </div>
+        </div>
+
+        <div class="svc-row reveal" onclick="showDetail(4)">
+          <div class="svc-img">
+            <img
+              src="/photos/services-page/gifting-cover.jpg"
+              alt="Luxury gifting presentation"
+            />
+            <span class="svc-img-tag">Gifting & Gestures</span>
+          </div>
+          <div class="svc-content">
+            <span class="svc-number">05</span>
+            <h3 class="svc-title">Gifting & Thoughtful Gestures</h3>
+            <span class="svc-tag">From Any Distance, Delivered Perfectly</span>
+            <p class="svc-desc">
+              Surprise a loved one, thank a client, or plan a birthday or
+              anniversary down to the last detail — without lifting a finger. We
+              organise, coordinate, and deliver moments that land exactly as
+              intended.
+            </p>
+            <div class="pills">
+              <span class="pill">Luxury Gifting</span
+              ><span class="pill">Surprise Planning</span
+              ><span class="pill">Floral Delivery</span
+              ><span class="pill">Anniversary Days</span>
+            </div>
+            <span class="svc-explore">Explore this service</span>
+          </div>
+        </div>
+
+        <div class="svc-row reverse reveal" onclick="showDetail(5)">
+          <div class="svc-img">
+            <img
+              src="/photos/services-page/itinerary-cover.jpg"
+              alt="City lights and evening itinerary"
+            />
+            <span class="svc-img-tag">Itinerary Design</span>
+          </div>
+          <div class="svc-content">
+            <span class="svc-number">06</span>
+            <h3 class="svc-title">Limited-Time Itinerary Design</h3>
+            <span class="svc-tag">Short Window, Maximum Experience</span>
+            <p class="svc-desc">
+              In the city for 24 hours after a show? Arriving late with a free
+              evening? We design and activate a tailored schedule around your
+              availability — so no window of time ever goes to waste.
+            </p>
+            <div class="pills">
+              <span class="pill">Post-Show Plans</span
+              ><span class="pill">Short Stays</span
+              ><span class="pill">Same-Day Itineraries</span>
+            </div>
+            <span class="svc-explore">Explore this service</span>
+          </div>
+        </div>
+
+        <div class="svc-row reveal" onclick="showDetail(6)">
+          <div class="svc-img">
+            <img
+              src="/photos/services-page/priority-access-cover.jpg"
+              alt="Helicopter and priority access"
+            />
+            <span class="svc-img-tag">Priority Access</span>
+          </div>
+          <div class="svc-content">
+            <span class="svc-number">07</span>
+            <h3 class="svc-title">Last-Minute & Priority Access</h3>
+            <span class="svc-tag">When Time Is the Only Constraint</span>
+            <p class="svc-desc">
+              Need a jet in three hours? Can't find a car? Require a helicopter
+              at short notice? We exist precisely for these moments — operating
+              at speed without compromising quality or discretion.
+            </p>
+            <div class="pills">
+              <span class="pill">Urgent Charters</span
+              ><span class="pill">Emergency Hire</span
+              ><span class="pill">Priority Reservations</span>
+            </div>
+            <span class="svc-explore">Explore this service</span>
+          </div>
+        </div>
+
+        <div class="svc-row reverse reveal" onclick="showDetail(7)">
+          <div class="svc-img">
+            <img
+              src="/photos/services-page/bespoke-cover.jpg"
+              alt="Bespoke experience"
+            />
+            <span class="svc-img-tag">Bespoke Requests</span>
+          </div>
+          <div class="svc-content">
+            <span class="svc-number">08</span>
+            <h3 class="svc-title">Bespoke & One-Off Requests</h3>
+            <span class="svc-tag">If It Doesn't Fit a Category — Bring It</span>
+            <p class="svc-desc">
+              Unique requests. Unconventional ideas. Personal ambitions that
+              don't fit neatly into a service list. Tell us what you have in
+              mind — we'll listen, and where possible, we'll make it happen.
+            </p>
+            <div class="pills">
+              <span class="pill">Unique Experiences</span
+              ><span class="pill">Personal Requests</span
+              ><span class="pill">Custom Projects</span>
+            </div>
+            <span class="svc-explore">Explore this service</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="exp-section reveal">
+        <div class="exp-header">
+          <span class="eyebrow">Experiences</span>
+          <h2>A glimpse of what<br /><em>we make possible.</em></h2>
+          <p>
+            Every image below represents a real category of experience we
+            deliver. Hover to learn more — and imagine it tailored entirely to
+            you.
+          </p>
+        </div>
+        <div class="exp-grid">
+          <div class="exp-cell exp-tile">
+            <img
+              src="/photos/glimpse-tabs/nz-from-above.jpg"
+              alt="Aerial New Zealand landscape"
+            />
+            <div class="exp-overlay">
+              <span class="exp-overlay-label">Luxury Travel</span>
+              <div class="exp-overlay-title">See New Zealand From Above</div>
+              <div class="exp-overlay-desc">
+                Scenic helicopter tours, aerial transfers, and landscapes that
+                stop you in your tracks.
+              </div>
+            </div>
+          </div>
+          <div class="exp-cell exp-tile">
+            <img
+              src="/photos/glimpse-tabs/fine-dining.jpg"
+              alt="Fine dining restaurant experience"
+            />
+            <div class="exp-overlay">
+              <span class="exp-overlay-label">Events & Access</span>
+              <div class="exp-overlay-title">Dine Like Never Before</div>
+              <div class="exp-overlay-desc">
+                The best tables in the country — reserved and ready for you.
+              </div>
+            </div>
+          </div>
+          <div class="exp-cell exp-tile">
+            <img
+              src="/photos/glimpse-tabs/private-jet.jpg"
+              alt="Private jet on the tarmac"
+            />
+            <div class="exp-overlay">
+              <span class="exp-overlay-label">Aviation</span>
+              <div class="exp-overlay-title">Fly on Your Terms</div>
+              <div class="exp-overlay-desc">
+                Charter a jet at short notice. Arrive on your schedule.
+              </div>
+            </div>
+          </div>
+          <div class="exp-cell exp-tile">
+            <img
+              src="/photos/glimpse-tabs/winery-view.jpg"
+              alt="Winery and vineyard landscape"
+            />
+            <div class="exp-overlay">
+              <span class="exp-overlay-label">Exclusive Access</span>
+              <div class="exp-overlay-title">A Winery to Yourself</div>
+              <div class="exp-overlay-desc">
+                Entire estates closed off for your group, with curated tastings
+                and dining.
+              </div>
+            </div>
+          </div>
+          <div class="exp-cell exp-tile">
+            <img
+              src="/photos/glimpse-tabs/superyacht.jpg"
+              alt="Superyacht on open water"
+            />
+            <div class="exp-overlay">
+              <span class="exp-overlay-label">Luxury Travel</span>
+              <div class="exp-overlay-title">Out on the Water</div>
+              <div class="exp-overlay-desc">
+                Superyachts, private boats, and day cruises across the Pacific.
+              </div>
+            </div>
+          </div>
+          <div class="exp-cell exp-tile">
+            <img
+              src="/photos/glimpse-tabs/luxury-car.jpg"
+              alt="Luxury chauffeured car"
+            />
+            <div class="exp-overlay">
+              <span class="exp-overlay-label">Ground Transport</span>
+              <div class="exp-overlay-title">Arrive in Style</div>
+              <div class="exp-overlay-desc">
+                Chauffeured luxury vehicles and full fleets arranged at a
+                moment's notice.
+              </div>
+            </div>
+          </div>
+          <div class="exp-cell exp-tile">
+            <img
+              src="/photos/glimpse-tabs/helicopter-transfer.jpg"
+              alt="Helicopter transfer service"
+            />
+            <div class="exp-overlay">
+              <span class="exp-overlay-label">Last-Minute Access</span>
+              <div class="exp-overlay-title">Ready When You Are</div>
+              <div class="exp-overlay-desc">
+                Helicopter bookings, urgent transfers, and priority access —
+                arranged fast.
+              </div>
+            </div>
+          </div>
+          <div class="exp-cell exp-tile">
+            <img
+              src="/photos/glimpse-tabs/luxury-gifting.jpg"
+              alt="Luxury gifting package"
+            />
+            <div class="exp-overlay">
+              <span class="exp-overlay-label">Gifting</span>
+              <div class="exp-overlay-title">Make It Memorable</div>
+              <div class="exp-overlay-desc">
+                Curated gifts, floral deliveries, and surprise experiences —
+                handled end to end.
+              </div>
+            </div>
+          </div>
+          <div class="exp-cell exp-tile">
+            <img
+              src="/photos/glimpse-tabs/perfect-evening.jpg"
+              alt="Evening nightlife experience"
+            />
+            <div class="exp-overlay">
+              <span class="exp-overlay-label">Itinerary Design</span>
+              <div class="exp-overlay-title">The Perfect Evening</div>
+              <div class="exp-overlay-desc">
+                24-hour itineraries built around your schedule and tastes.
+              </div>
+            </div>
+          </div>
+          <div class="exp-cell exp-tile">
+            <img
+              src="/photos/glimpse-tabs/bespoke-unique.jpg"
+              alt="Unique bespoke lifestyle experience"
+            />
+            <div class="exp-overlay">
+              <span class="exp-overlay-label">Bespoke</span>
+              <div class="exp-overlay-title">Something Entirely Unique</div>
+              <div class="exp-overlay-desc">
+                Tell us what you have in mind. We'll figure out the rest.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="promise reveal">
+        <span class="eyebrow">The Veira Promise</span>
+        <h3>One call. One team.<br /><em>Everything handled.</em></h3>
+        <p>
+          We're not a booking platform or a directory of vendors. We're the team
+          that takes your request — however simple or complex — and returns with
+          it done. To a standard that reflects who you are.
+        </p>
+        <a class="btn-navy" href="enquire.html">Speak With Us</a>
+        <a class="btn-outline" href="about.html">Learn More</a>
+      </section>
+
+      <section class="how reveal">
+        <span class="eyebrow">How It Works</span>
+        <h2>Simple by design.</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-dot">1</div>
+            <p class="step-title">Tell Us</p>
+            <p class="step-desc">
+              Share what you need — a simple request or a complex brief.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-dot">2</div>
+            <p class="step-title">We Plan</p>
+            <p class="step-desc">
+              Our team designs the solution and confirms every detail.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-dot">3</div>
+            <p class="step-title">It Happens</p>
+            <p class="step-desc">
+              You experience it. We manage everything behind the scenes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-logo">VEIR<span>A</span></div>
+        <div class="footer-mid">
+          <p>Australasia's Premier Services Company</p>
+          <p style="margin-top: 6px">
+            © 2026 Veira Global. All rights reserved.
+          </p>
+        </div>
+        <div class="footer-contact">
+          <a href="mailto:private@veiraglobal.com">private@veiraglobal.com</a>
+        </div>
+      </footer>
+    </div>
+
+    <div id="detail-page" class="page">
+      <div class="detail-hero">
+        <div class="detail-hero-bg">
+          <img id="detail-hero-image" src="" alt="" />
+        </div>
+        <div class="detail-hero-overlay"></div>
+        <div class="detail-hero-content">
+          <span class="detail-eyebrow" id="detail-eyebrow"></span>
+          <h1 class="detail-title" id="detail-title"></h1>
+          <p class="detail-subtitle" id="detail-subtitle"></p>
+        </div>
+        <div class="detail-number" id="detail-number"></div>
+      </div>
+
+      <div class="detail-body">
+        <button class="back-to-services" onclick="showMain()">
+          Back to All Services
+        </button>
+        <div class="detail-intro">
+          <div class="detail-intro-text">
+            <h2 id="detail-intro-heading"></h2>
+            <div id="detail-intro-body"></div>
+          </div>
+          <div class="detail-intro-aside">
+            <span class="detail-aside-label">What's Included</span>
+            <div id="detail-aside-items"></div>
+          </div>
+        </div>
+        <div id="detail-photos-top" class="detail-photo-strip two-col"></div>
+        <div class="detail-what-section">
+          <h3 id="detail-cards-heading">How We Deliver It</h3>
+          <div class="detail-grid" id="detail-cards"></div>
+        </div>
+        <div
+          id="detail-photos-bottom"
+          class="detail-photo-strip three-col"
+        ></div>
+        <div class="detail-scenarios">
+          <h3>Real Examples</h3>
+          <div class="scenarios-list" id="detail-scenarios"></div>
+        </div>
+        <div class="detail-process">
+          <h3>How It Works</h3>
+          <div class="process-steps" id="detail-process-steps"></div>
+        </div>
+        <div class="detail-cta-bar">
+          <div class="detail-cta-text">
+            <h4>Ready to get started?</h4>
+            <p>Speak with our team — we'll handle the rest.</p>
+          </div>
+          <div class="detail-cta-buttons">
+            <a href="enquire.html" class="btn-navy">Enquire Now</a>
+            <button class="btn-outline" onclick="showMain()">
+              View All Services
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-logo">VEIR<span>A</span></div>
+        <div class="footer-mid">
+          <p>Australasia's Premier Services Company</p>
+          <p style="margin-top: 6px">
+            © 2026 Veira Global. All rights reserved.
+          </p>
+        </div>
+        <div class="footer-contact">
+          <a href="mailto:private@veiraglobal.com">private@veiraglobal.com</a>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const services = [
+        {
+          number: "01",
+          eyebrow: "Luxury Travel",
+          title: "Luxury Travel Experiences",
+          subtitle: "Across Australia · New Zealand · The Pacific",
+          imgLabel: "Image — Scenic NZ / AU Landscape",
+          introHeading: "Travel designed around <em>you</em> — not a template.",
+          introParagraphs: [
+            "Most travel experiences are built around what's easy to sell. Ours are built around what matters to you. Whether you're exploring New Zealand's South Island, island-hopping across the Pacific, or taking a road trip through the Australian interior, we design every element with intention.",
+            "We take care of every transfer, reservation, arrangement, and contingency — so that when you arrive, everything is already in motion. You simply show up and enjoy.",
+            "From scenic coastal drives to private boat tours and fine dining at the best tables in the country, every touchpoint of your journey is curated to be seamless, elevated, and entirely yours.",
+          ],
+          asideItems: [
+            {
+              title: "Scenic Transfers",
+              desc: "Helicopter, boat, and road transfers along the most beautiful routes.",
+            },
+            {
+              title: "Private Boat Tours",
+              desc: "Exclusive vessel hire across New Zealand, Australia and the Pacific Islands.",
+            },
+            {
+              title: "Restaurant Reservations",
+              desc: "The best tables in the country — reserved for you in advance.",
+            },
+            {
+              title: "Exclusive Venue Access",
+              desc: "Private spaces, buyouts, and access others simply can't get.",
+            },
+            {
+              title: "End-to-End Itineraries",
+              desc: "Every hour planned and confirmed before you arrive.",
+            },
+          ],
+          cardsHeading: "What a Veira Travel Experience Looks Like",
+          photos: [
+            {
+              label: "Scenic helicopter flight — NZ landscape / Fiordland",
+              hint: "Wide hero shot",
+            },
+            {
+              label: "Private boat on lake or coastline — NZ / Pacific",
+              hint: "Portrait",
+            },
+            {
+              label: "Fine dining table setting — restaurant interior",
+              hint: "Square",
+            },
+            {
+              label: "Luxury lodge or villa exterior — NZ countryside",
+              hint: "Landscape",
+            },
+          ],
+          cards: [
+            {
+              title: "Pre-Arrival Planning",
+              desc: "Before you land, we've confirmed every detail — transfers, dining, accommodation, and experiences. You receive a clean itinerary and nothing else to worry about.",
+            },
+            {
+              title: "On-the-Ground Support",
+              desc: "Our team is reachable throughout your stay. If anything needs adjusting, upgrading, or arranging at short notice, we handle it immediately.",
+            },
+            {
+              title: "Scenic & Private Touring",
+              desc: "Access to private boat charters, helicopter routes, and scenic drives that aren't available through standard booking channels.",
+            },
+            {
+              title: "Dining & Reservations",
+              desc: "We know the right tables, the right chefs, and the right venues. We secure what others can't — including private dining rooms and chef's tables.",
+            },
+            {
+              title: "Pacific & Island Travel",
+              desc: "From Fiji to the Cook Islands, we extend our services across the Pacific — coordinating inter-island logistics, charters, and accommodation.",
+            },
+            {
+              title: "Discreet & Personalised",
+              desc: "Every arrangement is handled with discretion. Your preferences are noted, remembered, and applied throughout — so each experience feels effortlessly personal.",
+            },
+          ],
+          scenarios: [
+            "A couple's first time in Queenstown — helicopter from the airport, private boat on the lake, a chef's table dinner, and a heli-hike on the Remarkables.",
+            "A long weekend in the Bay of Islands — waterfront villa, daily boat charter, snorkelling at the Poor Knights, and a private sunset cruise with catering.",
+            "48 hours in Sydney for an executive — harbour kayak at sunrise, lunch at Bennelong, a dusk harbour cruise, and a private driver throughout.",
+            "A group of eight celebrating a 40th across three cities — coordinated flights, hotel upgrades, and a surprise experience waiting at each destination.",
+            "A slow Marlborough weekend — private transfers, three seated winery tastings, a vineyard picnic, and a luxury lodge for two nights.",
+            "Honeymooners in Fiji with nothing pre-planned — Veira designs everything on arrival: private island day, sunset sailing, and a beachfront dinner for two.",
+            'A "welcome to Auckland" weekend for a relocating couple — the best food, neighbourhoods, viewpoints, and locals-only spots, all arranged and guided.',
+          ],
+          process: [
+            {
+              title: "Brief Us",
+              desc: "Tell us your destination, dates, group size, and any preferences or priorities.",
+            },
+            {
+              title: "We Design",
+              desc: "We build a full itinerary — transfers, dining, experiences — and share it for your approval.",
+            },
+            {
+              title: "We Confirm",
+              desc: "Every booking is locked in. You receive a complete itinerary and contact details.",
+            },
+            {
+              title: "You Arrive",
+              desc: "We manage everything on the ground. You enjoy every moment without lifting a finger.",
+            },
+          ],
+        },
+        {
+          number: "02",
+          eyebrow: "Full-Service Concierge",
+          title: "Full-Service Concierge",
+          subtitle: "For Individuals · Corporates · Public Figures",
+          imgLabel: "Image — Concierge / Team on the Ground",
+          introHeading: "Your personal team — <em>always one step ahead.</em>",
+          introParagraphs: [
+            "A full-service concierge isn't a hotline you call when something goes wrong. It's a dedicated team that anticipates what you need before you know you need it — and handles everything in between.",
+            "We work with private individuals, high-net-worth clients, corporate groups, and public figures who require a high standard of service, absolute discretion, and the confidence that everything is being managed correctly.",
+            "Whether it's coordinating a complex multi-city schedule, managing a corporate delegation, arranging security and transport, or simply making sure the right things are in place when you arrive — we operate as your team on the ground.",
+          ],
+          asideItems: [
+            {
+              title: "Travel Logistics",
+              desc: "End-to-end coordination of flights, transfers, accommodation, and schedules.",
+            },
+            {
+              title: "Corporate Coordination",
+              desc: "Support for corporate groups, delegations, and executive travel.",
+            },
+            {
+              title: "Security Arrangements",
+              desc: "Discreet coordination with security professionals as required.",
+            },
+            {
+              title: "Event Support",
+              desc: "On-the-ground support for events, functions, and private gatherings.",
+            },
+            {
+              title: "Personal Requests",
+              desc: "Anything from restaurant bookings to last-minute arrangements handled seamlessly.",
+            },
+          ],
+          cardsHeading: "What Full-Service Concierge Covers",
+          photos: [
+            {
+              label: "Concierge team briefing — hotel or office setting",
+              hint: "Wide hero shot",
+            },
+            {
+              label: "Executive airport arrival — private tarmac transfer",
+              hint: "Portrait",
+            },
+            {
+              label: "Corporate meeting room — high-end boardroom setup",
+              hint: "Square",
+            },
+            {
+              label: "Luxury hotel suite — welcome setup or arrival moment",
+              hint: "Landscape",
+            },
+          ],
+          cards: [
+            {
+              title: "Individual & Family Clients",
+              desc: "A dedicated point of contact who manages your travel, lifestyle needs, and personal requests — proactively and without prompting.",
+            },
+            {
+              title: "Corporate & Executive",
+              desc: "Structured support for corporate groups: itinerary management, venue sourcing, logistics, and coordination across multiple team members.",
+            },
+            {
+              title: "Public Figures & VIPs",
+              desc: "We understand the additional requirements of high-profile clients — discretion, security coordination, and managing expectations at every level.",
+            },
+            {
+              title: "Security Coordination",
+              desc: "We work alongside your security team or help arrange professional security services when required, integrated seamlessly into your schedule.",
+            },
+            {
+              title: "Event & Function Support",
+              desc: "From private dinners to corporate functions, we handle the logistics — venues, catering, transport, run sheets, and on-the-day management.",
+            },
+            {
+              title: "Ongoing Relationship",
+              desc: "We remember your preferences, anticipate your needs, and build a service model that improves over time as we get to know you better.",
+            },
+          ],
+          scenarios: [
+            "A high-profile athlete in Auckland for a tournament — blacked-out airport pickup, hotel logistics, meal coordination, and full privacy management throughout.",
+            "A CEO's EA coordinating a week across three cities — flights, ground transport, restaurant bookings, meeting rooms, and a personalised gift at each hotel.",
+            "A family relocating from London to Auckland — school research, suburb recommendations, furniture sourcing, and a calendar of social introductions.",
+            "A public figure attending a private event in Queenstown — discreet transport, venue access management, and security liaison on the day.",
+            "An entrepreneur with a full week in New Zealand — Veira acts as their on-the-ground contact, rerouting and adapting the plan in real time.",
+            "A corporate team of 20 flying in for a retreat — airport transfers, accommodation blocks, dietary requirements, daily schedules, and evening entertainment.",
+            "An international family in New Zealand for six weeks — a single point of contact for every request, from reservations to nanny sourcing to helicopter bookings.",
+          ],
+          process: [
+            {
+              title: "Initial Brief",
+              desc: "We understand your requirements, preferences, and the scope of support you need.",
+            },
+            {
+              title: "Team Assignment",
+              desc: "A dedicated contact is assigned to you — available and across every detail.",
+            },
+            {
+              title: "Ongoing Management",
+              desc: "We manage your schedule, requests, and logistics in real time, adapting as needed.",
+            },
+            {
+              title: "Continuous Refinement",
+              desc: "Your service improves over time as we learn your preferences and anticipate your needs.",
+            },
+          ],
+        },
+        {
+          number: "03",
+          eyebrow: "Aviation & Ground Transport",
+          title: "Aviation & Ground Transport",
+          subtitle: "Jets · Helicopters · Luxury Fleets",
+          imgLabel: "Image — Jet / Luxury Vehicle",
+          introHeading:
+            "From the tarmac to the destination — <em>completely managed.</em>",
+          introParagraphs: [
+            "Private aviation and ground transport shouldn't require multiple providers, complicated bookings, and constant coordination. We manage it all as a single, seamless service — from the moment you leave your door to the moment you arrive at your destination.",
+            "Whether it's a single jet charter, a helicopter transfer, or a full fleet of luxury vehicles for a corporate group, we handle the logistics, the timing, and the details so you don't have to.",
+            "For multi-leg journeys, international itineraries, or complex routing requirements, we coordinate across every mode of transport to ensure nothing is left to chance.",
+          ],
+          asideItems: [
+            {
+              title: "Private Jet Charter",
+              desc: "Domestic and international jet charters arranged to your schedule.",
+            },
+            {
+              title: "Helicopter Transfers",
+              desc: "Scenic and point-to-point helicopter bookings across NZ and Australia.",
+            },
+            {
+              title: "Luxury Vehicle Fleet",
+              desc: "Chauffeured luxury vehicles for individuals, families, and corporate groups.",
+            },
+            {
+              title: "Fleet Coordination",
+              desc: "Multiple vehicles coordinated simultaneously for large groups and events.",
+            },
+            {
+              title: "Multi-Leg Journeys",
+              desc: "Complex itineraries managed across aviation and ground transport seamlessly.",
+            },
+          ],
+          cardsHeading: "Our Transport Services in Detail",
+          photos: [
+            {
+              label: "Private jet on tarmac — NZ or AU airport",
+              hint: "Wide hero shot",
+            },
+            {
+              label: "Helicopter in flight — scenic NZ backdrop",
+              hint: "Portrait",
+            },
+            {
+              label: "Luxury vehicle — chauffeured sedan or SUV exterior",
+              hint: "Square",
+            },
+            {
+              label: "Jet interior cabin — premium seating and finishes",
+              hint: "Landscape",
+            },
+          ],
+          cards: [
+            {
+              title: "Private Jet Charter",
+              desc: "We source and book the right aircraft for your route, group size, and timeline. Domestic and international. Short notice accepted.",
+            },
+            {
+              title: "Helicopter Bookings",
+              desc: "From scenic flights to airport transfers and remote access, we arrange helicopter services across New Zealand and Australia.",
+            },
+            {
+              title: "Chauffeured Luxury Vehicles",
+              desc: "Premium vehicles with professional drivers — available for transfers, day hire, and extended arrangements.",
+            },
+            {
+              title: "Fleet Management",
+              desc: "For corporate groups and events requiring multiple vehicles, we coordinate an entire fleet with consistent timing and communication.",
+            },
+            {
+              title: "Superyacht & Vessel Hire",
+              desc: "For longer journeys or luxury experiences on the water, we arrange superyacht and vessel charters across the Pacific.",
+            },
+            {
+              title: "Airport & Tarmac Coordination",
+              desc: "We manage all logistics around arrivals and departures — including tarmac access, customs coordination, and ground-side transfers.",
+            },
+          ],
+          scenarios: [
+            "Same-day return jet from Auckland to Wellington for a board meeting — aircraft chartered, car on both ends, and a private room for post-flight debrief.",
+            "A helicopter to a remote Fiordland lodge for the weekend — transfer, luggage handling, and return pickup all coordinated seamlessly.",
+            "A touring musician needing three chauffeured vehicles across Auckland, Hamilton, and Tauranga in the same week — one contact, fully managed.",
+            "An executive arriving privately in Queenstown — tarmac-to-hotel transfer in a luxury vehicle, no waiting, no process.",
+            "A family of six flying over Franz Josef Glacier then touring the West Coast — every leg timed and arranged back-to-back.",
+            "A sports team requiring ground transport for 18 players between training, hotel, and stadium across five days — fleet managed, drivers briefed.",
+            "A wedding party — a vintage Rolls-Royce for the ceremony, a helicopter exit for the couple, and a premium fleet for 30 guests to the reception.",
+          ],
+          process: [
+            {
+              title: "Journey Details",
+              desc: "Tell us your route, dates, group size, and any specific requirements.",
+            },
+            {
+              title: "Options Presented",
+              desc: "We present suitable aircraft, vehicles, and routing options with full transparency on cost.",
+            },
+            {
+              title: "Booking Confirmed",
+              desc: "We handle all bookings, permits, and logistics. You receive confirmation and full details.",
+            },
+            {
+              title: "Managed End-to-End",
+              desc: "We monitor every leg of your journey and are on call for any adjustments.",
+            },
+          ],
+        },
+        {
+          number: "04",
+          eyebrow: "Events & Exclusive Access",
+          title: "Events & Exclusive Access",
+          subtitle: "Venues · Experiences · Moments",
+          imgLabel: "Image — Venue / Winery / Event",
+          introHeading:
+            "Access to spaces and experiences <em>others simply cannot get.</em>",
+          introParagraphs: [
+            "Some experiences require more than just a booking — they require relationships, timing, and the ability to ask in the right way. We've built both the network and the reputation to secure what most people are told isn't available.",
+            "Whether it's a private winery buyout, a restaurant closed exclusively for your evening, a corporate event in an extraordinary venue, or a bespoke experience built entirely from scratch — we make it happen with precision.",
+            "From the initial concept to the final moment of the evening, every detail is managed by our team so that the experience you envision is the experience you receive.",
+          ],
+          asideItems: [
+            {
+              title: "Winery & Estate Buyouts",
+              desc: "Full-estate hire with private dining and curated tastings.",
+            },
+            {
+              title: "Restaurant Exclusives",
+              desc: "Entire restaurant reserved for private functions and special evenings.",
+            },
+            {
+              title: "Corporate Events",
+              desc: "High-end corporate functions with end-to-end logistical support.",
+            },
+            {
+              title: "Venue Sourcing",
+              desc: "Access to venues not available through standard channels.",
+            },
+            {
+              title: "Fine Dining Experiences",
+              desc: "Chef's table, private dining rooms, and bespoke menus arranged in advance.",
+            },
+          ],
+          cardsHeading: "Events We Deliver",
+          photos: [
+            {
+              label: "Private winery estate — Waiheke or Marlborough vineyard",
+              hint: "Wide hero shot",
+            },
+            {
+              label: "Exclusive dining setup — candlelit private restaurant",
+              hint: "Portrait",
+            },
+            {
+              label: "Event florals and table styling — luxury detail shot",
+              hint: "Square",
+            },
+            {
+              label:
+                "Guests at exclusive venue — hilltop or waterfront setting",
+              hint: "Landscape",
+            },
+          ],
+          cards: [
+            {
+              title: "Private Winery Buyouts",
+              desc: "Entire vineyards and cellar doors reserved exclusively for your group — with tailored tastings, private dining, and scenic transport.",
+            },
+            {
+              title: "Restaurant Takeovers",
+              desc: "From intimate dinners to large celebrations, we close off the right restaurants and work with the kitchen to create a personalised menu.",
+            },
+            {
+              title: "Corporate Functions",
+              desc: "Venue sourcing, catering, logistics, and on-the-day coordination for corporate events that reflect the standard of your organisation.",
+            },
+            {
+              title: "Milestone Celebrations",
+              desc: "Birthdays, anniversaries, and significant moments — designed with care and executed flawlessly so you're present for all of it.",
+            },
+            {
+              title: "VIP & Exclusive Venue Access",
+              desc: "We secure access to spaces that are rarely available — private estates, exclusive clubs, and unique locations across Australasia.",
+            },
+            {
+              title: "Full Event Coordination",
+              desc: "Run sheets, vendor management, guest logistics, and on-the-day management — all handled by our team from start to finish.",
+            },
+          ],
+          scenarios: [
+            "A private dinner for 40 at a Waiheke Island winery to close out a conference — vineyard secured, helicopter transfers arranged, chef and menu coordinated.",
+            "A 25th anniversary with the restaurant entirely to themselves — full buyout, bespoke menu, florals, and a live musician for the evening.",
+            "A private equity firm hosting international partners — helicopter to a hilltop venue, sommelier-led tasting, four-course dinner, and cars home.",
+            "A milestone birthday with a private cooking class from a pedigreed chef, held in their holiday villa with wines sourced from a local producer.",
+            "A brand launch for 25 VIP guests in Auckland — venue sourcing, invitation logistics, catering, styling, and full evening coordination.",
+            "Friends at a sold-out concert followed immediately by a private post-show dinner — access secured, table reserved, car waiting at the right exit.",
+            "Top clients in a private luxury box at a major sporting event, then a hosted dinner — access, catering, arrival gifts, and transport for all guests.",
+          ],
+          process: [
+            {
+              title: "Vision & Brief",
+              desc: "Tell us what you have in mind — occasion, size, tone, and any specific ideas or requirements.",
+            },
+            {
+              title: "Concept & Sourcing",
+              desc: "We identify the right venues and experiences, and present a plan for your approval.",
+            },
+            {
+              title: "Full Coordination",
+              desc: "Every vendor, booking, and logistical detail is confirmed and managed by our team.",
+            },
+            {
+              title: "On-the-Day Management",
+              desc: "We're present to ensure everything runs exactly as planned — so you can enjoy it entirely.",
+            },
+          ],
+        },
+        {
+          number: "05",
+          eyebrow: "Gifting & Thoughtful Gestures",
+          title: "Gifting & Thoughtful Gestures",
+          subtitle: "From Any Distance · Delivered Perfectly",
+          imgLabel: "Image — Gifting / Flowers / Luxury Packaging",
+          introHeading:
+            "The right gesture, <em>delivered exactly as intended.</em>",
+          introParagraphs: [
+            "A well-chosen gift — delivered at the right moment, in the right way — communicates something that words often can't. We make that possible from any distance, without requiring you to manage the logistics yourself.",
+            "Whether it's surprising a loved one interstate, thanking a client in another country, or planning an anniversary with every detail accounted for, we handle the coordination and delivery so the gesture lands perfectly.",
+            "From luxury gifting and floral arrangements to full-day surprise experiences and anniversary plans, we work with the best local suppliers and manage every step so you can be fully present for what matters.",
+          ],
+          asideItems: [
+            {
+              title: "Luxury Gift Curation",
+              desc: "Personalised gift selections sourced from premium New Zealand and Australian suppliers.",
+            },
+            {
+              title: "Surprise Planning",
+              desc: "End-to-end planning for surprise experiences, delivered without a detail out of place.",
+            },
+            {
+              title: "Floral Arrangements",
+              desc: "Premium floral delivery coordinated with the right timing and presentation.",
+            },
+            {
+              title: "Anniversary & Milestone Days",
+              desc: "Full-day plans designed around significant occasions — from morning to evening.",
+            },
+            {
+              title: "Corporate Gifting",
+              desc: "Tailored gifting programmes for clients, staff, and stakeholders.",
+            },
+          ],
+          cardsHeading: "How We Handle Gifting & Gestures",
+          photos: [
+            {
+              label: "Luxury gift hamper — premium packaging and presentation",
+              hint: "Wide hero shot",
+            },
+            {
+              label: "Floral arrangement — elegant bouquet close-up",
+              hint: "Portrait",
+            },
+            {
+              label: "In-room surprise setup — champagne, flowers, and notes",
+              hint: "Square",
+            },
+            {
+              label: "Handwritten note and ribbon detail — keepsake moment",
+              hint: "Landscape",
+            },
+          ],
+          cards: [
+            {
+              title: "Personal Gift Sourcing",
+              desc: "We curate genuinely thoughtful gifts — chosen for the person, not the price tag. Sourced from the best local and international suppliers.",
+            },
+            {
+              title: "Surprise Experiences",
+              desc: "From a surprise dinner to a full weekend away, we plan and execute surprise experiences end-to-end — without you needing to be on the ground.",
+            },
+            {
+              title: "Floral & Luxury Delivery",
+              desc: "Premium floral arrangements and luxury items delivered with the right timing, presentation, and personal message.",
+            },
+            {
+              title: "Anniversary Planning",
+              desc: "We design full-day anniversary experiences — morning to evening — coordinating every element so the day is exactly what it should be.",
+            },
+            {
+              title: "Corporate Gifting Programmes",
+              desc: "Structured gifting programmes for businesses — onboarding gifts, client appreciation, staff recognition, and seasonal campaigns.",
+            },
+            {
+              title: "Long-Distance Coordination",
+              desc: "We coordinate across cities and countries. You don't need to be local — we handle the logistics from wherever you are.",
+            },
+          ],
+          scenarios: [
+            "A CEO in Singapore thanking a client in Auckland after closing a deal — luxury hamper, handwritten note, same-day delivery, and a photo on arrival.",
+            "A husband in London surprising his wife in Christchurch on their anniversary — florals, a restaurant reservation, an in-room setup, and a weekend itinerary she discovers step by step.",
+            "A parent sending their child off to university — a curated moving-day hamper, a pre-paid dinner for two, and a framed piece for their new room.",
+            "A board sending personalised gifts to 12 senior staff across Australia and New Zealand before Christmas — sourced, personalised, and dispatched individually.",
+            "Patching up a difficult month with a business partner — something tasteful selected, the note written with the right tone, arriving at exactly the right moment.",
+            "A man proposing in Queenstown — florals at the suite, champagne chilled, photographer in position, and a dinner reservation held for the moment she says yes.",
+            "A 10-year work anniversary — a bespoke gift experience, a personalised keepsake, and a surprise lunch arranged with their closest colleagues.",
+          ],
+          process: [
+            {
+              title: "Tell Us the Story",
+              desc: "Who is this for, what's the occasion, and what would make it meaningful to them?",
+            },
+            {
+              title: "We Create the Plan",
+              desc: "We propose a gift, experience, or gesture — and refine it based on your feedback.",
+            },
+            {
+              title: "We Handle Everything",
+              desc: "Sourcing, scheduling, delivery, and logistics — all managed without you needing to follow up.",
+            },
+            {
+              title: "It Lands Perfectly",
+              desc: "The right thing, at the right moment, delivered exactly as intended.",
+            },
+          ],
+        },
+        {
+          number: "06",
+          eyebrow: "Limited-Time Itinerary Design",
+          title: "Limited-Time Itinerary Design",
+          subtitle: "Short Window · Maximum Experience",
+          imgLabel: "Image — City Lights / Concert / Evening Out",
+          introHeading: "No window of time <em>should ever go to waste.</em>",
+          introParagraphs: [
+            "A 24-hour layover. An evening free after a show. An unexpected afternoon in a city you haven't been to before. These moments have the potential to be extraordinary — if someone knows how to make them so.",
+            "We specialise in designing experiences within tight timeframes. Given your location, your availability, and your preferences, we activate a tailored schedule that makes the most of every hour you have.",
+            "No generic suggestions. No wasted time. Just a clear, curated plan that's ready to go when you are — and managed by our team while you live it.",
+          ],
+          asideItems: [
+            {
+              title: "Post-Show & Post-Event Plans",
+              desc: "Evenings designed around your schedule after performances or events.",
+            },
+            {
+              title: "Short Stay Itineraries",
+              desc: "One to three day curated plans for visitors and touring professionals.",
+            },
+            {
+              title: "Same-Day Activation",
+              desc: "We can design and activate a schedule with as little as a few hours' notice.",
+            },
+            {
+              title: "City-Specific Expertise",
+              desc: "Deep knowledge of Auckland, Sydney, Melbourne, and key Pacific cities.",
+            },
+            {
+              title: "Group & Solo Options",
+              desc: "Itineraries designed for individuals, couples, families, and touring groups.",
+            },
+          ],
+          cardsHeading: "When We're Most Useful",
+          photos: [
+            {
+              label: "Auckland city at dusk — skyline or rooftop perspective",
+              hint: "Wide hero shot",
+            },
+            {
+              label: "Queenstown gondola or lakefront — evening light",
+              hint: "Portrait",
+            },
+            {
+              label: "Intimate restaurant table — evening city ambience",
+              hint: "Square",
+            },
+            {
+              label: "Couple or solo traveller — scenic city or coastline walk",
+              hint: "Landscape",
+            },
+          ],
+          cards: [
+            {
+              title: "Touring Professionals",
+              desc: "Artists, athletes, and executives with limited time between commitments benefit most — we turn every gap in the schedule into something worth remembering.",
+            },
+            {
+              title: "Post-Show Evenings",
+              desc: "After a performance or event, the evening still has hours of potential. We design and book an experience that matches the energy and wind-down you need.",
+            },
+            {
+              title: "Layovers & Short Visits",
+              desc: "Whether it's 6 hours or 36, we design a focused experience that prioritises the best of what's available, without rushing.",
+            },
+            {
+              title: "Spontaneous Decisions",
+              desc: "Sometimes the best moments are unplanned. Tell us you're free — we'll build something within the hour.",
+            },
+            {
+              title: "Group & Crew Itineraries",
+              desc: "For touring groups and crews, we coordinate activities that work for everyone — managing bookings, transport, and logistics end-to-end.",
+            },
+            {
+              title: "City Introductions",
+              desc: "First time in Auckland, Sydney, or Melbourne? We'll design an itinerary that shows you what the city does best — not what everyone else does.",
+            },
+          ],
+          scenarios: [
+            "An artist with one free day in Auckland before flying out — gallery walk, chef's table lunch in Ponsonby, coastal drive to Muriwai, and a twilight dinner back in the city.",
+            "A couple with 36 hours in Queenstown between flights — gondola breakfast, jet boat at noon, winery lunch, afternoon hike, and a private chef dinner at their hotel.",
+            "An executive with four free hours in Wellington — Te Papa, a harbour walk, a wine bar lunch, and a driver waiting throughout.",
+            "An athlete finishing a game in Christchurch wanting the city's best before a 7am flight — late dinner, a dawn walk at Sumner Beach, and a car at 5:30am.",
+            "A conference attendee with one free evening in Auckland — rooftop bar in the CBD, a private wine tasting, ending at a jazz venue with a reserved table.",
+            "A family in transit through Sydney for 8 hours — luggage storage, Harbour Bridge, lunch at the Opera House, and back to the airport with time to spare.",
+            "A solo traveller with 48 unplanned hours in Fiji between cruises — island-hopping, a private reef snorkel, a village visit, and a beachfront farewell dinner.",
+          ],
+          process: [
+            {
+              title: "Tell Us Your Window",
+              desc: "How long do you have, where are you, and what kind of experience are you after?",
+            },
+            {
+              title: "We Build the Plan",
+              desc: "Within hours, we present a curated itinerary tailored to your time and preferences.",
+            },
+            {
+              title: "We Book Everything",
+              desc: "Every reservation and arrangement is confirmed. You receive a clean schedule.",
+            },
+            {
+              title: "You Live It",
+              desc: "We manage any changes or adjustments in real time while you enjoy the experience.",
+            },
+          ],
+        },
+        {
+          number: "07",
+          eyebrow: "Last-Minute & Priority Access",
+          title: "Last-Minute & Priority Access",
+          subtitle: "When Time Is the Only Constraint",
+          imgLabel: "Image — Helicopter / Tarmac / Speed",
+          introHeading:
+            "We exist precisely <em>for moments when time runs out.</em>",
+          introParagraphs: [
+            "Not everything can be planned in advance. Sometimes a jet is needed in three hours. A car can't be found. A helicopter is required at short notice. A table at a fully booked restaurant is suddenly essential.",
+            "Most services can't operate at that speed. We can — and we do. Last-minute and urgent requests are not the exception to how we work; they are one of the core reasons Veira exists.",
+            "We maintain the relationships, the supplier network, and the operational readiness to move fast without compromising on quality, discretion, or outcome. When the window is narrow, we deliver.",
+          ],
+          asideItems: [
+            {
+              title: "Urgent Jet & Helicopter Charter",
+              desc: "Aircraft sourced and confirmed with as little as 2–3 hours' notice.",
+            },
+            {
+              title: "Emergency Vehicle Hire",
+              desc: "Luxury vehicles arranged and dispatched at short notice across major cities.",
+            },
+            {
+              title: "Priority Restaurant Access",
+              desc: "Tables at fully booked venues secured through our network and relationships.",
+            },
+            {
+              title: "Last-Minute Itineraries",
+              desc: "A complete schedule designed and activated within hours of your request.",
+            },
+            {
+              title: "24/7 Availability",
+              desc: "We operate around the clock — no request is too late or too urgent.",
+            },
+          ],
+          cardsHeading: "What We Handle at Short Notice",
+          photos: [
+            {
+              label: "Helicopter lifting off — urgency and speed",
+              hint: "Wide hero shot",
+            },
+            {
+              label: "Luxury vehicle pulling up — hotel or venue arrival",
+              hint: "Portrait",
+            },
+            {
+              label: "Private aircraft tarmac — dawn or dusk atmosphere",
+              hint: "Square",
+            },
+            {
+              label: "Phone or communication — discreet coordination moment",
+              hint: "Landscape",
+            },
+          ],
+          cards: [
+            {
+              title: "Emergency Aviation",
+              desc: "Private jets and helicopters sourced and confirmed in hours. We maintain relationships with charter operators across Australasia to move fast when needed.",
+            },
+            {
+              title: "Urgent Ground Transport",
+              desc: "Luxury vehicles dispatched at short notice across Auckland, Sydney, Melbourne, and other key cities — chauffeured and ready.",
+            },
+            {
+              title: "Last-Minute Dining",
+              desc: "We secure tables at restaurants that appear fully booked through our network of relationships with venues and reservation managers.",
+            },
+            {
+              title: "Priority Bookings",
+              desc: "Hotels, experiences, and services that appear unavailable — we find a way through direct relationships and priority access.",
+            },
+            {
+              title: "Rapid Itinerary Activation",
+              desc: "If a schedule suddenly opens up or changes, we can build and activate a full itinerary within a very short timeframe.",
+            },
+            {
+              title: "24/7 Operations",
+              desc: "Our team operates around the clock. Regardless of the hour or timezone, there is always someone available to take your request and act on it immediately.",
+            },
+          ],
+          scenarios: [
+            "Stranded in Christchurch after a cancelled flight with a board meeting in Auckland in four hours — a light aircraft chartered within the hour.",
+            "A spontaneous Waiheke weekend — ferry, last-minute villa, and restaurant reservations all confirmed within 90 minutes of the call.",
+            "A CEO's driver didn't show 40 minutes before a high-profile dinner — a replacement luxury vehicle dispatched in under 20 minutes.",
+            "A venue needed for 30 people tomorrow evening after the original booking fell through — an exclusive alternative found and confirmed within the hour.",
+            "A flight to the South Island for a friend's surprise party that same evening — flight booked, hire car arranged, and a gift waiting at the venue.",
+            "A lodge guest wanting a helicopter to a remote fishing spot at 6am — aircraft confirmed, breakfast packed, and everything ready before dawn.",
+            "A visiting dignitary whose schedule shifted — full transport and three restaurant reservations changed with less than two hours' notice.",
+          ],
+          process: [
+            {
+              title: "Contact Us",
+              desc: "Call or message with your requirement — be as brief or as detailed as the situation allows.",
+            },
+            {
+              title: "We Act Immediately",
+              desc: "We begin sourcing and confirming options within minutes of receiving your request.",
+            },
+            {
+              title: "Options Confirmed Fast",
+              desc: "We present what's available and confirm your selection — no lengthy back-and-forth.",
+            },
+            {
+              title: "Delivered",
+              desc: "The aircraft, vehicle, table, or service is ready when you need it.",
+            },
+          ],
+        },
+        {
+          number: "08",
+          eyebrow: "Bespoke & One-Off Requests",
+          title: "Bespoke & One-Off Requests",
+          subtitle: "If It Doesn't Fit a Category — Bring It",
+          imgLabel: "Image — Unique / Bespoke Experience",
+          introHeading:
+            "If it can be done, <em>we'll find a way to do it.</em>",
+          introParagraphs: [
+            "Not every request fits a category. Some of the most meaningful things we've arranged for clients don't have a name. They started as an idea — sometimes half-formed, sometimes highly specific — and we worked with the client to bring it to life.",
+            "We don't maintain a rigid list of services because life doesn't work that way. If you have a request that doesn't neatly fit what you've seen, tell us. We'll listen carefully, consider what's possible, and wherever we can — we'll make it happen.",
+            "This is perhaps the most important service we offer — because it reflects what Veira is at its core: a team that takes extraordinary requests seriously, and finds a way.",
+          ],
+          asideItems: [
+            {
+              title: "Unique Experiences",
+              desc: "One-off experiences that don't exist as standard offerings — built from scratch for you.",
+            },
+            {
+              title: "Personal Ambitions",
+              desc: "Ideas and goals that require coordination, access, and creative problem-solving.",
+            },
+            {
+              title: "Custom Projects",
+              desc: "Longer-term projects requiring sustained effort, sourcing, and management.",
+            },
+            {
+              title: "Unconventional Requests",
+              desc: "Requests that other services have declined or don't know how to handle.",
+            },
+            {
+              title: "Collaborative Briefs",
+              desc: "We work with you to shape the idea before we determine whether and how it's possible.",
+            },
+          ],
+          cardsHeading: "Examples of What This Looks Like",
+          photos: [
+            {
+              label: "Remote NZ beach or landscape — untouched and private",
+              hint: "Wide hero shot",
+            },
+            {
+              label: "Bespoke dining in a private home or unique location",
+              hint: "Portrait",
+            },
+            {
+              label: "Unusual or one-off moment — sunrise, bonfire, or view",
+              hint: "Square",
+            },
+            {
+              label:
+                "Intimate celebration — small group, extraordinary setting",
+              hint: "Landscape",
+            },
+          ],
+          cards: [
+            {
+              title: "Custom Experiences Built from Scratch",
+              desc: "An experience that doesn't exist as a product — designed and activated from a client brief with no existing template to follow.",
+            },
+            {
+              title: "Access to Unique Places",
+              desc: "Private properties, restricted locations, or spaces that require personal relationships and trust to gain access to.",
+            },
+            {
+              title: "Personal Ambitions",
+              desc: "A client wants to achieve something — a specific experience, a long-held goal, a meaningful moment. We help make it logistically possible.",
+            },
+            {
+              title: "Creative Problem-Solving",
+              desc: "Requests that other services have turned down because they don't know how to approach them. We listen, think, and find a route forward.",
+            },
+            {
+              title: "Sustained Projects",
+              desc: "Some requests aren't a single event — they're an ongoing project requiring coordination over weeks or months. We manage those too.",
+            },
+            {
+              title: "Anything We Haven't Listed",
+              desc: "If it's not here, it doesn't mean we can't help. It just means it hasn't come up in quite the same way before. Bring it to us.",
+            },
+          ],
+          scenarios: [
+            "Recreating the exact restaurant meal from a honeymoon in Paris — the chef sourced, the wine matched, the setting designed in their Auckland home for a 20th anniversary.",
+            "A father's gift to his son turning 18 — private surf lesson at sunrise, helicopter to a remote beach, and a bonfire dinner with his closest friends at dusk.",
+            "An NZ company flying a key client in from Singapore, showing them the country's best in five days, and sending them home with a curated gift — Veira manages every arc.",
+            "A bucket-list flying lesson over the Hauraki Gulf — instructor sourced, aircraft arranged, and the route designed for the view.",
+            "A couple wanting to marry with no guests, no venue, no fuss — just a celebrant, a photographer, and a view. Veira finds the location and handles every detail.",
+            "A private collector needing a specific vintage wine unavailable in New Zealand — traced and imported through the right channels in time for a specific occasion.",
+            'A client who writes: "I want to do something I\'ve never done before. Budget is open." — three curated proposals in their inbox within 24 hours.',
+          ],
+          process: [
+            {
+              title: "Tell Us the Idea",
+              desc: "Share what you have in mind — as much or as little detail as you have at this point.",
+            },
+            {
+              title: "We Listen & Explore",
+              desc: "We ask the right questions, understand what matters, and consider what's genuinely possible.",
+            },
+            {
+              title: "We Propose a Path",
+              desc: "We come back with a clear plan for how we'd approach it — and what we'd need to make it happen.",
+            },
+            {
+              title: "We Execute",
+              desc: "With your approval, we get to work. We keep you informed and manage every element to completion.",
+            },
+          ],
+        },
+      ];
+
+      const serviceHeroImages = [
+        "/photos/services-page/luxury-travel-cover.jpg",
+        "/photos/services-page/concierge-cover.jpg",
+        "/photos/services-page/aviation-transport-cover.jpg",
+        "/photos/services-page/events-access-cover.jpg",
+        "/photos/services-page/gifting-cover.jpg",
+        "/photos/services-page/itinerary-cover.jpg",
+        "/photos/services-page/priority-access-cover.jpg",
+        "/photos/services-page/bespoke-cover.jpg",
+      ];
+
+      const serviceDetailImages = [
+        [
+          "/photos/services-page/hero-landscape-lifestyle.jpg",
+          "/photos/services-page/g5-boat-pacific.jpg",
+          "/photos/services-page/g2-fine-dining.jpg",
+          "/photos/services-page/g4-winery.jpg",
+        ],
+        [
+          "/photos/services-page/concierge-cover.jpg",
+          "/photos/services-page/g6-luxury-car.jpg",
+          "/photos/services-page/g8-gifting-box.jpg",
+          "/photos/services-page/g10-unique.jpg",
+        ],
+        [
+          "/photos/services-page/aviation-transport-cover.jpg",
+          "/photos/services-page/g3-jet-aviation.jpg",
+          "/photos/services-page/g7-helicopter-pad.jpg",
+          "/photos/services-page/g6-luxury-car.jpg",
+        ],
+        [
+          "/photos/services-page/events-access-cover.jpg",
+          "/photos/services-page/g2-fine-dining.jpg",
+          "/photos/services-page/g4-winery.jpg",
+          "/photos/services-page/g9-evening-nightlife.jpg",
+        ],
+        [
+          "/photos/services-page/gifting-cover.jpg",
+          "/photos/services-page/g8-gifting-box.jpg",
+          "/photos/services-page/g10-unique.jpg",
+          "/photos/services-page/g2-fine-dining.jpg",
+        ],
+        [
+          "/photos/services-page/itinerary-cover.jpg",
+          "/photos/services-page/g9-evening-nightlife.jpg",
+          "/photos/services-page/g1-aerial-nz.jpg",
+          "/photos/services-page/g2-fine-dining.jpg",
+        ],
+        [
+          "/photos/services-page/priority-access-cover.jpg",
+          "/photos/services-page/g7-helicopter-pad.jpg",
+          "/photos/services-page/g3-jet-aviation.jpg",
+          "/photos/services-page/g6-luxury-car.jpg",
+        ],
+        [
+          "/photos/services-page/bespoke-cover.jpg",
+          "/photos/services-page/g10-unique.jpg",
+          "/photos/services-page/g8-gifting-box.jpg",
+          "/photos/services-page/g1-aerial-nz.jpg",
+        ],
+      ];
+
+      function showMain() {
+        document.getElementById("main-page").classList.add("active");
+        document.getElementById("detail-page").classList.remove("active");
+        document.getElementById("nav-back").classList.remove("visible");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(initReveal, 100);
+      }
+
+      function showDetail(index) {
+        const s = services[index];
+        document.getElementById("detail-eyebrow").textContent = s.eyebrow;
+        document.getElementById("detail-title").textContent = s.title;
+        document.getElementById("detail-subtitle").textContent = s.subtitle;
+        document.getElementById("detail-number").textContent = s.number;
+        document.getElementById("detail-hero-image").src =
+          serviceHeroImages[index];
+        document.getElementById("detail-hero-image").alt = s.imgLabel;
+        document.getElementById("detail-intro-heading").innerHTML =
+          s.introHeading;
+        const bodyEl = document.getElementById("detail-intro-body");
+        bodyEl.innerHTML = s.introParagraphs.map((p) => `<p>${p}</p>`).join("");
+        const asideEl = document.getElementById("detail-aside-items");
+        asideEl.innerHTML = s.asideItems
+          .map(
+            (item) => `
+    <div class="detail-aside-item">
+      <div class="aside-dot"></div>
+      <div class="aside-item-text"><strong>${item.title}</strong>${item.desc}</div>
+    </div>
+  `,
+          )
+          .join("");
+        document.getElementById("detail-cards-heading").textContent =
+          s.cardsHeading;
+        const cardsEl = document.getElementById("detail-cards");
+        cardsEl.innerHTML = s.cards
+          .map(
+            (card, i) => `
+    <div class="detail-card">
+      <span class="detail-card-num">0${i + 1}</span>
+      <h4>${card.title}</h4>
+      <p>${card.desc}</p>
+    </div>
+  `,
+          )
+          .join("");
+        const processEl = document.getElementById("detail-process-steps");
+        processEl.innerHTML = s.process
+          .map(
+            (step, i) => `
+    <div class="process-step">
+      <div class="process-num">${i + 1}</div>
+      <h4>${step.title}</h4>
+      <p>${step.desc}</p>
+    </div>
+  `,
+          )
+          .join("");
+        const photosTop = document.getElementById("detail-photos-top");
+        photosTop.innerHTML = serviceDetailImages[index]
+          .slice(0, 2)
+          .map(
+            (src) => `
+    <div class="detail-photo-ph">
+      <img src="${src}" alt="${s.title} detail image" />
+    </div>
+  `,
+          )
+          .join("");
+        const photosBottom = document.getElementById("detail-photos-bottom");
+        photosBottom.innerHTML = serviceDetailImages[index]
+          .slice(2, 4)
+          .map(
+            (src) => `
+    <div class="detail-photo-ph">
+      <img src="${src}" alt="${s.title} detail image" />
+    </div>
+  `,
+          )
+          .join("");
+        const scenariosEl = document.getElementById("detail-scenarios");
+        scenariosEl.innerHTML = s.scenarios
+          .map(
+            (scenario) => `
+    <div class="scenario-item">
+      <div class="scenario-dash"></div>
+      <p class="scenario-text">${scenario}</p>
+    </div>
+  `,
+          )
+          .join("");
+        document.getElementById("main-page").classList.remove("active");
+        document.getElementById("detail-page").classList.add("active");
+        document.getElementById("nav-back").classList.add("visible");
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+
+      function initReveal() {
+        const els = document.querySelectorAll("#main-page .reveal");
+        const obs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("visible");
+                obs.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.1 },
+        );
+        els.forEach((el) => {
+          el.classList.remove("visible");
+          obs.observe(el);
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", initReveal);
+
+      // ── CURSOR ──
+      const cursor = document.getElementById("cursor");
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+      });
+      document
+        .querySelectorAll("a, button, .btn-ghost, .service-card")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () =>
+            cursor.classList.add("hover"),
+          );
+          el.addEventListener("mouseleave", () =>
+            cursor.classList.remove("hover"),
+          );
+        });
+    </script>
+  </body>
+</html>

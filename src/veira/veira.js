@@ -90,6 +90,9 @@ export const initVeira = () => {
     how: "/how",
     contact: "/contact",
     access: "/access",
+    services: "/services",
+    news: "/news",
+    enquire: "/enquire",
   };
 
   const pathToPage = Object.fromEntries(

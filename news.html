@@ -1,0 +1,1408 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Veira — News</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Raleway:wght@200;300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #0d1b2a;
+        --red: #b82c22;
+        --red-light: #d63b30;
+        --white: #ffffff;
+        --offwhite: #f7f6f3;
+        --offwhite2: #efefed;
+        --grey-light: #e4e2de;
+        --grey-mid: #9a9a98;
+        --grey-dark: #4a4a48;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: var(--white);
+        color: var(--navy);
+        font-family: "Raleway", sans-serif;
+        font-weight: 300;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      .cursor {
+        width: 10px;
+        height: 10px;
+        background: var(--red);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition:
+          transform 0.1s ease,
+          width 0.3s ease,
+          height 0.3s ease,
+          background 0.3s ease;
+      }
+      .cursor.hover {
+        width: 36px;
+        height: 36px;
+        background: rgba(184, 44, 34, 0.12);
+        border: 1px solid var(--red);
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 26px 64px;
+        background: var(--navy);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        transition: padding 0.4s ease;
+      }
+      nav.scrolled {
+        padding: 18px 64px;
+      }
+      .nav-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 24px;
+        font-weight: 500;
+        letter-spacing: 0.35em;
+        color: var(--white);
+        text-decoration: none;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .nav-logo-icon {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+        display: block;
+        opacity: 0.95;
+        flex-shrink: 0;
+      }
+      .nav-logo span {
+        color: var(--red);
+        margin-left: -0.1em;
+      }
+      .nav-links {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+      }
+      .nav-links a {
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--white);
+      }
+      .nav-cta {
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--white) !important;
+        background: var(--red);
+        padding: 11px 28px;
+        transition: background 0.3s !important;
+      }
+      .nav-cta:hover {
+        background: #9a2219 !important;
+      }
+
+      /* PAGE HERO */
+      .page-hero {
+        padding: 140px 80px 80px;
+        background: var(--navy);
+        border-bottom: 3px solid var(--red);
+      }
+      .page-hero-inner {
+        max-width: 900px;
+      }
+      .eyebrow {
+        font-size: 9px;
+        letter-spacing: 0.48em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+        display: block;
+        margin-bottom: 24px;
+        opacity: 0;
+        animation: fadeUp 0.8s ease forwards 0.2s;
+      }
+      .hero-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(48px, 7vw, 96px);
+        font-weight: 300;
+        color: var(--white);
+        line-height: 1;
+        margin-bottom: 28px;
+        opacity: 0;
+        animation: fadeUp 0.9s ease forwards 0.35s;
+      }
+      .hero-title em {
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .hero-body {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 2;
+        max-width: 560px;
+        opacity: 0;
+        animation: fadeUp 0.9s ease forwards 0.5s;
+      }
+
+      /* FEATURED ARTICLE */
+      .featured {
+        padding: 80px;
+        background: var(--offwhite);
+        border-bottom: 1px solid var(--grey-light);
+      }
+      .featured-inner {
+        max-width: 1300px;
+        margin: 0 auto;
+      }
+      .featured-label {
+        font-size: 8.5px;
+        letter-spacing: 0.42em;
+        text-transform: uppercase;
+        color: var(--red);
+        display: block;
+        margin-bottom: 40px;
+      }
+      .featured-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        border: 1px solid var(--grey-light);
+        overflow: hidden;
+        cursor: pointer;
+        transition: box-shadow 0.3s;
+      }
+      .featured-card:hover {
+        box-shadow: 0 8px 48px rgba(13, 27, 42, 0.12);
+      }
+      .featured-img {
+        background: var(--offwhite2);
+        min-height: 480px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 14px;
+        position: relative;
+        overflow: hidden;
+      }
+      .featured-img-tag {
+        position: absolute;
+        top: 24px;
+        left: 24px;
+        font-size: 8.5px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: var(--red);
+        padding: 7px 16px;
+      }
+      .ph-icon {
+        width: 52px;
+        height: 52px;
+        border: 1.5px solid #ccc;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ccc;
+        font-size: 20px;
+      }
+      .ph-label {
+        font-size: 9.5px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: #ccc;
+        text-align: center;
+        padding: 0 24px;
+      }
+      .featured-body {
+        background: var(--white);
+        padding: 60px 56px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .article-cat {
+        font-size: 8.5px;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 20px;
+      }
+      .article-date {
+        font-size: 8.5px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--grey-mid);
+        margin-bottom: 20px;
+        display: block;
+      }
+      .article-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(28px, 3.5vw, 48px);
+        font-weight: 300;
+        color: var(--navy);
+        line-height: 1.15;
+        margin-bottom: 24px;
+      }
+      .article-title em {
+        font-style: italic;
+        color: var(--grey-mid);
+      }
+      .article-excerpt {
+        font-size: 14px;
+        color: var(--grey-dark);
+        line-height: 2;
+        margin-bottom: 36px;
+      }
+      .read-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--navy);
+        text-decoration: none;
+        border-bottom: 1px solid var(--red);
+        padding-bottom: 3px;
+        transition: color 0.3s;
+      }
+      .read-more:hover {
+        color: var(--red);
+      }
+      .read-more::after {
+        content: "→";
+        font-size: 13px;
+      }
+
+      /* ARTICLES GRID */
+      .articles {
+        padding: 80px;
+        background: var(--white);
+      }
+      .articles-inner {
+        max-width: 1300px;
+        margin: 0 auto;
+      }
+      .articles-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 48px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--grey-light);
+      }
+      .articles-header h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(28px, 3.5vw, 44px);
+        font-weight: 300;
+        color: var(--navy);
+        line-height: 1.1;
+      }
+      .articles-header h2 em {
+        font-style: italic;
+        color: var(--grey-mid);
+      }
+      .filter-tabs {
+        display: flex;
+        gap: 0;
+      }
+      .filter-tab {
+        font-size: 8.5px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--grey-mid);
+        padding: 10px 22px;
+        border: 1px solid var(--grey-light);
+        border-right: none;
+        cursor: pointer;
+        background: none;
+        transition: all 0.25s;
+      }
+      .filter-tab:last-child {
+        border-right: 1px solid var(--grey-light);
+      }
+      .filter-tab.active,
+      .filter-tab:hover {
+        color: var(--white);
+        background: var(--navy);
+        border-color: var(--navy);
+      }
+
+      .articles-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3px;
+      }
+      .article-card {
+        background: var(--offwhite);
+        border: 1px solid var(--grey-light);
+        overflow: hidden;
+        cursor: pointer;
+        transition: box-shadow 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+      .article-card:hover {
+        box-shadow: 0 4px 28px rgba(13, 27, 42, 0.1);
+      }
+      .article-card-img {
+        background: var(--offwhite2);
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        position: relative;
+        overflow: hidden;
+      }
+      .article-card-img .img-tag {
+        position: absolute;
+        bottom: 16px;
+        left: 16px;
+        font-size: 8px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: var(--navy);
+        padding: 5px 12px;
+      }
+      .article-card-body {
+        padding: 32px 28px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .article-card-cat {
+        font-size: 8px;
+        letter-spacing: 0.36em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 14px;
+      }
+      .article-card-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 24px;
+        font-weight: 400;
+        color: var(--navy);
+        line-height: 1.2;
+        margin-bottom: 14px;
+        flex: 1;
+      }
+      .article-card-excerpt {
+        font-size: 12.5px;
+        color: var(--grey-dark);
+        line-height: 1.85;
+        margin-bottom: 24px;
+      }
+      .article-card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 18px;
+        border-top: 1px solid var(--grey-light);
+        margin-top: auto;
+      }
+      .article-card-date {
+        font-size: 8px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--grey-mid);
+      }
+      .article-card-link {
+        font-size: 8px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--red);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .article-card-link::after {
+        content: "→";
+        font-size: 11px;
+      }
+
+      /* SUBSCRIBE BAND */
+      .subscribe-band {
+        background: var(--offwhite2);
+        border-top: 1px solid var(--grey-light);
+        border-bottom: 1px solid var(--grey-light);
+        padding: 80px;
+        text-align: center;
+      }
+      .subscribe-band h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(28px, 3.5vw, 48px);
+        font-weight: 300;
+        color: var(--navy);
+        margin-bottom: 16px;
+        line-height: 1.15;
+      }
+      .subscribe-band h3 em {
+        font-style: italic;
+        color: var(--grey-mid);
+      }
+      .subscribe-band p {
+        font-size: 13.5px;
+        color: var(--grey-dark);
+        line-height: 1.9;
+        max-width: 480px;
+        margin: 0 auto 36px;
+      }
+      .subscribe-form {
+        display: flex;
+        gap: 0;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+      .subscribe-input {
+        flex: 1;
+        padding: 16px 20px;
+        background: var(--white);
+        border: 1px solid var(--grey-light);
+        font-family: "Raleway", sans-serif;
+        font-size: 13px;
+        font-weight: 300;
+        color: var(--navy);
+        outline: none;
+        transition: border-color 0.3s;
+      }
+      .subscribe-input::placeholder {
+        color: var(--grey-mid);
+      }
+      .subscribe-input:focus {
+        border-color: var(--navy);
+      }
+      .subscribe-btn {
+        padding: 16px 32px;
+        background: var(--navy);
+        color: var(--white);
+        font-family: "Raleway", sans-serif;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s;
+        white-space: nowrap;
+      }
+      .subscribe-btn:hover {
+        background: var(--red);
+      }
+      .subscribe-note {
+        font-size: 10px;
+        color: var(--grey-mid);
+        margin-top: 14px;
+        letter-spacing: 0.08em;
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--navy);
+        border-top: 3px solid var(--red);
+        padding: 60px 80px 40px;
+      }
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 48px;
+        padding-bottom: 48px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .footer-logo {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 28px;
+        font-weight: 500;
+        letter-spacing: 0.32em;
+        color: var(--white);
+      }
+      .footer-logo span {
+        color: var(--red);
+      }
+      .footer-tagline {
+        font-size: 9px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.25);
+        margin-top: 8px;
+      }
+      .footer-links {
+        display: flex;
+        gap: 60px;
+      }
+      .footer-col h5 {
+        font-size: 8.5px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+        margin-bottom: 20px;
+      }
+      .footer-col a {
+        display: block;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.38);
+        text-decoration: none;
+        margin-bottom: 12px;
+        transition: color 0.3s;
+      }
+      .footer-col a:hover {
+        color: var(--white);
+      }
+      .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-copy {
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.18);
+        text-transform: uppercase;
+      }
+      .footer-email a {
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.25);
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 0.3s;
+      }
+      .footer-email a:hover {
+        color: var(--white);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ARTICLE MODAL */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 500;
+        background: rgba(13, 27, 42, 0.85);
+        backdrop-filter: blur(8px);
+        display: none;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 40px 20px;
+        overflow-y: auto;
+      }
+      .modal-overlay.open {
+        display: flex;
+      }
+      .modal {
+        background: var(--white);
+        max-width: 780px;
+        width: 100%;
+        margin: auto;
+        position: relative;
+        animation: fadeUp 0.4s ease;
+      }
+      .modal-close {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--grey-mid);
+        cursor: pointer;
+        background: none;
+        border: none;
+        transition: color 0.3s;
+        padding: 8px;
+      }
+      .modal-close:hover {
+        color: var(--red);
+      }
+      .modal-img {
+        background: var(--offwhite2);
+        height: 320px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .modal-body {
+        padding: 56px 60px;
+      }
+      .modal-cat {
+        font-size: 8.5px;
+        letter-spacing: 0.38em;
+        text-transform: uppercase;
+        color: var(--red);
+        display: block;
+        margin-bottom: 14px;
+      }
+      .modal-date {
+        font-size: 8.5px;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--grey-mid);
+        display: block;
+        margin-bottom: 24px;
+      }
+      .modal-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(28px, 4vw, 46px);
+        font-weight: 300;
+        color: var(--navy);
+        line-height: 1.15;
+        margin-bottom: 32px;
+      }
+      .modal-title em {
+        font-style: italic;
+        color: var(--grey-mid);
+      }
+      .modal-content p {
+        font-size: 14px;
+        color: var(--grey-dark);
+        line-height: 2.1;
+        margin-bottom: 20px;
+      }
+      .modal-enquire {
+        display: inline-block;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: var(--navy);
+        padding: 15px 40px;
+        text-decoration: none;
+        margin-top: 32px;
+        transition: background 0.3s;
+      }
+      .modal-enquire:hover {
+        background: var(--red);
+      }
+
+      @media (max-width: 1024px) {
+        nav {
+          padding: 20px 32px;
+        }
+        .nav-links {
+          gap: 24px;
+        }
+        .featured-card {
+          grid-template-columns: 1fr;
+        }
+        .featured-img {
+          min-height: 280px;
+        }
+        .articles-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .articles-header {
+          flex-direction: column;
+          gap: 24px;
+          align-items: flex-start;
+        }
+      }
+      @media (max-width: 768px) {
+        nav {
+          padding: 18px 24px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .page-hero,
+        .featured,
+        .articles,
+        .subscribe-band {
+          padding: 60px 28px;
+        }
+        .page-hero {
+          padding-top: 110px;
+        }
+        .articles-grid {
+          grid-template-columns: 1fr;
+        }
+        .subscribe-form {
+          flex-direction: column;
+        }
+        footer {
+          padding: 48px 28px 32px;
+        }
+        .footer-top {
+          flex-direction: column;
+          gap: 40px;
+        }
+        .footer-links {
+          gap: 40px;
+          flex-wrap: wrap;
+        }
+        .footer-bottom {
+          flex-direction: column;
+          gap: 12px;
+          text-align: center;
+        }
+        .modal-body {
+          padding: 36px 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor" id="cursor"></div>
+
+    <nav id="nav">
+      <a class="nav-logo" href="index.html"
+        >VEIR<span>A</span
+        ><img
+          class="nav-logo-icon"
+          src="/photos/header/veira-silver-star.png"
+          alt=""
+          aria-hidden="true"
+      /></a>
+      <div class="nav-links">
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="news.html" class="active">News</a>
+        <a href="enquire.html" class="nav-cta">Enquire</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <span class="eyebrow">Veira — News & Updates</span>
+        <h1 class="hero-title">
+          Insights, updates,<br /><em>and company news.</em>
+        </h1>
+        <p class="hero-body">
+          The latest from Veira — new partnerships, service updates, industry
+          perspectives, and announcements from our team.
+        </p>
+      </div>
+    </section>
+
+    <!-- FEATURED ARTICLE -->
+    <section class="featured reveal">
+      <div class="featured-inner">
+        <span class="featured-label">Featured</span>
+        <div class="featured-card" onclick="openModal('launch')">
+          <div class="featured-img">
+            <span class="featured-img-tag">Company News</span>
+            <div class="ph-icon">⬡</div>
+            <span class="ph-label"
+              >Feature image — NZ landscape or Veira brand imagery</span
+            >
+          </div>
+          <div class="featured-body">
+            <div class="article-cat">Company Announcement</div>
+            <span class="article-date">April 2026</span>
+            <h2 class="article-title">
+              Veira Launches Formally<br /><em>this June 2026.</em>
+            </h2>
+            <p class="article-excerpt">
+              After months of quiet preparation, Veira is ready to formally open
+              its doors to clients. Based in New Zealand and serving clients
+              across Australasia and beyond, we're built for those who expect
+              precision — and are uninterested in anything less.
+            </p>
+            <a
+              href="#"
+              class="read-more"
+              onclick="
+                openModal('launch');
+                return false;
+              "
+              >Read the full announcement</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARTICLES GRID -->
+    <section class="articles reveal">
+      <div class="articles-inner">
+        <div class="articles-header">
+          <h2>Latest from<br /><em>the team.</em></h2>
+          <div class="filter-tabs">
+            <button
+              class="filter-tab active"
+              onclick="filterArticles('all', this)"
+            >
+              All
+            </button>
+            <button
+              class="filter-tab"
+              onclick="filterArticles('company', this)"
+            >
+              Company
+            </button>
+            <button
+              class="filter-tab"
+              onclick="filterArticles('services', this)"
+            >
+              Services
+            </button>
+            <button
+              class="filter-tab"
+              onclick="filterArticles('insights', this)"
+            >
+              Insights
+            </button>
+          </div>
+        </div>
+
+        <div class="articles-grid" id="articlesGrid">
+          <div
+            class="article-card"
+            data-cat="company"
+            onclick="openModal('starc')"
+          >
+            <div class="article-card-img">
+              <div
+                class="ph-icon"
+                style="border-color: #bbb; color: #bbb"
+              ></div>
+              <span
+                class="ph-label"
+                style="
+                  font-size: 9px;
+                  letter-spacing: 0.22em;
+                  text-transform: uppercase;
+                  color: #bbb;
+                "
+                >Image — Framework / Brand Visual</span
+              >
+              <span class="img-tag">Company</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-card-cat">Company</div>
+              <h3 class="article-card-title">
+                Introducing the STARC Framework
+              </h3>
+              <p class="article-card-excerpt">
+                Every outcome Veira delivers is built on five principles. We
+                explain what STARC means — and why it matters to how we work.
+              </p>
+              <div class="article-card-footer">
+                <span class="article-card-date">March 2026</span>
+                <a
+                  href="#"
+                  class="article-card-link"
+                  onclick="
+                    openModal('starc');
+                    return false;
+                  "
+                  >Read More</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="article-card"
+            data-cat="services"
+            onclick="openModal('aviation')"
+          >
+            <div class="article-card-img">
+              <div
+                class="ph-icon"
+                style="border-color: #bbb; color: #bbb"
+              ></div>
+              <span
+                class="ph-label"
+                style="
+                  font-size: 9px;
+                  letter-spacing: 0.22em;
+                  text-transform: uppercase;
+                  color: #bbb;
+                "
+                >Image — Private jet or helicopter</span
+              >
+              <span class="img-tag">Services</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-card-cat">Services</div>
+              <h3 class="article-card-title">
+                Private Aviation in New Zealand: What You Should Know
+              </h3>
+              <p class="article-card-excerpt">
+                Chartering an aircraft in New Zealand is more accessible than
+                most people realise. We explain how it works, what it costs, and
+                when it makes sense.
+              </p>
+              <div class="article-card-footer">
+                <span class="article-card-date">March 2026</span>
+                <a
+                  href="#"
+                  class="article-card-link"
+                  onclick="
+                    openModal('aviation');
+                    return false;
+                  "
+                  >Read More</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="article-card"
+            data-cat="insights"
+            onclick="openModal('discretion')"
+          >
+            <div class="article-card-img">
+              <div
+                class="ph-icon"
+                style="border-color: #bbb; color: #bbb"
+              ></div>
+              <span
+                class="ph-label"
+                style="
+                  font-size: 9px;
+                  letter-spacing: 0.22em;
+                  text-transform: uppercase;
+                  color: #bbb;
+                "
+                >Image — Understated / Elegant detail</span
+              >
+              <span class="img-tag">Insights</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-card-cat">Insights</div>
+              <h3 class="article-card-title">
+                Why Discretion Is the Real Luxury
+              </h3>
+              <p class="article-card-excerpt">
+                In a world where everything is visible and most services
+                over-communicate, silence is the rarest currency. Our
+                perspective on privacy as a genuine value.
+              </p>
+              <div class="article-card-footer">
+                <span class="article-card-date">February 2026</span>
+                <a
+                  href="#"
+                  class="article-card-link"
+                  onclick="
+                    openModal('discretion');
+                    return false;
+                  "
+                  >Read More</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="article-card"
+            data-cat="company"
+            onclick="openModal('nz')"
+          >
+            <div class="article-card-img">
+              <div
+                class="ph-icon"
+                style="border-color: #bbb; color: #bbb"
+              ></div>
+              <span
+                class="ph-label"
+                style="
+                  font-size: 9px;
+                  letter-spacing: 0.22em;
+                  text-transform: uppercase;
+                  color: #bbb;
+                "
+                >Image — New Zealand landscape</span
+              >
+              <span class="img-tag">Company</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-card-cat">Company</div>
+              <h3 class="article-card-title">
+                Why We Built Veira in New Zealand
+              </h3>
+              <p class="article-card-excerpt">
+                New Zealand is an extraordinary country with a genuinely
+                underserved market for private, high-quality outcomes. This is
+                the gap Veira was created to fill.
+              </p>
+              <div class="article-card-footer">
+                <span class="article-card-date">February 2026</span>
+                <a
+                  href="#"
+                  class="article-card-link"
+                  onclick="
+                    openModal('nz');
+                    return false;
+                  "
+                  >Read More</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="article-card"
+            data-cat="services"
+            onclick="openModal('bespoke')"
+          >
+            <div class="article-card-img">
+              <div
+                class="ph-icon"
+                style="border-color: #bbb; color: #bbb"
+              ></div>
+              <span
+                class="ph-label"
+                style="
+                  font-size: 9px;
+                  letter-spacing: 0.22em;
+                  text-transform: uppercase;
+                  color: #bbb;
+                "
+                >Image — Bespoke / unique moment</span
+              >
+              <span class="img-tag">Services</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-card-cat">Services</div>
+              <h3 class="article-card-title">
+                The Most Unusual Requests We've Handled
+              </h3>
+              <p class="article-card-excerpt">
+                Some of the most meaningful things we arrange don't have a name.
+                A reflection on what genuinely bespoke service actually looks
+                like in practice.
+              </p>
+              <div class="article-card-footer">
+                <span class="article-card-date">January 2026</span>
+                <a
+                  href="#"
+                  class="article-card-link"
+                  onclick="
+                    openModal('bespoke');
+                    return false;
+                  "
+                  >Read More</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="article-card"
+            data-cat="insights"
+            onclick="openModal('lastminute')"
+          >
+            <div class="article-card-img">
+              <div
+                class="ph-icon"
+                style="border-color: #bbb; color: #bbb"
+              ></div>
+              <span
+                class="ph-label"
+                style="
+                  font-size: 9px;
+                  letter-spacing: 0.22em;
+                  text-transform: uppercase;
+                  color: #bbb;
+                "
+                >Image — Urgency / Speed / City</span
+              >
+              <span class="img-tag">Insights</span>
+            </div>
+            <div class="article-card-body">
+              <div class="article-card-cat">Insights</div>
+              <h3 class="article-card-title">
+                The Art of the Last-Minute Request
+              </h3>
+              <p class="article-card-excerpt">
+                Most services treat urgency as a problem. We treat it as an
+                opportunity to demonstrate exactly what we're capable of.
+              </p>
+              <div class="article-card-footer">
+                <span class="article-card-date">January 2026</span>
+                <a
+                  href="#"
+                  class="article-card-link"
+                  onclick="
+                    openModal('lastminute');
+                    return false;
+                  "
+                  >Read More</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUBSCRIBE -->
+    <section class="subscribe-band reveal">
+      <h3>Stay informed.<br /><em>Discreetly.</em></h3>
+      <p>
+        Occasional updates from Veira — new services, partnerships, and
+        perspectives. No noise, no frequency. Only what matters.
+      </p>
+      <div class="subscribe-form">
+        <input
+          type="email"
+          class="subscribe-input"
+          placeholder="Your email address"
+        />
+        <button class="subscribe-btn" onclick="handleSubscribe()">
+          Subscribe
+        </button>
+      </div>
+      <p class="subscribe-note">
+        We respect your privacy. Your details will never be shared.
+      </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">VEIR<span>A</span></div>
+          <div class="footer-tagline">Whatever You Feel — We Make It Real</div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h5>Services</h5>
+            <a href="services.html">Private Aviation</a>
+            <a href="services.html">Superyacht & Marine</a>
+            <a href="services.html">Fine Dining & Events</a>
+            <a href="services.html">Luxury Concierge</a>
+            <a href="services.html">Bespoke Requests</a>
+          </div>
+          <div class="footer-col">
+            <h5>Company</h5>
+            <a href="about.html">About Veira</a>
+            <a href="about.html#approach">Our Approach</a>
+            <a href="about.html#starc">The STARC Framework</a>
+            <a href="enquire.html">Get in Touch</a>
+          </div>
+          <div class="footer-col">
+            <h5>Navigate</h5>
+            <a href="news.html">News</a>
+            <a href="enquire.html">Enquire</a>
+            <a href="index.html">Home</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 Veira Global. All rights reserved.</div>
+        <div class="footer-email">
+          <a href="mailto:private@veiraglobal.com">private@veiraglobal.com</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ARTICLE MODALS -->
+    <div
+      class="modal-overlay"
+      id="modalOverlay"
+      onclick="closeModalOnBg(event)"
+    >
+      <div class="modal" id="modal">
+        <button class="modal-close" onclick="closeModal()">✕ Close</button>
+        <div class="modal-img" id="modalImg">
+          <div class="ph-icon">⬡</div>
+          <span class="ph-label" id="modalImgLabel">Article image</span>
+        </div>
+        <div class="modal-body">
+          <span class="modal-cat" id="modalCat"></span>
+          <span class="modal-date" id="modalDate"></span>
+          <h2 class="modal-title" id="modalTitle"></h2>
+          <div class="modal-content" id="modalContent"></div>
+          <a href="enquire.html" class="modal-enquire">Begin an Enquiry</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const cursor = document.getElementById("cursor");
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+      });
+      document
+        .querySelectorAll(
+          "a, button, .article-card, .featured-card, .filter-tab",
+        )
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () =>
+            cursor.classList.add("hover"),
+          );
+          el.addEventListener("mouseleave", () =>
+            cursor.classList.remove("hover"),
+          );
+        });
+      const nav = document.getElementById("nav");
+      window.addEventListener("scroll", () => {
+        nav.classList.toggle("scrolled", window.scrollY > 60);
+      });
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+      function filterArticles(cat, btn) {
+        document
+          .querySelectorAll(".filter-tab")
+          .forEach((t) => t.classList.remove("active"));
+        btn.classList.add("active");
+        document.querySelectorAll(".article-card").forEach((card) => {
+          card.style.display =
+            cat === "all" || card.dataset.cat === cat ? "flex" : "none";
+        });
+      }
+
+      const articles = {
+        launch: {
+          cat: "Company Announcement",
+          date: "April 2026",
+          title: "Veira Launches Formally this June 2026",
+          img: "Brand / Aerial NZ / Company visual",
+          content: `<p>After months of quiet preparation — refining our vendor network, building our operating model, and defining exactly what Veira should be — we're ready to formally open our doors to clients this June.</p><p>Veira is a New Zealand-based private outcomes company. We work with high-profile individuals, entertainment figures, corporate clients, and private families to fulfil desires and achieve outcomes with complete discretion and precision.</p><p>Our launch represents the culmination of extensive work across partnerships, logistics, and brand. We've chosen not to announce loudly. The people who should know about Veira will find us through the right channels. Those who do find us can expect a team that takes every request seriously, operates with the highest standards of confidentiality, and delivers outcomes — not promises.</p><p>We're taking enquiries from June 1, 2026 onwards. If you'd like to speak with us before that date, you're welcome to reach out privately.</p>`,
+        },
+        starc: {
+          cat: "Company",
+          date: "March 2026",
+          title: "Introducing the STARC Framework",
+          img: "Framework / Brand Visual / Logo detail",
+          content: `<p>Every company that operates at a high level needs a framework — a set of principles that governs how it operates when no one is looking. For Veira, that framework is STARC.</p><p><strong>Structure.</strong> Every outcome we deliver is underpinned by a clear plan. Nothing is assumed, and nothing is left to chance. Before we confirm anything to a client, we've already mapped the path from request to delivery.</p><p><strong>Time.</strong> We move at the pace that the situation requires. Sometimes that means acting in minutes. Sometimes it means taking the time required to do something correctly. In all cases, time is respected — ours and our clients'.</p><p><strong>Access.</strong> Our network is the core of what makes Veira possible. Years of relationship-building across aviation, hospitality, events, and private services gives us access to options that most people can't arrange independently.</p><p><strong>Representation.</strong> When we act on a client's behalf, we act as if the outcome were our own. We carry the same expectations, the same standards, and the same personal investment as if it were our own experience we were arranging.</p><p><strong>Connection.</strong> At the heart of everything Veira does is connection — between people, places, and possibilities. We bring the right things together in service of what our clients want.</p>`,
+        },
+        aviation: {
+          cat: "Services",
+          date: "March 2026",
+          title: "Private Aviation in New Zealand: What You Should Know",
+          img: "Private jet on tarmac / Helicopter over NZ",
+          content: `<p>Private aviation in New Zealand is more accessible than most people realise — and significantly more practical than they assume. The country's geography, with its two main islands and scattered regional airports, makes private aircraft a genuinely useful mode of transport rather than a luxury statement.</p><p>A one-way charter from Auckland to Queenstown on a light aircraft costs considerably less than many people expect. A helicopter transfer from Queenstown to a remote lodge can be arranged with as little as two hours' notice. And for those with urgent requirements — a missed flight, a last-minute board meeting, a time-sensitive personal matter — a light aircraft charter is often the only reliable option.</p><p>Through our partnerships with NZ Jet and Volta Aviation, Veira can arrange everything from a Cessna Citation for a small group to a Sikorsky S76C++ helicopter for aerial transfers across the South Island.</p><p>If you've never chartered an aircraft before, the process is simpler than you'd expect. Contact us with your route, your preferred timing, and your party size. We'll handle everything else.</p>`,
+        },
+        discretion: {
+          cat: "Insights",
+          date: "February 2026",
+          title: "Why Discretion Is the Real Luxury",
+          img: "Understated / Quiet elegance / Detail shot",
+          content: `<p>There's a common assumption that luxury is loud. That the more expensive something is, the more visible it should be. In our experience, the opposite is true for those who actually operate at the highest level.</p><p>The people who use Veira are not interested in being seen to use a service. They are interested in outcomes. They want the helicopter to arrive on time, the restaurant to be exactly as promised, the vehicle to be waiting. They don't want to explain themselves, justify their preferences, or manage multiple vendors. They want it done — and they want to trust that it will be.</p><p>Discretion is not a feature we offer. It is the way we operate. We do not discuss who our clients are. We do not share information across engagements. We do not post about outcomes on social media. The work speaks through the experience — not through the announcement of it.</p><p>This is, in our view, the real luxury: a team that takes your request seriously, handles it completely, and asks nothing in return except that you tell us what you need.</p>`,
+        },
+        nz: {
+          cat: "Company",
+          date: "February 2026",
+          title: "Why We Built Veira in New Zealand",
+          img: "New Zealand aerial / Iconic NZ landscape",
+          content: `<p>New Zealand is one of the most extraordinary countries in the world. It offers world-class scenery, a growing entertainment and corporate sector, a thriving luxury tourism market, and a geography that creates genuine demand for private transport and bespoke experiences.</p><p>It is also, in our view, underserved. The kind of private outcomes company that operates in London, Dubai, or New York — one that takes a brief and returns with it fully executed — doesn't really exist here in a form that matches what the market deserves.</p><p>That gap is what Veira was created to fill. New Zealand-based, regionally connected, and built for the specific demands of clients operating across Australasia and the Pacific. We know the vendors, the venues, the pilots, and the chefs. We know which lodge in Queenstown will close early for a private dinner, and which winery in Hawke's Bay will open for a Saturday morning tasting for a visiting corporate group.</p><p>The market here is smaller than London. That's fine — it means we can serve it properly. And increasingly, it means New Zealand attracts clients from further afield who expect a level of service the country hasn't always been able to provide. We intend to change that.</p>`,
+        },
+        bespoke: {
+          cat: "Services",
+          date: "January 2026",
+          title: "The Most Unusual Requests We've Handled",
+          img: "Bespoke / Unique / One-off moment",
+          content: `<p>People sometimes ask what the most unusual request we've ever fulfilled is. The honest answer is that the requests we find most meaningful are rarely the most unusual — they're the most personal.</p><p>We've arranged a Paris-style anniversary dinner in a client's Auckland home, with the exact restaurant replicated down to the wine list. We've sourced a vintage that wasn't available in New Zealand in time for a specific occasion. We've organised a private surf lesson at sunrise followed by a helicopter to a remote beach for a father's gift to his son on his 18th birthday.</p><p>None of these fit a standard service category. None required a particularly exotic network. All of them required careful listening, genuine problem-solving, and a team prepared to commit fully to an outcome that mattered to someone.</p><p>This is what bespoke service actually looks like. Not unusual for the sake of it — but precisely right, for the person asking.</p>`,
+        },
+        lastminute: {
+          cat: "Insights",
+          date: "January 2026",
+          title: "The Art of the Last-Minute Request",
+          img: "Urgency / Movement / City at speed",
+          content: `<p>There's a category of service request that most providers dread: the last-minute call. The flight cancelled. The driver didn't show. The original venue fell through with 24 hours to go. The client is arriving tomorrow and nothing is arranged.</p><p>We think about it differently. Last-minute requests are the clearest demonstration of what a services company is actually capable of. Anyone can arrange something with three weeks' notice. It takes a different kind of network — and a different kind of commitment — to deliver something extraordinary with three hours.</p><p>Our operating model is built for this. We don't have the bureaucratic structure that slows most providers down. We have direct relationships with the right people across aviation, ground transport, hospitality, and logistics. When a call comes in at 9pm, we don't triage it into a queue. We act.</p><p>We've dispatched a replacement luxury vehicle to a client 40 minutes before a high-profile dinner. We've chartered a light aircraft for a cancelled commercial flight with less than two hours to spare. We've confirmed a private dining reservation in Auckland on a Saturday night with four hours' notice.</p><p>None of these should be possible. That's the point.</p>`,
+        },
+      };
+
+      function openModal(key) {
+        const a = articles[key];
+        if (!a) return;
+        document.getElementById("modalCat").textContent = a.cat;
+        document.getElementById("modalDate").textContent = a.date;
+        document.getElementById("modalTitle").innerHTML = a.title;
+        document.getElementById("modalContent").innerHTML = a.content;
+        document.getElementById("modalImgLabel").textContent = a.img;
+        document.getElementById("modalOverlay").classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeModal() {
+        document.getElementById("modalOverlay").classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      function closeModalOnBg(e) {
+        if (e.target === document.getElementById("modalOverlay")) closeModal();
+      }
+      function handleSubscribe() {
+        const input = document.querySelector(".subscribe-input");
+        if (input.value && input.value.includes("@")) {
+          input.value = "";
+          const btn = document.querySelector(".subscribe-btn");
+          btn.textContent = "Subscribed";
+          btn.style.background = "var(--red)";
+          setTimeout(() => {
+            btn.textContent = "Subscribe";
+            btn.style.background = "";
+          }, 3000);
+        }
+      }
+    </script>
+  </body>
+</html>
