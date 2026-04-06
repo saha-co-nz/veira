@@ -138,7 +138,7 @@
       .nav-logo {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 0;
         font-family: "Cormorant Garamond", serif;
         font-size: 24px;
         font-weight: 500;
@@ -155,6 +155,7 @@
         display: block;
         opacity: 0.95;
         flex-shrink: 0;
+        margin-left: 14px;
       }
       .nav-logo span {
         color: var(--red);
@@ -194,11 +195,11 @@
         position: relative;
         min-height: 100vh;
         display: flex;
-        align-items: flex-end;
+        align-items: center;
         justify-content: center;
         text-align: center;
         overflow: hidden;
-        padding: 120px 40px 100px;
+        padding: 120px 40px 80px;
       }
 
       .hero-bg {
@@ -277,7 +278,13 @@
       .hero-content {
         position: relative;
         z-index: 2;
-        max-width: 800px;
+        max-width: 760px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: calc(100vh - 200px);
+        gap: 40px;
       }
 
       .hero-eyebrow {
@@ -285,26 +292,22 @@
         letter-spacing: 0.5em;
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.6);
-        margin-bottom: 32px;
+        margin-bottom: 0;
         opacity: 0;
         animation: fadeUp 1s ease forwards 0.3s;
       }
 
       .hero-title {
         font-family: "Cormorant Garamond", serif;
-        font-size: clamp(52px, 8vw, 110px);
+        font-size: clamp(50px, 6vw, 68px);
         font-weight: 300;
-        line-height: 1;
+        line-height: 1.05;
         letter-spacing: -0.01em;
         color: var(--white);
-        margin-bottom: 12px;
+        margin-bottom: 0;
         text-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
         opacity: 0;
         animation: fadeUp 1s ease forwards 0.5s;
-      }
-      .hero-title em {
-        font-style: italic;
-        color: rgba(255, 255, 255, 0.55);
       }
       .hero-sub {
         font-family: "Cormorant Garamond", serif;
@@ -312,7 +315,7 @@
         font-weight: 300;
         font-style: italic;
         color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 52px;
+        margin-bottom: 140px;
         text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
         opacity: 0;
         animation: fadeUp 1s ease forwards 0.7s;
@@ -320,19 +323,20 @@
 
       .hero-actions {
         display: flex;
-        gap: 16px;
+        gap: 24px;
         justify-content: center;
+        margin-top: 0;
         opacity: 0;
         animation: fadeUp 1s ease forwards 0.9s;
       }
       .btn-primary {
         display: inline-block;
-        font-size: 9px;
+        font-size: 8px;
         letter-spacing: 0.32em;
         text-transform: uppercase;
         color: var(--white);
         background: var(--red);
-        padding: 16px 44px;
+        padding: 10px 28px;
         text-decoration: none;
         transition: all 0.3s;
       }
@@ -341,12 +345,12 @@
       }
       .btn-ghost {
         display: inline-block;
-        font-size: 9px;
+        font-size: 8px;
         letter-spacing: 0.32em;
         text-transform: uppercase;
         color: var(--white);
         border: 1px solid rgba(255, 255, 255, 0.4);
-        padding: 16px 44px;
+        padding: 10px 28px;
         text-decoration: none;
         transition: all 0.3s;
       }
@@ -1371,23 +1375,15 @@
     <section class="hero">
       <div class="hero-bg">
         <video autoplay muted loop playsinline>
-          <source src="public/hero.mp4" type="video/mp4">
+          <source src="public/hero.mp4" type="video/mp4" />
         </video>
-      </div>
-        />
       </div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <p class="hero-eyebrow">
           Australasia's Premier Private Services Company
         </p>
-        <h1 class="hero-title">
-          Whatever you feel —<br /><em>we make it real.</em>
-        </h1>
-        <p class="hero-sub">
-          Luxury concierge & curated experiences across Australia, New Zealand &
-          the Pacific.
-        </p>
+        <h1 class="hero-title">Luxury, Lifestyle & Concierge</h1>
         <div class="hero-actions">
           <a href="#contact" class="btn-primary">Begin Your Experience</a>
           <a href="#experiences" class="btn-ghost">See What We Do</a>
@@ -2147,17 +2143,25 @@
         <div class="footer-links">
           <div class="footer-col">
             <h5>Experiences</h5>
-            <a href="#">Private Aviation</a>
-            <a href="#">Superyacht & Marine</a>
-            <a href="#">Fine Dining & Events</a>
-            <a href="#">Luxury Concierge</a>
-            <a href="#">Bespoke Requests</a>
+            <a href="services.html#service-aviation-ground">Private Aviation</a>
+            <a href="services.html#service-luxury-travel"
+              >Superyacht & Marine</a
+            >
+            <a href="services.html#service-events-access"
+              >Fine Dining & Events</a
+            >
+            <a href="services.html#service-full-service-concierge"
+              >Luxury Concierge</a
+            >
+            <a href="services.html#service-bespoke-requests"
+              >Bespoke Requests</a
+            >
           </div>
           <div class="footer-col">
             <h5>Company</h5>
-            <a href="#about">About Veira</a>
-            <a href="#">Our Approach</a>
-            <a href="#">The STARC Framework</a>
+            <a href="about.html">About Veira</a>
+            <a href="about.html#approach">Our Approach</a>
+            <a href="about.html#starc">The STARC Framework</a>
             <a href="#contact">Get in Touch</a>
           </div>
           <div class="footer-col">
@@ -2326,7 +2330,7 @@
       function hidePageLoader() {
         const loader = document.getElementById("page-loader");
         if (!loader) return;
-        const minVisible = 2000;
+        const minVisible = 1500;
         const start = window.pageLoaderStart || Date.now();
         const elapsed = Date.now() - start;
         const delay = Math.max(0, minVisible - elapsed);
