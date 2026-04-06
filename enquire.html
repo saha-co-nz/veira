@@ -35,6 +35,53 @@
         overflow-x: hidden;
         cursor: none;
       }
+      body.loading {
+        overflow: hidden;
+      }
+      #page-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: var(--white);
+        display: grid;
+        place-items: center;
+        padding: 0 24px;
+        opacity: 1;
+        visibility: visible;
+        transition:
+          opacity 0.45s ease,
+          visibility 0.45s ease;
+      }
+      #page-loader .loader-shell {
+        text-align: center;
+        color: var(--navy);
+      }
+      #page-loader .spinner {
+        width: 54px;
+        height: 54px;
+        margin: 0 auto 20px;
+        border: 5px solid rgba(13, 27, 42, 0.12);
+        border-top-color: var(--red);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      #page-loader p {
+        font-size: 12px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        margin: 0;
+        color: rgba(13, 27, 42, 0.75);
+      }
+      #page-loader.loaded {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
 
       .cursor {
         width: 10px;
@@ -499,7 +546,13 @@
       }
     </style>
   </head>
-  <body>
+  <body class="loading">
+    <div id="page-loader">
+      <div class="loader-shell" aria-live="polite" aria-label="Loading content">
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Preparing the experience…</p>
+      </div>
+    </div>
     <div class="cursor" id="cursor"></div>
 
     <nav id="nav">
@@ -728,6 +781,26 @@
       window.addEventListener("scroll", () => {
         nav.classList.toggle("scrolled", window.scrollY > 40);
       });
+
+      function hidePageLoader() {
+        const loader = document.getElementById("page-loader");
+        if (!loader) return;
+        const minVisible = 1000;
+        const start = window.pageLoaderStart || Date.now();
+        const elapsed = Date.now() - start;
+        const delay = Math.max(0, minVisible - elapsed);
+        setTimeout(() => {
+          document.body.classList.remove("loading");
+          loader.classList.add("loaded");
+          setTimeout(() => loader.remove(), 600);
+        }, delay);
+      }
+
+      if (document.readyState === "complete") {
+        hidePageLoader();
+      } else {
+        window.addEventListener("load", hidePageLoader);
+      }
 
       const enquiryForm = document.getElementById("enquiryForm");
       if (enquiryForm) {

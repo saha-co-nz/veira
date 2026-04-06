@@ -42,6 +42,53 @@
         overflow-x: hidden;
         cursor: none;
       }
+      body.loading {
+        overflow: hidden;
+      }
+      #page-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: var(--white);
+        display: grid;
+        place-items: center;
+        padding: 0 24px;
+        opacity: 1;
+        visibility: visible;
+        transition:
+          opacity 0.45s ease,
+          visibility 0.45s ease;
+      }
+      #page-loader .loader-shell {
+        text-align: center;
+        color: var(--navy);
+      }
+      #page-loader .spinner {
+        width: 54px;
+        height: 54px;
+        margin: 0 auto 20px;
+        border: 5px solid rgba(13, 27, 42, 0.12);
+        border-top-color: var(--red);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      #page-loader p {
+        font-size: 12px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        margin: 0;
+        color: rgba(13, 27, 42, 0.75);
+      }
+      #page-loader.loaded {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
 
       /* ── CUSTOM CURSOR ── */
       .cursor {
@@ -481,9 +528,9 @@
         height: 100%;
         object-fit: cover;
         object-position: center;
-        transition:
-          transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-          filter 0.5s ease;
+        transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: transform;
+        backface-visibility: hidden;
         filter: brightness(0.6) saturate(0.75);
         display: block;
       }
@@ -502,10 +549,10 @@
       }
       .exp-tile:hover img {
         transform: scale(1.09);
-        filter: brightness(0.3) saturate(0.5);
       }
 
       .exp-ph {
+        will-change: transform, opacity;
         position: absolute;
         inset: 0;
         display: flex;
@@ -550,6 +597,7 @@
         background: rgba(13, 27, 42, 0.85);
         opacity: 0;
         transition: opacity 0.35s ease;
+        will-change: opacity;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -1280,7 +1328,13 @@
       }
     </style>
   </head>
-  <body>
+  <body class="loading">
+    <div id="page-loader">
+      <div class="loader-shell" aria-live="polite" aria-label="Loading content">
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Preparing the experience…</p>
+      </div>
+    </div>
     <!-- CURSOR -->
     <div class="cursor" id="cursor"></div>
 
@@ -1373,6 +1427,8 @@
         <!-- 1 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/private-jet.jpg"
             alt="Private jet interior and tarmac"
           />
@@ -1389,6 +1445,8 @@
         <!-- 2 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/fine-dining.jpg"
             alt="Fine dining restaurant table"
           />
@@ -1405,6 +1463,8 @@
         <!-- 3 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/superyacht.jpg"
             alt="Superyacht on the Pacific Ocean"
           />
@@ -1420,6 +1480,8 @@
         <!-- 4 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/luxury-lodge.jpg"
             alt="Luxury lodge and five-star suite"
           />
@@ -1436,6 +1498,8 @@
         <!-- 5 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/helicopter-transfer.jpg"
             alt="Helicopter on pad for aerial transfer"
           />
@@ -1452,6 +1516,8 @@
         <!-- 6 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/winery-estate.jpg"
             alt="Exclusive winery estate and vineyard"
           />
@@ -1468,6 +1534,8 @@
         <!-- 7 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/luxury-fleet.jpg"
             alt="Rolls-Royce luxury fleet line-up"
           />
@@ -1483,6 +1551,8 @@
         <!-- 8 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/aerial-nz-scenery.jpg"
             alt="Aerial New Zealand scenery"
           />
@@ -1499,6 +1569,8 @@
         <!-- 9 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/private-event-venue.jpg"
             alt="Private event at elegant venue"
           />
@@ -1514,6 +1586,8 @@
         <!-- 10 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/luxury-gift-box.jpg"
             alt="Luxury gift box and curated hamper"
           />
@@ -1530,6 +1604,8 @@
         <!-- 11 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/city-evening.jpg"
             alt="City skyline rooftop evening"
           />
@@ -1545,6 +1621,8 @@
         <!-- 12 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/scenic-golf.jpg"
             alt="Scenic New Zealand golf course"
           />
@@ -1561,6 +1639,8 @@
         <!-- 13 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/live-performance.jpg"
             alt="Celebrity live performance"
           />
@@ -1577,6 +1657,8 @@
         <!-- 14 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/wellness-retreat.jpg"
             alt="Wellness retreat and spa treatment"
           />
@@ -1592,6 +1674,8 @@
         <!-- 15 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/concierge-team.jpg"
             alt="Concierge team on the ground"
           />
@@ -1607,6 +1691,8 @@
         <!-- 16 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/luxury-timepiece.jpg"
             alt="Luxury timepiece acquisition"
           />
@@ -1622,6 +1708,8 @@
         <!-- 17 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/corporate-boardroom.jpg"
             alt="Corporate boardroom and executive dining"
           />
@@ -1638,6 +1726,8 @@
         <!-- 18 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/vip-airport-arrival.jpg"
             alt="VIP airport arrival and private terminal"
           />
@@ -1654,6 +1744,8 @@
         <!-- 19 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/maori-cultural.jpg"
             alt="Maori cultural experience and landscape"
           />
@@ -1670,6 +1762,8 @@
         <!-- 20 -->
         <div class="exp-tile">
           <img
+            loading="lazy"
+            decoding="async"
             src="/photos/glimpse-tabs/bespoke-unique.jpg"
             alt="Bespoke and unique unscripted moment"
           />
@@ -2225,6 +2319,26 @@
             submitButton.textContent = originalText;
           }, 1600);
         });
+      }
+
+      function hidePageLoader() {
+        const loader = document.getElementById("page-loader");
+        if (!loader) return;
+        const minVisible = 2000;
+        const start = window.pageLoaderStart || Date.now();
+        const elapsed = Date.now() - start;
+        const delay = Math.max(0, minVisible - elapsed);
+        setTimeout(() => {
+          document.body.classList.remove("loading");
+          loader.classList.add("loaded");
+          setTimeout(() => loader.remove(), 600);
+        }, delay);
+      }
+
+      if (document.readyState === "complete") {
+        hidePageLoader();
+      } else {
+        window.addEventListener("load", hidePageLoader);
       }
     </script>
   </body>
