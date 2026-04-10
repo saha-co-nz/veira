@@ -189,6 +189,31 @@
       .nav-cta:hover {
         background: #9a2219 !important;
       }
+      .nav-toggle {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        margin-left: 18px;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        border-radius: 999px;
+        background: var(--white);
+        transition:
+          transform 0.28s ease,
+          opacity 0.22s ease,
+          width 0.28s ease;
+      }
 
       /* ── HERO ── */
       .hero {
@@ -1293,8 +1318,60 @@
         nav {
           padding: 18px 24px;
         }
+        .nav-toggle {
+          display: inline-flex;
+        }
         .nav-links {
-          display: none;
+          position: absolute;
+          top: calc(100% + 12px);
+          left: 24px;
+          right: 24px;
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 8px;
+          padding: 14px;
+          background: rgba(13, 27, 42, 0.98);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 18px;
+          box-shadow: 0 22px 42px rgba(0, 0, 0, 0.28);
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+          transform: translateY(-8px);
+          transition:
+            opacity 0.25s ease,
+            transform 0.25s ease,
+            visibility 0s linear 0.25s;
+          z-index: 260;
+        }
+        nav.menu-open .nav-links {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
+          transform: translateY(0);
+          transition-delay: 0s;
+        }
+        .nav-links a {
+          display: block;
+          padding: 12px 14px;
+          border-radius: 12px;
+          font-size: 10px;
+          background: rgba(255, 255, 255, 0.02);
+        }
+        .nav-links a.nav-cta {
+          margin-top: 4px;
+          text-align: center;
+        }
+        nav.menu-open .nav-toggle span:nth-child(1) {
+          transform: translateY(7px) rotate(45deg);
+        }
+        nav.menu-open .nav-toggle span:nth-child(2) {
+          opacity: 0;
+          width: 0;
+        }
+        nav.menu-open .nav-toggle span:nth-child(3) {
+          transform: translateY(-7px) rotate(-45deg);
         }
         .exp-grid {
           grid-template-columns: repeat(2, 1fr);
@@ -1362,7 +1439,19 @@
           alt=""
           aria-hidden="true"
       /></a>
-      <div class="nav-links">
+      <button
+        class="nav-toggle"
+        id="nav-toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-links"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
         <a href="services.html">Services</a>
         <a href="about.html">About</a>
         <a href="news.html">News</a>
@@ -2214,6 +2303,29 @@
       window.addEventListener("scroll", () => {
         nav.classList.toggle("scrolled", window.scrollY > 60);
       });
+      const navToggle = document.getElementById("nav-toggle");
+      if (navToggle) {
+        const closeNavMenu = () => {
+          nav.classList.remove("menu-open");
+          navToggle.setAttribute("aria-expanded", "false");
+        };
+        navToggle.addEventListener("click", () => {
+          const isOpen = nav.classList.toggle("menu-open");
+          navToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+        nav.querySelectorAll(".nav-links a").forEach((link) => {
+          link.addEventListener("click", closeNavMenu);
+        });
+        document.addEventListener("click", (event) => {
+          if (!nav.contains(event.target)) closeNavMenu();
+        });
+        window.addEventListener("resize", () => {
+          if (window.innerWidth > 768) closeNavMenu();
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeNavMenu();
+        });
+      }
 
       // ── REVEAL ON SCROLL ──
       const revealEls = document.querySelectorAll(".reveal");
