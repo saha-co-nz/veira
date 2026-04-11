@@ -14,6 +14,7 @@ export default defineConfig({
         about: resolve(__dirname, "about.html"),
         news: resolve(__dirname, "news.html"),
         enquire: resolve(__dirname, "enquire.html"),
+        legal: resolve(__dirname, "veira-legal.html"),
       },
     },
   },
