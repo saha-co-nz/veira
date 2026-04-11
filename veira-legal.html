@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Legal — Veira Global</title>
+    <link rel="icon" type="image/png" href="/assets/icon-RndxXw3t.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Raleway:wght@200;300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --navy: #0d1b2a;
+        --navy-light: #1a2e45;
+        --red: #b82c22;
+        --red-light: #d63b30;
+        --white: #ffffff;
+        --offwhite: #f7f6f3;
+        --offwhite2: #efefed;
+        --grey-light: #e4e2de;
+        --grey-mid: #9a9a98;
+        --grey-dark: #4a4a48;
+        --black: #111111;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        background: var(--white);
+        color: var(--navy);
+        font-family: "Raleway", sans-serif;
+        font-weight: 300;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* ── PAGE LOADER ── */
+      #page-loader {
+        position: fixed; inset: 0; z-index: 99999;
+        background: var(--white);
+        display: grid; place-items: center;
+        opacity: 1; visibility: visible;
+        transition: opacity 0.45s ease, visibility 0.45s ease;
+      }
+      #page-loader .loader-shell { text-align: center; color: var(--navy); }
+      #page-loader .spinner {
+        width: 54px; height: 54px; margin: 0 auto 20px;
+        border: 5px solid rgba(13,27,42,0.12);
+        border-top-color: var(--red);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      #page-loader p { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(13,27,42,0.75); }
+      #page-loader.loaded { opacity: 0; visibility: hidden; pointer-events: none; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* ── CURSOR ── */
+      .cursor {
+        width: 10px; height: 10px; background: var(--red);
+        border-radius: 50%; position: fixed; top: 0; left: 0;
+        pointer-events: none; z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+      }
+      .cursor.hover { width: 36px; height: 36px; background: rgba(184,44,34,0.12); border: 1px solid var(--red); }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 26px 64px;
+        background: var(--navy);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        transition: padding 0.4s ease;
+      }
+      nav.scrolled { padding: 18px 64px; }
+      .nav-logo {
+        display: inline-flex; align-items: center;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 24px; font-weight: 500; letter-spacing: 0.35em;
+        color: var(--white); text-decoration: none; white-space: nowrap;
+      }
+      .nav-logo-icon { width: 28px; height: 28px; object-fit: contain; display: block; opacity: 0.95; flex-shrink: 0; margin-left: 14px; }
+      .nav-links { display: flex; gap: 40px; align-items: center; }
+      .nav-links a { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.3s; }
+      .nav-links a:hover { color: var(--white); }
+      .nav-cta { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--white) !important; background: var(--red); padding: 11px 28px; transition: background 0.3s !important; }
+      .nav-cta:hover { background: #9a2219 !important; }
+
+      /* ── PAGE HERO ── */
+      .legal-hero {
+        background: var(--navy);
+        padding: 160px 80px 72px;
+        border-bottom: 3px solid var(--red);
+      }
+      .legal-hero-inner {
+        max-width: 1300px; margin: 0 auto;
+        display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap;
+      }
+      .legal-hero-left .eyebrow {
+        font-size: 9px; letter-spacing: 0.48em; text-transform: uppercase;
+        color: rgba(255,255,255,0.4); display: block; margin-bottom: 20px;
+      }
+      .legal-hero-left h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(38px, 5vw, 62px); font-weight: 300;
+        color: var(--white); line-height: 1.1;
+      }
+      .legal-hero-left h1 em { font-style: italic; color: rgba(255,255,255,0.35); }
+      .legal-meta {
+        font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+        color: rgba(255,255,255,0.25); line-height: 1.9; text-align: right;
+      }
+
+      /* ── TAB BAR ── */
+      .tab-bar {
+        background: var(--offwhite);
+        border-bottom: 1px solid var(--grey-light);
+        position: sticky; top: 70px; z-index: 100;
+      }
+      .tab-bar-inner { max-width: 1300px; margin: 0 auto; padding: 0 80px; display: flex; }
+      .tab-btn {
+        font-family: "Raleway", sans-serif;
+        font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+        color: var(--grey-mid); padding: 18px 36px;
+        border: none; border-bottom: 2px solid transparent;
+        background: none; cursor: none; transition: all 0.3s; margin-bottom: -1px;
+      }
+      .tab-btn.active { color: var(--navy); border-bottom-color: var(--red); }
+      .tab-btn:hover:not(.active) { color: var(--navy); }
+
+      /* ── CONTENT ── */
+      .legal-body { padding: 80px 80px 100px; background: var(--white); }
+      .legal-body-inner { max-width: 900px; margin: 0 auto; }
+      .tab-panel { display: none; }
+      .tab-panel.active { display: block; }
+
+      /* ── INTRO ── */
+      .doc-intro {
+        padding: 36px 40px; background: var(--offwhite);
+        border-left: 3px solid var(--red); margin-bottom: 60px;
+      }
+      .doc-intro p {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 20px; font-weight: 300; font-style: italic;
+        color: var(--grey-dark); line-height: 1.65;
+      }
+
+      /* ── SECTIONS ── */
+      .section-block {
+        padding: 40px 0;
+        border-bottom: 1px solid var(--grey-light);
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 32px;
+        align-items: start;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+      .section-block.visible { opacity: 1; transform: translateY(0); }
+      .section-block:last-child { border-bottom: none; }
+
+      .section-num {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 38px; font-weight: 300;
+        color: rgba(184,44,34,0.2); line-height: 1; padding-top: 4px;
+      }
+      .section-right h2 {
+        font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+        color: var(--navy); font-weight: 500; margin-bottom: 16px;
+      }
+      .section-right p { font-size: 13.5px; color: var(--grey-dark); line-height: 1.95; margin-bottom: 14px; }
+      .section-right p:last-child { margin-bottom: 0; }
+
+      .legal-list { list-style: none; margin: 10px 0 14px; }
+      .legal-list li {
+        font-size: 13.5px; color: var(--grey-dark); line-height: 1.85;
+        padding: 7px 0 7px 20px; position: relative;
+        border-bottom: 1px solid rgba(228,226,222,0.5);
+      }
+      .legal-list li:last-child { border-bottom: none; }
+      .legal-list li::before {
+        content: ''; position: absolute; left: 0; top: 50%;
+        transform: translateY(-50%); width: 5px; height: 1px; background: var(--red);
+      }
+
+      .list-label {
+        font-size: 8.5px; letter-spacing: 0.28em; text-transform: uppercase;
+        color: var(--grey-mid); margin: 18px 0 6px; display: block;
+      }
+
+      /* ── CONTACT CALLOUT ── */
+      .contact-callout {
+        margin-top: 70px; background: var(--navy);
+        padding: 48px 60px;
+        display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+      }
+      .contact-callout-left p {
+        font-size: 9px; letter-spacing: 0.38em; text-transform: uppercase;
+        color: rgba(255,255,255,0.35); margin-bottom: 10px;
+      }
+      .contact-callout-left h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 26px; font-weight: 300; color: var(--white); line-height: 1.3;
+      }
+      .contact-callout-link {
+        display: inline-block; font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase;
+        color: var(--white); background: var(--red); padding: 16px 36px;
+        text-decoration: none; transition: background 0.3s; white-space: nowrap;
+      }
+      .contact-callout-link:hover { background: var(--red-light); }
+
+      /* ── FOOTER ── */
+      footer { background: var(--navy); border-top: 3px solid var(--red); padding: 60px 80px 40px; }
+      .footer-top {
+        display: flex; justify-content: space-between; align-items: flex-start;
+        margin-bottom: 48px; padding-bottom: 48px;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+      .footer-logo { font-family: "Cormorant Garamond", serif; font-size: 28px; font-weight: 500; letter-spacing: 0.32em; color: var(--white); }
+      .footer-tagline { font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-top: 8px; }
+      .footer-links { display: flex; gap: 60px; }
+      .footer-col h5 { font-size: 8.5px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 20px; }
+      .footer-col a { display: block; font-size: 12px; color: rgba(255,255,255,0.38); text-decoration: none; margin-bottom: 12px; transition: color 0.3s; }
+      .footer-col a:hover { color: var(--white); }
+      .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+      .footer-copy { font-size: 10px; letter-spacing: 0.18em; color: rgba(255,255,255,0.18); text-transform: uppercase; }
+      .footer-legal { display: flex; gap: 28px; }
+      .footer-legal a { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.3s; }
+      .footer-legal a:hover { color: var(--white); }
+      .footer-legal a.current { color: rgba(255,255,255,0.6); }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 1024px) {
+        nav { padding: 20px 32px; }
+        .legal-hero { padding: 140px 40px 60px; }
+        .tab-bar-inner { padding: 0 40px; }
+        .legal-body { padding: 60px 40px 80px; }
+        .contact-callout { padding: 40px; }
+        footer { padding: 48px 40px 32px; }
+        .footer-links { gap: 40px; }
+      }
+      @media (max-width: 768px) {
+        nav { padding: 18px 24px; }
+        .nav-links { display: none; }
+        .legal-hero { padding: 120px 24px 48px; }
+        .legal-meta { text-align: left; }
+        .tab-bar-inner { padding: 0 24px; }
+        .tab-btn { padding: 16px 18px; font-size: 8.5px; }
+        .legal-body { padding: 48px 24px 60px; }
+        .section-block { grid-template-columns: 50px 1fr; gap: 16px; }
+        .section-num { font-size: 28px; }
+        .doc-intro { padding: 28px; }
+        .contact-callout { padding: 28px 24px; }
+        footer { padding: 40px 24px 28px; }
+        .footer-top { flex-direction: column; gap: 36px; }
+        .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
+        .footer-legal { justify-content: center; }
+        .footer-links { gap: 28px; flex-wrap: wrap; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="page-loader">
+      <div class="loader-shell">
+        <div class="spinner"></div>
+        <p>One moment…</p>
+      </div>
+    </div>
+
+    <div class="cursor" id="cursor"></div>
+
+    <!-- ═══ NAV ═══ -->
+    <nav id="nav">
+      <a class="nav-logo" href="index.html">VEIRA
+        <img class="nav-logo-icon" src="/photos/header/veira-silver-star.png" alt="" aria-hidden="true" />
+      </a>
+      <div class="nav-links">
+        <a href="services.html">Services</a>
+        <a href="about.html">About</a>
+        <a href="news.html">News</a>
+        <a href="enquire.html" class="nav-cta">Enquire</a>
+      </div>
+    </nav>
+
+    <!-- ═══ HERO ═══ -->
+    <div class="legal-hero">
+      <div class="legal-hero-inner">
+        <div class="legal-hero-left">
+          <span class="eyebrow">Veira Global Limited</span>
+          <h1>Legal &amp;<br /><em>Privacy</em></h1>
+        </div>
+        <div class="legal-meta">
+          Effective Date: 1 June 2026<br />
+          Last Updated: 1 June 2026<br />
+          New Zealand
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TABS ═══ -->
+    <div class="tab-bar">
+      <div class="tab-bar-inner">
+        <button class="tab-btn active" data-tab="privacy">Privacy Policy</button>
+        <button class="tab-btn" data-tab="terms">Terms of Use</button>
+      </div>
+    </div>
+
+    <!-- ═══ BODY ═══ -->
+    <div class="legal-body">
+      <div class="legal-body-inner">
+
+        <!-- ══ PRIVACY POLICY ══ -->
+        <div class="tab-panel active" id="tab-privacy">
+
+          <div class="doc-intro">
+            <p>Veira Global Limited is committed to protecting the privacy of our clients and website visitors. This policy explains how we collect, use, store, and protect your personal information.</p>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">01</div>
+            <div class="section-right">
+              <h2>Introduction</h2>
+              <p>This Privacy Policy applies when you visit veiraglobal.com or engage with our services. By using our website or services, you agree to the terms of this Privacy Policy.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">02</div>
+            <div class="section-right">
+              <h2>Information We Collect</h2>
+              <span class="list-label">Information you provide directly</span>
+              <ul class="legal-list">
+                <li>Full name</li>
+                <li>Email address</li>
+                <li>Phone number</li>
+                <li>The nature of your enquiry or request</li>
+                <li>Any other information you choose to share with us</li>
+              </ul>
+              <span class="list-label">Information collected automatically</span>
+              <ul class="legal-list">
+                <li>IP address</li>
+                <li>Browser type and version</li>
+                <li>Pages visited and time spent on site</li>
+                <li>Device information</li>
+                <li>Cookies and similar tracking technologies</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">03</div>
+            <div class="section-right">
+              <h2>How We Use Your Information</h2>
+              <ul class="legal-list">
+                <li>Respond to your enquiries and deliver our services</li>
+                <li>Communicate with you regarding your requests</li>
+                <li>Improve and maintain our website</li>
+                <li>Comply with our legal obligations</li>
+                <li>Protect the safety and security of our clients and operations</li>
+              </ul>
+              <p>We do not sell, rent, or share your personal information with third parties for marketing purposes under any circumstance.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">04</div>
+            <div class="section-right">
+              <h2>Discretion and Confidentiality</h2>
+              <p>Discretion is fundamental to how Veira operates. Any information shared with us in connection with a service request is treated with the highest level of confidentiality. We do not disclose client identities, requests, or outcomes to any third party without your explicit consent, except where required by law.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">05</div>
+            <div class="section-right">
+              <h2>Data Retention</h2>
+              <p>We retain your personal information only for as long as necessary to fulfil the purposes for which it was collected, or as required by applicable law. When your information is no longer needed, it is securely deleted or anonymised.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">06</div>
+            <div class="section-right">
+              <h2>Third Parties</h2>
+              <p>We may share limited information with trusted third-party service providers who assist us in operating our website or delivering our services. These parties are bound by confidentiality obligations and are not permitted to use your information for any other purpose.</p>
+              <p>We do not share your information with advertising networks, data brokers, or any parties whose purpose is the monetisation of personal data.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">07</div>
+            <div class="section-right">
+              <h2>Cookies</h2>
+              <p>Our website may use cookies to improve your browsing experience. You can choose to disable cookies through your browser settings, though this may affect some functionality of the site.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">08</div>
+            <div class="section-right">
+              <h2>Your Rights</h2>
+              <p>Depending on your location, you may have the right to:</p>
+              <ul class="legal-list">
+                <li>Access the personal information we hold about you</li>
+                <li>Request correction of inaccurate information</li>
+                <li>Request deletion of your personal information</li>
+                <li>Withdraw consent at any time</li>
+                <li>Lodge a complaint with a relevant data protection authority</li>
+              </ul>
+              <p>To exercise any of these rights, contact us at <a href="mailto:private@veiraglobal.com" style="color:var(--red);text-decoration:none;">private@veiraglobal.com</a>.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">09</div>
+            <div class="section-right">
+              <h2>Security</h2>
+              <p>We take reasonable technical and organisational measures to protect your personal information from unauthorised access, disclosure, alteration, or destruction. However, no method of transmission over the internet is completely secure.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">10</div>
+            <div class="section-right">
+              <h2>Children</h2>
+              <p>Our services are not directed at individuals under the age of 18. We do not knowingly collect personal information from minors.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">11</div>
+            <div class="section-right">
+              <h2>Changes to This Policy</h2>
+              <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date. We encourage you to review this page periodically.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">12</div>
+            <div class="section-right">
+              <h2>Contact</h2>
+              <p>For any questions about this Privacy Policy or how we handle your information, please contact Veira Global Limited at <a href="mailto:private@veiraglobal.com" style="color:var(--red);text-decoration:none;">private@veiraglobal.com</a>.</p>
+            </div>
+          </div>
+
+          <div class="contact-callout">
+            <div class="contact-callout-left">
+              <p>Privacy enquiries</p>
+              <h3>Questions about how<br />we handle your data?</h3>
+            </div>
+            <a href="mailto:private@veiraglobal.com" class="contact-callout-link">private@veiraglobal.com</a>
+          </div>
+
+        </div><!-- /privacy -->
+
+
+        <!-- ══ TERMS OF USE ══ -->
+        <div class="tab-panel" id="tab-terms">
+
+          <div class="doc-intro">
+            <p>By accessing or using veiraglobal.com, you agree to be bound by these Terms of Use. Veira Global Limited is a private outcomes company operating in New Zealand.</p>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">01</div>
+            <div class="section-right">
+              <h2>Acceptance of Terms</h2>
+              <p>By accessing or using the website located at veiraglobal.com ("Website"), you agree to be bound by these Terms of Use. If you do not agree, please do not use this Website.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">02</div>
+            <div class="section-right">
+              <h2>About Veira</h2>
+              <p>Veira Global Limited is a private outcomes company operating in New Zealand. We provide bespoke services to a select clientele on a private and confidential basis.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">03</div>
+            <div class="section-right">
+              <h2>Use of This Website</h2>
+              <p>You may use this Website for lawful purposes only. You agree not to:</p>
+              <ul class="legal-list">
+                <li>Use the Website in any way that violates applicable laws or regulations</li>
+                <li>Attempt to gain unauthorised access to any part of the Website or its systems</li>
+                <li>Transmit any harmful, offensive, or disruptive content</li>
+                <li>Use automated tools to scrape, copy, or extract content from the Website</li>
+                <li>Misrepresent your identity or affiliation when making an enquiry</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">04</div>
+            <div class="section-right">
+              <h2>Intellectual Property</h2>
+              <p>All content on this Website — including but not limited to text, design, graphics, the Veira name, and the Veira logo — is the intellectual property of Veira Global Limited and is protected by applicable copyright and trademark laws.</p>
+              <p>You may not reproduce, distribute, modify, or use any content from this Website without our prior written consent.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">05</div>
+            <div class="section-right">
+              <h2>Services and Eligibility</h2>
+              <p>Veira provides services exclusively to clients who meet our internal profile criteria. Submitting an enquiry through our Website does not guarantee the provision of services. We reserve the right to decline any enquiry or request at our sole discretion.</p>
+              <p>All services provided by Veira are subject to a separate client agreement.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">06</div>
+            <div class="section-right">
+              <h2>No Illegal Services</h2>
+              <p>Veira does not facilitate, arrange, support, or participate in any activity that is unlawful under New Zealand law or the laws of any applicable jurisdiction. Any enquiry that suggests or requests illegal activity will be declined immediately, and where appropriate, reported to the relevant authorities.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">07</div>
+            <div class="section-right">
+              <h2>Limitation of Liability</h2>
+              <p>To the fullest extent permitted by law, Veira Global Limited shall not be liable for:</p>
+              <ul class="legal-list">
+                <li>Any indirect, incidental, or consequential damages arising from your use of the Website</li>
+                <li>Any loss of data, revenue, or opportunity</li>
+                <li>Any errors or omissions in Website content</li>
+                <li>Any interruption or unavailability of the Website</li>
+              </ul>
+              <p>Your use of this Website is at your own risk.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">08</div>
+            <div class="section-right">
+              <h2>Third-Party Links</h2>
+              <p>This Website may contain links to third-party websites. We are not responsible for the content, privacy practices, or accuracy of any third-party site and do not endorse them by linking to them.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">09</div>
+            <div class="section-right">
+              <h2>Disclaimer</h2>
+              <p>The content on this Website is provided for general information purposes only. Nothing on this Website constitutes a binding offer, guarantee, or contractual obligation of any kind.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">10</div>
+            <div class="section-right">
+              <h2>Governing Law</h2>
+              <p>These Terms of Use are governed by and construed in accordance with the laws of New Zealand. Any disputes arising from these terms shall be subject to the exclusive jurisdiction of the New Zealand courts.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">11</div>
+            <div class="section-right">
+              <h2>Changes to These Terms</h2>
+              <p>We reserve the right to update these Terms of Use at any time. Changes will be effective upon posting to this page. Continued use of the Website following any changes constitutes your acceptance of the revised terms.</p>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-num">12</div>
+            <div class="section-right">
+              <h2>Contact</h2>
+              <p>For any questions regarding these Terms of Use, please contact Veira Global Limited at <a href="mailto:private@veiraglobal.com" style="color:var(--red);text-decoration:none;">private@veiraglobal.com</a>.</p>
+            </div>
+          </div>
+
+          <div class="contact-callout">
+            <div class="contact-callout-left">
+              <p>Terms enquiries</p>
+              <h3>Questions about<br />these terms?</h3>
+            </div>
+            <a href="mailto:private@veiraglobal.com" class="contact-callout-link">private@veiraglobal.com</a>
+          </div>
+
+        </div><!-- /terms -->
+
+      </div>
+    </div>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer>
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">VEIRA</div>
+          <div class="footer-tagline">Whatever You Feel — We Make It Real</div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h5>Experiences</h5>
+            <a href="services.html#service-aviation-ground">Private Aviation</a>
+            <a href="services.html#service-luxury-travel">Superyacht &amp; Marine</a>
+            <a href="services.html#service-events-access">Fine Dining &amp; Events</a>
+            <a href="services.html#service-full-service-concierge">Luxury Concierge</a>
+            <a href="services.html#service-bespoke-requests">Bespoke Requests</a>
+          </div>
+          <div class="footer-col">
+            <h5>Company</h5>
+            <a href="about.html">About Veira</a>
+            <a href="about.html#approach">Our Approach</a>
+            <a href="about.html#starc">The STARC Framework</a>
+            <a href="index.html#contact">Get in Touch</a>
+          </div>
+          <div class="footer-col">
+            <h5>Regions</h5>
+            <a href="#">New Zealand</a>
+            <a href="#">Australia</a>
+            <a href="#">The Pacific</a>
+            <a href="#">International Clients</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 Veira Global. All rights reserved.</div>
+        <div class="footer-legal">
+          <a href="veira-legal.html" id="footer-privacy-link">Privacy Policy</a>
+          <a href="veira-legal.html?tab=terms" id="footer-terms-link">Terms of Use</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // ── Loader
+      window.addEventListener('load', () => {
+        const loader = document.getElementById('page-loader');
+        setTimeout(() => {
+          loader.classList.add('loaded');
+          setTimeout(() => loader.remove(), 500);
+        }, 600);
+      });
+
+      // ── Cursor
+      const cursor = document.getElementById('cursor');
+      document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      });
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+
+      // ── Nav scroll
+      const nav = document.getElementById('nav');
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+      });
+
+      // ── Scroll reveal
+      function observeSections() {
+        const blocks = document.querySelectorAll('.tab-panel.active .section-block');
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.08 });
+        blocks.forEach(b => obs.observe(b));
+      }
+
+      // ── Tab switching
+      function switchTab(name) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+        document.getElementById('footer-privacy-link').classList.toggle('current', name === 'privacy');
+        document.getElementById('footer-terms-link').classList.toggle('current', name === 'terms');
+        observeSections();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+      });
+
+      // ── Check URL param
+      const urlTab = new URLSearchParams(window.location.search).get('tab');
+      if (urlTab === 'terms') {
+        switchTab('terms');
+      } else {
+        document.getElementById('footer-privacy-link').classList.add('current');
+        observeSections();
+      }
+    </script>
+
+  </body>
+</html>
