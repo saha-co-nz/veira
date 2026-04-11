@@ -1255,6 +1255,21 @@
       .footer-email a:hover {
         color: var(--white);
       }
+      .footer-legal {
+        display: flex;
+        gap: 28px;
+      }
+      .footer-legal a {
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.25);
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: color 0.3s;
+      }
+      .footer-legal a:hover {
+        color: var(--white);
+      }
 
       /* ── ANIMATIONS ── */
       @keyframes fadeUp {
@@ -2252,6 +2267,10 @@
         <div class="footer-copy">© 2026 Veira Global. All rights reserved.</div>
         <div class="footer-email">
           <a href="mailto:private@veiraglobal.com">private@veiraglobal.com</a>
+        </div>
+        <div class="footer-legal">
+          <a href="veira-legal.html">Privacy Policy</a>
+          <a href="veira-legal.html?tab=terms">Terms of Use</a>
         </div>
       </div>
     </footer>
