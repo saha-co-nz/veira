@@ -666,6 +666,9 @@
       .exp-tile img[src*="vip-airport-arrival.jpg"] {
         object-position: center 86%;
       }
+      .detail-photo-ph img[src*="g5-boat-pacific.jpg"] {
+        object-position: center bottom;
+      }
       .exp-tile:hover img {
         transform: scale(1.06);
       }
@@ -2984,52 +2987,52 @@
 
       const serviceDetailImages = [
         [
-          "/photos/services-page/hero-landscape-lifestyle.jpg",
-          "/photos/services-page/g5-boat-pacific.jpg",
-          "/photos/services-page/g2-fine-dining.jpg",
-          "/photos/services-page/g4-winery.jpg",
+          "/photos/services-page/luxury-travel-helicopter.jpg",
+          "/photos/services-page/luxury-travel-boat.jpg",
+          "/photos/services-page/luxury-travel-dining.jpg",
+          "/photos/services-page/luxury-travel-lodge.jpg",
         ],
         [
-          "/photos/services-page/concierge-cover.jpg",
-          "/photos/services-page/g6-luxury-car.jpg",
-          "/photos/services-page/g8-gifting-box.jpg",
-          "/photos/services-page/g10-unique.jpg",
+          "/photos/services-page/concierge-team.jpg",
+          "/photos/services-page/concierge-airport.jpg",
+          "/photos/services-page/concierge-meeting.jpg",
+          "/photos/services-page/concierge-hotel.jpg",
         ],
         [
-          "/photos/services-page/aviation-transport-cover.jpg",
-          "/photos/services-page/g3-jet-aviation.jpg",
-          "/photos/services-page/g7-helicopter-pad.jpg",
-          "/photos/services-page/g6-luxury-car.jpg",
+          "/photos/services-page/aviation-jet.jpg",
+          "/photos/services-page/aviation-helicopter.jpg",
+          "/photos/services-page/aviation-vehicle.jpg",
+          "/photos/services-page/aviation-tarmac.jpg",
         ],
         [
-          "/photos/services-page/events-access-cover.jpg",
-          "/photos/services-page/g2-fine-dining.jpg",
-          "/photos/services-page/g4-winery.jpg",
-          "/photos/services-page/g9-evening-nightlife.jpg",
+          "/photos/services-page/events-winery.jpg",
+          "/photos/services-page/events-dining.jpg",
+          "/photos/services-page/events-florals.jpg",
+          "/photos/services-page/events-guests.jpg",
         ],
         [
-          "/photos/services-page/gifting-cover.jpg",
-          "/photos/services-page/g8-gifting-box.jpg",
-          "/photos/services-page/g10-unique.jpg",
-          "/photos/services-page/g2-fine-dining.jpg",
+          "/photos/services-page/gifting-hamper.jpg",
+          "/photos/services-page/gifting-floral.jpg",
+          "/photos/services-page/gifting-surprise.jpg",
+          "/photos/services-page/gifting-note.jpg",
         ],
         [
-          "/photos/services-page/itinerary-cover.jpg",
-          "/photos/services-page/g9-evening-nightlife.jpg",
-          "/photos/services-page/g1-aerial-nz.jpg",
-          "/photos/services-page/g2-fine-dining.jpg",
+          "/photos/services-page/itinerary-auckland.jpg",
+          "/photos/services-page/itinerary-queenstown.jpg",
+          "/photos/services-page/itinerary-restaurant.jpg",
+          "/photos/services-page/itinerary-traveller.jpg",
         ],
         [
-          "/photos/services-page/priority-access-cover.jpg",
-          "/photos/services-page/g7-helicopter-pad.jpg",
-          "/photos/services-page/g3-jet-aviation.jpg",
-          "/photos/services-page/g6-luxury-car.jpg",
+          "/photos/services-page/priority-helicopter.jpg",
+          "/photos/services-page/priority-vehicle.jpg",
+          "/photos/services-page/priority-tarmac.jpg",
+          "/photos/services-page/priority-phone.jpg",
         ],
         [
-          "/photos/services-page/bespoke-cover.jpg",
-          "/photos/services-page/g10-unique.jpg",
-          "/photos/services-page/g8-gifting-box.jpg",
-          "/photos/services-page/g1-aerial-nz.jpg",
+          "/photos/services-page/bespoke-beach.jpg",
+          "/photos/services-page/bespoke-dining.jpg",
+          "/photos/services-page/bespoke-moment.jpg",
+          "/photos/services-page/bespoke-celebration.jpg",
         ],
       ];
 
@@ -3129,7 +3132,7 @@
           .join("");
         const photosBottom = document.getElementById("detail-photos-bottom");
         photosBottom.innerHTML = serviceDetailImages[index]
-          .slice(2, 4)
+          .slice(1, 4)
           .map(
             (src) => `
     <div class="detail-photo-ph">
